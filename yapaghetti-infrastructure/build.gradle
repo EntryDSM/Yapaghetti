@@ -1,0 +1,61 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group 'kr.hs.entrydsm'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // db connectors
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    // web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:5.0.0:jpa")
+
+    // mapstruct
+    implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+
+    // jwt
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.23'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // configuration
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    // multi module
+    implementation(project(":yapaghetti-application"))
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = false
+}
