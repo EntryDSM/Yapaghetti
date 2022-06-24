@@ -93,6 +93,7 @@
          │              │  │     └─ GlobalErrorFilter.java
          │              │  ├─ exception
          │              │  └─ security
+         │              │     ├─ SecurityConfig.java
          │              │     ├─ jwt
          │              │     └─ principle
          │              └─ infrastructure
