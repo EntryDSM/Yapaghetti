@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class YapaghettiException extends RuntimeException {
+public abstract class YapaghettiException extends RuntimeException {
 
     private final ErrorProperty errorProperty;
 }
