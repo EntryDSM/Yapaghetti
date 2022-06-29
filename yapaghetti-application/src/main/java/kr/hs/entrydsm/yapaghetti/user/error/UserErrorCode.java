@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.user.error;
 
 import kr.hs.entrydsm.yapaghetti.error.ErrorProperty;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum UserErrorCode implements ErrorProperty {
     ;
 
