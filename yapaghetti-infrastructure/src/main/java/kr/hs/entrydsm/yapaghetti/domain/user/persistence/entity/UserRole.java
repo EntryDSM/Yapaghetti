@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity;
 
-public enum Role {
+public enum UserRole {
 	STUDENT,
 	TEACHER,
 	COMPANY

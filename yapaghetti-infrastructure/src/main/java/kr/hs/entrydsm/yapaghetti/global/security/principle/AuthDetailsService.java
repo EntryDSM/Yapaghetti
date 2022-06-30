@@ -1,9 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.global.security.principle;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.CompanyPersistenceAdapter;
-import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.entity.Authority;
+import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.entity.CompanyAuthority;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserPersistenceAdapter;
-import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.Role;
+import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.global.security.SecurityRole;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class AuthDetailsService implements UserDetailsService {
 
 		SecurityRole role =  SecurityRole.valueOf(user.getRole().name());
 
-		if(Role.COMPANY.equals(user.getRole())) {
+		if(UserRole.COMPANY.equals(user.getRole())) {
 
-			Authority authority = companyPersistenceAdapter.findCompanyByEmail(username)
+			CompanyAuthority authority = companyPersistenceAdapter.findCompanyByEmail(username)
 				.orElseThrow() //TODO Auth 담당자 분이 넣어주세요
 				.getAuthority();
 

@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.global.security.principle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.Role;
 import kr.hs.entrydsm.yapaghetti.global.security.SecurityRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

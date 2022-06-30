@@ -36,5 +36,5 @@ public class CompanyEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 7, nullable = false)
-	private Authority authority;
+	private CompanyAuthority authority;
 }
