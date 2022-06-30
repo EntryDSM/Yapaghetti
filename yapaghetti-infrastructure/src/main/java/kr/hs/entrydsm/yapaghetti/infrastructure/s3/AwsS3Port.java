@@ -2,6 +2,8 @@ package kr.hs.entrydsm.yapaghetti.infrastructure.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import kr.hs.entrydsm.yapaghetti.global.exception.ImageExtensionInvalidException;
+import kr.hs.entrydsm.yapaghetti.global.exception.ImageNotFoundException;
 import kr.hs.entrydsm.yapaghetti.global.property.AwsS3Properties;
 import kr.hs.entrydsm.yapaghetti.infrastructure.s3.type.ImageType;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +22,12 @@ public class AwsS3Port {
 
     private final AwsS3Properties awsS3Properties;
 
-    private static final String EXTENSION = ".jpeg";
-
     public String saveImage(MultipartFile file, ImageType imageType) {
+        String extension = getExtension(file);
+
         String folder = imageType.equals(ImageType.PROFILE) ? awsS3Properties.getProfileFolder() : awsS3Properties.getPreviewFolder();
-        String filePath = folder + UUID.randomUUID() + EXTENSION;
+
+        String filePath = folder + UUID.randomUUID() + extension;
 
         uploadImage(file, filePath);
 
@@ -38,13 +41,26 @@ public class AwsS3Port {
         amazonS3.deleteObject(bucket, objectName);
     }
 
+    private String getExtension(MultipartFile file) {
+        if (file == null || file.isEmpty() || file.getOriginalFilename() == null) {
+            throw ImageNotFoundException.EXCEPTION;
+        }
+
+        String originalFilename = file.getOriginalFilename();
+        String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+
+        if (!(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("heic"))) {
+            throw ImageExtensionInvalidException.EXCEPTION;
+        }
+        return extension;
+    }
+
     private void uploadImage(MultipartFile file, String filePath) {
         InputStream inputStream;
         try {
             inputStream = file.getInputStream();
         } catch (IOException e) {
-            throw new RuntimeException();
-            //exception 수정
+            throw ImageNotFoundException.EXCEPTION;
         }
 
         amazonS3.putObject(
