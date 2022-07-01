@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.user.error;
+package kr.hs.entrydsm.yapaghetti.domain.user.error;
 
 import kr.hs.entrydsm.yapaghetti.error.ErrorProperty;
 import lombok.AccessLevel;

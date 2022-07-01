@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.user.domain;
+package kr.hs.entrydsm.yapaghetti.domain.user.domain;
 
 import kr.hs.entrydsm.yapaghetti.annotation.Aggregate;
 import lombok.Builder;

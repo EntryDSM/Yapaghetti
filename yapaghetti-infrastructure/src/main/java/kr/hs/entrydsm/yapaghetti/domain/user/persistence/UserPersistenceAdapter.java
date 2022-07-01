@@ -2,8 +2,8 @@ package kr.hs.entrydsm.yapaghetti.domain.user.persistence;
 
 import java.util.Optional;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
-import kr.hs.entrydsm.yapaghetti.user.spi.QueryUserPort;
-import kr.hs.entrydsm.yapaghetti.user.spi.CommandUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
