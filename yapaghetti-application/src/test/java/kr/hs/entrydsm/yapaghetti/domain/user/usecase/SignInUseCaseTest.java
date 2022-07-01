@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,7 +51,6 @@ class SignInUseCaseTest {
         given(userSecurityPort.matches(password, password)).willReturn(false);
         given(request.getEmail()).willReturn(email);
         given(request.getPassword()).willReturn(password);
-//        given(request.getUserType()).willReturn(role);
 
         assertThatThrownBy(() -> signInUseCase.signIn(request))
                 .isInstanceOf(UserInvalidPasswordException.class);
