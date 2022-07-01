@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class AwsS3Port {
+public class AwsS3Adapter {
 
     private final AmazonS3 amazonS3;
 
