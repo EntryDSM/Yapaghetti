@@ -2,8 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,8 +31,4 @@ public class CompanyEntity {
 
 	@Column(columnDefinition = "VARCHAR(40)", nullable = false)
 	private String companyName;
-
-	@Enumerated(EnumType.STRING)
-	@Column(length = 7, nullable = false)
-	private CompanyAuthority authority;
 }
