@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity;
+package kr.hs.entrydsm.yapaghetti.domain.user.domain;
 
 public enum UserRole {
 	STUDENT,
