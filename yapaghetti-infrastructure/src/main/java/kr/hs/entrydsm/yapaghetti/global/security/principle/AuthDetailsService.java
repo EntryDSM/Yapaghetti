@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.global.security.principle;
 
-import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.CompanyPersistenceAdapter;
-import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.entity.CompanyAuthority;
+import kr.hs.entrydsm.yapaghetti.domain.company.persistence.CompanyPersistenceAdapter;
+import kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity.CompanyAuthority;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;

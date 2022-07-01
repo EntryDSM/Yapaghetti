@@ -1,7 +1,8 @@
-package kr.hs.entrydsm.yapaghetti.domain.user.company.persistence;
+package kr.hs.entrydsm.yapaghetti.domain.company.persistence;
 
 import java.util.Optional;
-import kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.entity.CompanyEntity;
+
+import kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity.CompanyEntity;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

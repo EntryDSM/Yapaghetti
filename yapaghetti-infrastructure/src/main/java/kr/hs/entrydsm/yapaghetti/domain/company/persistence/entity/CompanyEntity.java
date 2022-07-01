@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.domain.user.company.persistence.entity;
+package kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
