@@ -33,8 +33,4 @@ public class CompanyEntity {
 
 	@Column(columnDefinition = "VARCHAR(40)", nullable = false)
 	private String companyName;
-
-	@Enumerated(EnumType.STRING)
-	@Column(length = 7, nullable = false)
-	private CompanyAuthority authority;
 }
