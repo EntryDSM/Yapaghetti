@@ -28,7 +28,7 @@ public class SignInUseCase implements SignInPort {
             throw UserInvalidPasswordException.EXCEPTION;
         }
 
-        if(user.getRole().equals(request.getUserType())) {
+        if(!user.getRole().equals(request.getUserType())) {
             throw UserInvalidRoleException.EXCEPTION;
         }
 
