@@ -4,19 +4,19 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
 public class WebSignInRequest {
 
-    @NotNull
+    @NotBlank
     private String email;
 
-    @NotNull
+    @NotBlank
     private String password;
 
-    @NotNull
+    @NotBlank
     private UserRole userType;
 
 }
