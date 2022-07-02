@@ -3,9 +3,9 @@ package kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -17,7 +17,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Getter
-@SuperBuilder
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
