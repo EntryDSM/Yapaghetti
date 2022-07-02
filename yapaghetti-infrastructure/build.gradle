@@ -65,3 +65,7 @@ test {
 jar {
     enabled = false
 }
+
+bootJar {
+    enabled = false
+}
