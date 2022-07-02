@@ -10,8 +10,10 @@ import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
+@Component
 public class UserPersistenceAdapter implements QueryUserPort, CommandUserPort {
 
     private final UserRepository userRepository;
