@@ -10,14 +10,14 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@Builder
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity(name = "tbl_user")
 public class UserEntity extends BaseIDEntity {
 
