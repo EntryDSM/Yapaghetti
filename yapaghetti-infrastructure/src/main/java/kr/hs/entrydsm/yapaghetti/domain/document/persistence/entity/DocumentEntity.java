@@ -3,9 +3,20 @@ package kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity;
 import kr.hs.entrydsm.yapaghetti.domain.document.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Getter
