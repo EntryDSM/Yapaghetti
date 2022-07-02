@@ -11,26 +11,68 @@ import com.nimbusds.jwt.SignedJWT;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
 import kr.hs.entrydsm.yapaghetti.global.exception.InternalServerErrorException;
 import kr.hs.entrydsm.yapaghetti.global.property.JwtProperties;
+import kr.hs.entrydsm.yapaghetti.global.security.exception.InvalidTokenException;
+import kr.hs.entrydsm.yapaghetti.global.security.exception.InvalidTokenTypeException;
+import kr.hs.entrydsm.yapaghetti.global.security.principle.AuthDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider implements UserJwtPort {
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
+    private static final String JWT_ACCESS_TOKEN_TYPE = "access_token";
+
     private final JwtProperties jwtProperties;
+    private final AuthDetailsService authDetailsService;
+
+    public String resolveToken(HttpServletRequest request) {
+        String bearer = request.getHeader(AUTHORIZATION_HEADER);
+        if(bearer != null && bearer.length() > 7 && bearer.startsWith(BEARER_PREFIX)) {
+            return bearer.substring(7);
+        }
+        return null;
+    }
+
+    public Authentication getAuthentication(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
+            String type = claimsSet.getStringClaim("type");
+            if(!type.equals(JWT_ACCESS_TOKEN_TYPE)) {
+                throw InvalidTokenTypeException.EXCEPTION;
+            }
+            String subject = claimsSet.getSubject();
+
+            UserDetails userDetails = authDetailsService.loadUserByUsername(subject);
+
+            return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
+        } catch (ParseException e) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+    }
 
     @Override
-    public String generateAccessToken(String email, String role) {
+    public String generateAccessToken(UUID publicId, String role) {
         try {
             Date expiration = getAccessExpiration();
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(email)
+                    .subject(publicId.toString())
                     .claim("role", role)
+                    .claim("type", JWT_ACCESS_TOKEN_TYPE)
                     .expirationTime(expiration)
                     .build();
 

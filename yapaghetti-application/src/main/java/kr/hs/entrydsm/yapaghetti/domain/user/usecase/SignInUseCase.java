@@ -35,7 +35,7 @@ public class SignInUseCase implements SignInPort {
         return SignInResponse.builder()
                 .firstLogin(user.isVisited())
                 .userType(user.getRole())
-                .accessToken(userJwtPort.generateAccessToken(user.getEmail(), user.getRole().name()))
+                .accessToken(userJwtPort.generateAccessToken(user.getPublicId(), user.getRole().name()))
                 //TODO refreshToken
                 .build();
     }

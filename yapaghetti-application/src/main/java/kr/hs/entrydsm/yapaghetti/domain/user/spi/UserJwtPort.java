@@ -1,5 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.spi;
 
+import java.util.UUID;
+
 public interface UserJwtPort {
-    String generateAccessToken(String email, String role);
+    String generateAccessToken(UUID publicId, String role);
 }
