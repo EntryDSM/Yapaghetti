@@ -13,14 +13,14 @@ public class JwtProperties {
 
     private final String secret;
 
-    private final String accessExp;
+    private final Long accessExp;
 
-    private final String refreshExp;
+    private final Long refreshExp;
 
-    public JwtProperties(String secret, String accessExp, String refreshExp) {
+    public JwtProperties(String secret, Long accessExp, Long refreshExp) {
         this.secret = Base64.getEncoder().encodeToString(secret.getBytes());
-        this.accessExp = accessExp;
-        this.refreshExp = refreshExp;
+        this.accessExp = accessExp * 1000;
+        this.refreshExp = refreshExp * 1000;
     }
 
 }
