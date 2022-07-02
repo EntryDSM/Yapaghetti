@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
@@ -16,8 +17,8 @@ public class UserPersistenceAdapter implements QueryUserPort, CommandUserPort {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public Optional<UserEntity> findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserEntity> findUserByPublicId(UUID publicId) {
+        return userRepository.findByPublicId(publicId);
     }
 
     @Override

@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class AuthDetailsService implements UserDetailsService {
@@ -16,10 +18,11 @@ public class AuthDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UUID publicId = UUID.fromString(username);
 
-		UserEntity user = userPersistenceAdapter.findUserByEmail(username)
+		UserEntity user = userPersistenceAdapter.findUserByPublicId(publicId)
 			.orElseThrow(); //TODO Auth 담당자 분이 넣어주세요
 
-		return new AuthDetails(username, user.getRole());
+		return new AuthDetails(publicId, user.getRole());
 	}
 }
