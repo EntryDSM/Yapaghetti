@@ -1,6 +1,10 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence;
 
 import java.util.Optional;
+
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.user.mapper.UserMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
@@ -10,8 +14,16 @@ import lombok.RequiredArgsConstructor;
 public class UserPersistenceAdapter implements QueryUserPort, CommandUserPort {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public Optional<UserEntity> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User queryUserByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        return userMapper.entityToDomain(userEntity);
     }
 }
