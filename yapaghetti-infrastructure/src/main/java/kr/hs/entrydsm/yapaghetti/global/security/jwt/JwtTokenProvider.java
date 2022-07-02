@@ -29,12 +29,16 @@ import java.util.UUID;
 @Component
 public class JwtTokenProvider implements UserJwtPort {
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
+    private static final String JWT_ACCESS_TOKEN_TYPE = "access_token";
+
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
 
     public String resolveToken(HttpServletRequest request) {
-        String bearer = request.getHeader("Authorization");
-        if(bearer != null && bearer.length() > 7 && bearer.startsWith("Bearer ")) {
+        String bearer = request.getHeader(AUTHORIZATION_HEADER);
+        if(bearer != null && bearer.length() > 7 && bearer.startsWith(BEARER_PREFIX)) {
             return bearer.substring(7);
         }
         return null;
@@ -45,7 +49,7 @@ public class JwtTokenProvider implements UserJwtPort {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
             String type = claimsSet.getStringClaim("type");
-            if(!type.equals("access_token")) {
+            if(!type.equals(JWT_ACCESS_TOKEN_TYPE)) {
                 throw InvalidTokenTypeException.EXCEPTION;
             }
             String subject = claimsSet.getSubject();
@@ -68,7 +72,7 @@ public class JwtTokenProvider implements UserJwtPort {
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                     .subject(publicId.toString())
                     .claim("role", role)
-                    .claim("type", "access_token")
+                    .claim("type", JWT_ACCESS_TOKEN_TYPE)
                     .expirationTime(expiration)
                     .build();
 
