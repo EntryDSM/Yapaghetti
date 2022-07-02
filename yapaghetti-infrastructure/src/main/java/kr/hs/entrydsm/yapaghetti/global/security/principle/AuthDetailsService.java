@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.global.security.principle;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
+import kr.hs.entrydsm.yapaghetti.global.security.exception.UserCredentialsNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,7 @@ public class AuthDetailsService implements UserDetailsService {
 		UUID publicId = UUID.fromString(username);
 
 		UserEntity user = userPersistenceAdapter.findUserByPublicId(publicId)
-			.orElseThrow(); //TODO Auth 담당자 분이 넣어주세요
+			.orElseThrow(() -> UserCredentialsNotFoundException.EXCEPTION); //TODO Auth 담당자 분이 넣어주세요
 
 		return new AuthDetails(publicId, user.getRole());
 	}
