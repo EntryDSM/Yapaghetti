@@ -29,7 +29,7 @@ import java.util.UUID;
 public class TeacherEntity {
 
     @Id
-    private UUID userId;
+    private Long userId;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
