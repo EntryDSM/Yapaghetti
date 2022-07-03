@@ -18,7 +18,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "tbl_teacher")
+@Entity
+@Table(name = "tbl_teacher")
 public class TeacherEntity {
 
     @Id
