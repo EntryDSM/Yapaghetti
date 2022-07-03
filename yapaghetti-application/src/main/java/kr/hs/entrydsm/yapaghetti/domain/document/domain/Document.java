@@ -6,9 +6,9 @@ import lombok.Getter;
 
 import java.util.UUID;
 
-@Aggregate
 @Getter
 @Builder
+@Aggregate
 public class Document {
 
     private Long id;
