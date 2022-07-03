@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity;
 
+import javax.persistence.OneToOne;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
@@ -28,7 +28,7 @@ public class CompanyEntity {
 	private Long userId;
 
 	@MapsId
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
