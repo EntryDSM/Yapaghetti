@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.persistence.entity;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 
-import javax.persistence.*;
 
 import lombok.AccessLevel;
 
@@ -11,6 +10,13 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 
