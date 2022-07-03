@@ -1,11 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.presentation;
 
-import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordUpdatePort;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.SignInPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainSignInRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.response.SignInResponse;
-import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebFirstPasswordRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebSignInRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
 public class UserWebAdapter {
 
     private final SignInPort signInPort;
-    private final FirstPasswordPort firstPasswordPort;
+    private final FirstPasswordUpdatePort firstPasswordUpdatePort;
 
     @PostMapping("/auth")
     public SignInResponse signIn(@RequestBody @Valid WebSignInRequest request) {
@@ -39,9 +39,9 @@ public class UserWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/first-password")
-    public void firstPassword(@RequestBody @Valid WebFirstPasswordRequest request) {
-        firstPasswordPort.firstPassword(
-                DomainFirstPasswordRequest.builder()
+    public void firstPassword(@RequestBody @Valid WebFirstPasswordUpdateRequest request) {
+        firstPasswordUpdatePort.firstPasswordUpdate(
+                DomainFirstPasswordUpdateRequest.builder()
                         .password(request.getPassword())
                         .newPassword(request.getNewPassword())
                         .build()

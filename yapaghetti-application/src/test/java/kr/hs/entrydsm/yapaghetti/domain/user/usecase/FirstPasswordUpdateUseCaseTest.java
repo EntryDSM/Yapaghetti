@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.usecase;
 
 
-import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserInvalidPasswordException;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class FirstPasswordUseCaseTest {
+class FirstPasswordUpdateUseCaseTest {
 
     @Mock
     QueryUserPort queryUserPort;
@@ -36,10 +36,10 @@ class FirstPasswordUseCaseTest {
     UserJwtPort userJwtPort;
 
     @InjectMocks
-    FirstPasswordUseCase firstPasswordUseCase;
+    FirstPasswordUpdateUseCase firstPasswordUseCase;
 
     @Mock
-    DomainFirstPasswordRequest request;
+    DomainFirstPasswordUpdateRequest request;
 
     @Test
     void 잘못된_비밀번호() {
@@ -56,7 +56,7 @@ class FirstPasswordUseCaseTest {
                 );
         given(userSecurityPort.matches(password, "PWD")).willReturn(false);
 
-        assertThatThrownBy(() -> firstPasswordUseCase.firstPassword(request))
+        assertThatThrownBy(() -> firstPasswordUseCase.firstPasswordUpdate(request))
                 .isInstanceOf(UserInvalidPasswordException.class);
     }
 
@@ -77,7 +77,7 @@ class FirstPasswordUseCaseTest {
                 );
         given(userSecurityPort.matches(password, password)).willReturn(true);
 
-        firstPasswordUseCase.firstPassword(request);
+        firstPasswordUseCase.firstPasswordUpdate(request);
     }
 
 }

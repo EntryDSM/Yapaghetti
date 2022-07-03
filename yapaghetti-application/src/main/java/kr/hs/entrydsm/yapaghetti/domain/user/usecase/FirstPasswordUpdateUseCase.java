@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordUpdatePort;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserInvalidPasswordException;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
@@ -12,14 +12,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class FirstPasswordUseCase implements FirstPasswordPort {
+public class FirstPasswordUpdateUseCase implements FirstPasswordUpdatePort {
 
     private final QueryUserPort queryUserPort;
     private final CommandUserPort commandUserPort;
     private final UserSecurityPort userSecurityPort;
 
     @Override
-    public void firstPassword(DomainFirstPasswordRequest request) {
+    public void firstPasswordUpdate(DomainFirstPasswordUpdateRequest request) {
         User user = queryUserPort.queryUserByPublicId(userSecurityPort.getCurrentUserPublicId());
 
         if(!userSecurityPort.matches(request.getPassword(), user.getPassword())) {

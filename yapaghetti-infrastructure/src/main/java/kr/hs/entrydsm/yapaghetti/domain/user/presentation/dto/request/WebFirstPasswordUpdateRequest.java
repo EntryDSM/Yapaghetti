@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class WebFirstPasswordRequest {
+public class WebFirstPasswordUpdateRequest {
 
     //TODO Password Length
     @NotBlank

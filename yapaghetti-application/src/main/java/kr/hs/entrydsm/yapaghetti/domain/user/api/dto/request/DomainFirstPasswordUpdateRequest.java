@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class DomainFirstPasswordRequest {
+public class DomainFirstPasswordUpdateRequest {
 
     private final String password;
     private final String newPassword;
