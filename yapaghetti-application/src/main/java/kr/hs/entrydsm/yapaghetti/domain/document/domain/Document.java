@@ -21,5 +21,5 @@ public class Document {
 
     private UUID publicId;
 
-    private Long user;
+    private Long userId;
 }

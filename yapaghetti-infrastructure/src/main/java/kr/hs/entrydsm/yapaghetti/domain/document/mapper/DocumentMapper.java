@@ -21,12 +21,12 @@ public class DocumentMapper {
                 .content(documentEntity.getContent())
                 .type(documentEntity.getType())
                 .publicId(documentEntity.getPublicId())
-                .user(documentEntity.getUserId())
+                .userId(documentEntity.getUserId())
                 .build();
     }
 
     public DocumentEntity domainToEntity(Document document) {
-        UserEntity userEntity = userRepository.findById(document.getUser())
+        UserEntity userEntity = userRepository.findById(document.getUserId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return DocumentEntity.builder()

@@ -28,7 +28,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
                         .previewImagePath(request.getPreviewImagePath())
                         .content(request.getContent())
                         .type(DocumentType.LOCAL)
-                        .user(user.getId())
+                        .userId(user.getId())
                         .build()
         );
     }
