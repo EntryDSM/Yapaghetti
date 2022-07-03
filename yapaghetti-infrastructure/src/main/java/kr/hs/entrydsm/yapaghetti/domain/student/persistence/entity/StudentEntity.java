@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
@@ -28,7 +29,7 @@ public class StudentEntity {
 	private Long userId;
 
 	@MapsId
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
