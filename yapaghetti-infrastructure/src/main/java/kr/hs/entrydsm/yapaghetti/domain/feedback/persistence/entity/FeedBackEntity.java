@@ -20,8 +20,8 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
 @Table(name = "tbl_feedback")
+@Entity
 public class FeedBackEntity {
 
     @EmbeddedId

@@ -23,8 +23,8 @@ import java.util.UUID;
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
 @Table(name = "tbl_document")
+@Entity
 public class DocumentEntity extends BaseIDEntity {
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)

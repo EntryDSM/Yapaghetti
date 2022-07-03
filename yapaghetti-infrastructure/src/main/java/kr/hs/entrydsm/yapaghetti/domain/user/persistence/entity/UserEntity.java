@@ -18,8 +18,8 @@ import java.util.UUID;
 @Getter
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
 @Table(name = "tbl_user")
+@Entity
 public class UserEntity extends BaseIDEntity {
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
