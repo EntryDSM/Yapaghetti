@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class WebFirstPasswordRequest {
 
+    //TODO Password Length
     @NotBlank
     private String password;
 
