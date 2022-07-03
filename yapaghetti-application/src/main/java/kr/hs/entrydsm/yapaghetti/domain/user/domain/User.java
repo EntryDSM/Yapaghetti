@@ -30,5 +30,20 @@ public class User {
     private final UUID publicId;
 
     private final UserRole role;
+    
+    public User setUserPasswordAndVisitedTrue(String password) {
+        return User.builder()
+                .id(this.id)
+                .email(this.email)
+                .password(password)
+                .name(this.name)
+                .profileImagePath(this.profileImagePath)
+                .phoneNumber(this.phoneNumber)
+                .location(this.location)
+                .isVisited(true)
+                .publicId(this.publicId)
+                .role(this.role)
+                .build();
+    }
 
 }

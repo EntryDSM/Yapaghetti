@@ -22,4 +22,20 @@ public class UserMapper {
                 .build();
     }
 
+    public UserEntity domainToEntity(User user) {
+        return UserEntity.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .name(user.getName())
+                .profileImagePath(user.getProfileImagePath())
+                .phoneNumber(user.getPhoneNumber())
+                .location(user.getLocation())
+                .isVisited(user.isVisited())
+                .publicId(user.getPublicId())
+                .role(user.getRole())
+                .build();
+
+    }
+
 }

@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @Getter
 @SuperBuilder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "tbl_user")
