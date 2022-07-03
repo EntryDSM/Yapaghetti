@@ -8,6 +8,7 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
 import kr.hs.entrydsm.yapaghetti.global.exception.InternalServerErrorException;
 import kr.hs.entrydsm.yapaghetti.global.property.JwtProperties;
@@ -64,14 +65,14 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID id, String role) {
+    public String generateAccessToken(UUID id, UserRole role) {
         try {
             Date expiration = getAccessExpiration();
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                     .subject(id.toString())
-                    .claim("role", role)
+                    .claim("role", role.name())
                     .claim("type", JWT_ACCESS_TOKEN_TYPE)
                     .expirationTime(expiration)
                     .build();
@@ -82,6 +83,7 @@ public class JwtTokenProvider implements UserJwtPort {
 
             SignedJWT signedJWT = new SignedJWT(header, claimsSet);
             signedJWT.sign(signer);
+
             return signedJWT.serialize();
         } catch (JOSEException e) {
             throw InternalServerErrorException.EXCEPTION;
