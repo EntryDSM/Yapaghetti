@@ -1,7 +1,8 @@
-package kr.hs.entrydsm.yapaghetti.global.config;
+package kr.hs.entrydsm.yapaghetti.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
+import kr.hs.entrydsm.yapaghetti.global.config.FilterConfig;
 import kr.hs.entrydsm.yapaghetti.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -42,5 +45,10 @@ public class SecurityConfig {
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

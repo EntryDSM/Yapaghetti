@@ -46,9 +46,9 @@ class FirstPasswordUpdateUseCaseTest {
         String password = "wrongPWD";
 
         given(request.getPassword()).willReturn(password);
-        given(userSecurityPort.getCurrentUserPublicId())
+        given(userSecurityPort.getCurrentUserId())
                 .willReturn(UUID.randomUUID());
-        given(queryUserPort.queryUserByPublicId(any()))
+        given(queryUserPort.queryUserById(any()))
                 .willReturn(
                         User.builder()
                                 .password("PWD")
@@ -67,9 +67,9 @@ class FirstPasswordUpdateUseCaseTest {
 
         given(request.getPassword()).willReturn(password);
         given(request.getNewPassword()).willReturn(newPassword);
-        given(userSecurityPort.getCurrentUserPublicId())
+        given(userSecurityPort.getCurrentUserId())
                 .willReturn(UUID.randomUUID());
-        given(queryUserPort.queryUserByPublicId(any()))
+        given(queryUserPort.queryUserById(any()))
                 .willReturn(
                         User.builder()
                                 .password(password)

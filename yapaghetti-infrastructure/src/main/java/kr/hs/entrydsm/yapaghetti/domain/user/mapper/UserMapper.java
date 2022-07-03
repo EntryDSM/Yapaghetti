@@ -17,7 +17,6 @@ public class UserMapper {
                 .phoneNumber(userEntity.getPhoneNumber())
                 .location(userEntity.getLocation())
                 .isVisited(userEntity.isVisited())
-                .publicId(userEntity.getPublicId())
                 .role(userEntity.getRole())
                 .build();
     }
@@ -32,7 +31,6 @@ public class UserMapper {
                 .phoneNumber(user.getPhoneNumber())
                 .location(user.getLocation())
                 .isVisited(user.isVisited())
-                .publicId(user.getPublicId())
                 .role(user.getRole())
                 .build();
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode
@@ -13,9 +14,9 @@ import java.io.Serializable;
 public class MySkillEntityId implements Serializable {
 
     @Column(nullable = false)
-    private Long userId;
+    private UUID userId;
 
     @Column(nullable = false)
-    private Long tagId;
+    private UUID tagId;
 
 }

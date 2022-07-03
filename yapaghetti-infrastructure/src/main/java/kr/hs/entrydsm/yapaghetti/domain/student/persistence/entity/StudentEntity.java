@@ -17,6 +17,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class StudentEntity {
 
 	@Id
-	private Long userId;
+	private UUID userId;
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)

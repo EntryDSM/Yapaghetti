@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.persistence.entity;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 
 
-import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
 import lombok.AccessLevel;
 
 import lombok.Getter;
@@ -29,7 +28,7 @@ import java.util.UUID;
 public class TeacherEntity {
 
     @Id
-    private Long userId;
+    private UUID userId;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)

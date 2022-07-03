@@ -13,6 +13,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 public class GlobalErrorFilter extends OncePerRequestFilter {
@@ -37,6 +38,7 @@ public class GlobalErrorFilter extends OncePerRequestFilter {
     private void setErrorResponse(ErrorProperty errorProperty, HttpServletResponse response) throws IOException {
         response.setStatus(errorProperty.getStatus());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.getWriter().write(
                 objectMapper.writeValueAsString(
                         new ErrorResponse(errorProperty)

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class WebSignInRequest {
     @NotBlank
     private String password;
 
-    @NotBlank
+    @NotNull
     private UserRole userType;
 
 }
