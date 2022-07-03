@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.domain.document;
+package kr.hs.entrydsm.yapaghetti.domain.document.domain;
 
 public enum DocumentType {
     LOCAL,
