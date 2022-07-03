@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
-import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
+import kr.hs.entrydsm.yapaghetti.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +12,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import java.util.UUID;
 
 @Getter
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_user")
 @Entity
-public class UserEntity extends BaseIDEntity {
+public class UserEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String email;
@@ -41,9 +40,6 @@ public class UserEntity extends BaseIDEntity {
 
     @Column(columnDefinition = "BIT(1)", nullable = false)
     private boolean isVisited;
-
-    @Column(columnDefinition = "BINARY(16)", nullable = false)
-    private UUID publicId;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(7)", nullable = false)

@@ -2,13 +2,13 @@ package kr.hs.entrydsm.yapaghetti.infrastructure.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import kr.hs.entrydsm.yapaghetti.domain.image.spi.UploadS3Port;
-import kr.hs.entrydsm.yapaghetti.domain.image.spi.type.ImageType;
 import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageExtensionInvalidException;
 import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.image.spi.UploadS3Port;
+import kr.hs.entrydsm.yapaghetti.domain.image.spi.type.ImageType;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import kr.hs.entrydsm.yapaghetti.global.property.AwsS3Properties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Component
+@Adapter
 public class AwsS3Adapter implements UploadS3Port {
 
     private final AmazonS3 amazonS3;

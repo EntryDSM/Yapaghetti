@@ -25,7 +25,7 @@ public class SecurityFacadeAdapter implements UserSecurityPort {
     }
 
     @Override
-    public UUID getCurrentUserPublicId() {
+    public UUID getCurrentUserId() {
         return UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 

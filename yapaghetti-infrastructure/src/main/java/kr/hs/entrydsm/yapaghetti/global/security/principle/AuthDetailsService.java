@@ -19,11 +19,11 @@ public class AuthDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UUID publicId = UUID.fromString(username);
+		UUID id = UUID.fromString(username);
 
-		UserEntity user = userPersistenceAdapter.findUserByPublicId(publicId)
+		UserEntity user = userPersistenceAdapter.findUserById(id)
 			.orElseThrow(() -> UserCredentialsNotFoundException.EXCEPTION); //TODO Auth 담당자 분이 넣어주세요
 
-		return new AuthDetails(publicId, user.getRole());
+		return new AuthDetails(id, user.getRole());
 	}
 }

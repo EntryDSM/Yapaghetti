@@ -21,7 +21,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
 
     @Override
     public void createLocalDocument(DomainCreateLocalDocumentRequest request) {
-        User user = queryUserPort.queryUserByPublicId(userSecurityPort.getCurrentUserPublicId());
+        User user = queryUserPort.queryUserById(userSecurityPort.getCurrentUserId());
 
         commandDocumentPort.saveDocument(
                 Document.builder()

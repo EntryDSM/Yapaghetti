@@ -20,9 +20,9 @@ public class FirstPasswordUpdateUseCase implements FirstPasswordUpdatePort {
 
     @Override
     public void firstPasswordUpdate(DomainFirstPasswordUpdateRequest request) {
-        User user = queryUserPort.queryUserByPublicId(userSecurityPort.getCurrentUserPublicId());
+        User user = queryUserPort.queryUserById(userSecurityPort.getCurrentUserId());
 
-        if(!userSecurityPort.matches(request.getPassword(), user.getPassword())) {
+        if (!userSecurityPort.matches(request.getPassword(), user.getPassword())) {
             throw UserInvalidPasswordException.EXCEPTION;
         }
 

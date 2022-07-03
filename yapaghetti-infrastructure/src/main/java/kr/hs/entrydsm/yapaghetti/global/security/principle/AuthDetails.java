@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @RequiredArgsConstructor
 public class AuthDetails implements UserDetails {
 
-	private final UUID publicId;
+	private final UUID id;
 
 	private final UserRole role;
 
@@ -32,7 +32,7 @@ public class AuthDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return publicId.toString();
+		return id.toString();
 	}
 
 	@Override

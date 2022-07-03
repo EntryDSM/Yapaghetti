@@ -20,7 +20,6 @@ public class DocumentMapper {
                 .previewImagePath(documentEntity.getPreviewImagePath())
                 .content(documentEntity.getContent())
                 .type(documentEntity.getType())
-                .publicId(documentEntity.getPublicId())
                 .userId(documentEntity.getUserId())
                 .build();
     }

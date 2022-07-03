@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
-import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
+import kr.hs.entrydsm.yapaghetti.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_document")
 @Entity
-public class DocumentEntity extends BaseIDEntity {
+public class DocumentEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String previewImagePath;
@@ -37,14 +37,11 @@ public class DocumentEntity extends BaseIDEntity {
     @Column(columnDefinition = "VARCHAR(9)", nullable = false)
     private DocumentType type;
 
-    @Column(columnDefinition = "BINARY(16)", nullable = false)
-    private UUID publicId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return user.getId();
     }
 }

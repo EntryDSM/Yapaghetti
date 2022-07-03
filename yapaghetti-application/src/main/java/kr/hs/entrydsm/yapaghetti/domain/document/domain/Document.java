@@ -11,7 +11,7 @@ import java.util.UUID;
 @Aggregate
 public class Document {
 
-    private Long id;
+    private UUID id;
 
     private String previewImagePath;
 
@@ -19,7 +19,5 @@ public class Document {
 
     private DocumentType type;
 
-    private UUID publicId;
-
-    private Long userId;
+    private UUID userId;
 }

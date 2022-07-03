@@ -6,27 +6,27 @@ import kr.hs.entrydsm.yapaghetti.domain.user.mapper.UserMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Component
+@Adapter
 public class UserPersistenceAdapter implements QueryUserPort, CommandUserPort {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public Optional<UserEntity> findUserByPublicId(UUID publicId) {
-        return userRepository.findByPublicId(publicId);
+    public Optional<UserEntity> findUserById(UUID id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public User queryUserByPublicId(UUID publicId) {
+    public User queryUserById(UUID id) {
         return userMapper.entityToDomain(
-                userRepository.findByPublicId(publicId)
+                userRepository.findById(id)
                         .orElseThrow(() -> UserNotFoundException.EXCEPTION)
         );
     }
