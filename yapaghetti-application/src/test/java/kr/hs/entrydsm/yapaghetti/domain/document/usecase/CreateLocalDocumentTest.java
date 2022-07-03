@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommendDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
@@ -20,7 +20,7 @@ import static org.mockito.BDDMockito.given;
 class CreateLocalDocumentTest {
 
     @Mock
-    CommendDocumentPort commendDocumentPort;
+    CommandDocumentPort commandDocumentPort;
 
     @Mock
     QueryUserPort queryUserPort;
