@@ -4,9 +4,9 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
 import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Getter
-@Builder
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
