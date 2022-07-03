@@ -3,6 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.persistence.entity;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 
 
+import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
 import lombok.AccessLevel;
 
 import lombok.Getter;
@@ -19,14 +20,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.UUID;
 
-
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
 @Table(name = "tbl_teacher")
-public class TeacherEntity {
+@Entity
+public class TeacherEntity extends BaseIDEntity {
 
     @Id
     private Long userId;
