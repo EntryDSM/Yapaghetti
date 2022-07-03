@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "tbl_company")
 @Entity
 public class CompanyEntity {
