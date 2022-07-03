@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
 import lombok.AccessLevel;
@@ -44,4 +44,7 @@ public class DocumentEntity extends BaseIDEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
+    public Long getUserId() {
+        return user.getId();
+    }
 }
