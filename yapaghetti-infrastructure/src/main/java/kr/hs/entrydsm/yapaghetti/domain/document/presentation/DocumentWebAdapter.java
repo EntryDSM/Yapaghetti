@@ -5,8 +5,11 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLoc
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping("/documents")
@@ -16,7 +19,7 @@ public class DocumentWebAdapter {
     private final CreateLocalDocumentPort createLocalDocumentPort;
 
     @PostMapping
-    public void createLocalDocument(WebCreateLocalDocumentRequest request) {
+    public void createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
         createLocalDocumentPort.createLocalDocument(
                 DomainCreateLocalDocumentRequest.builder()
                         .previewImagePath(request.getPreviewImagePath())
