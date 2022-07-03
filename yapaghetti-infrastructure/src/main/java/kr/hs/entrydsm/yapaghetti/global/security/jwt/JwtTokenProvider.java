@@ -38,7 +38,7 @@ public class JwtTokenProvider implements UserJwtPort {
 
     public String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader(AUTHORIZATION_HEADER);
-        if(bearer != null && bearer.length() > 7 && bearer.startsWith(BEARER_PREFIX)) {
+        if (bearer != null && bearer.length() > 7 && bearer.startsWith(BEARER_PREFIX)) {
             return bearer.substring(7);
         }
         return null;
@@ -49,7 +49,7 @@ public class JwtTokenProvider implements UserJwtPort {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
             String type = claimsSet.getStringClaim("type");
-            if(!type.equals(JWT_ACCESS_TOKEN_TYPE)) {
+            if (!type.equals(JWT_ACCESS_TOKEN_TYPE)) {
                 throw InvalidTokenTypeException.EXCEPTION;
             }
             String subject = claimsSet.getSubject();
@@ -64,13 +64,13 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID publicId, String role) {
+    public String generateAccessToken(UUID id, String role) {
         try {
             Date expiration = getAccessExpiration();
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(publicId.toString())
+                    .subject(id.toString())
                     .claim("role", role)
                     .claim("type", JWT_ACCESS_TOKEN_TYPE)
                     .expirationTime(expiration)
