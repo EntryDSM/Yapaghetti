@@ -26,7 +26,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_teacher")
 @Entity
-public class TeacherEntity extends BaseIDEntity {
+public class TeacherEntity {
 
     @Id
     private Long userId;
