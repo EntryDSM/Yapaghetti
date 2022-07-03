@@ -12,12 +12,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity(name = "tbl_tag")
+@Entity
+@Table(name = "tbl_tag")
 public class TagEntity extends BaseIDEntity {
 
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
