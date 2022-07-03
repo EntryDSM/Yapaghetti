@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
 @Table(name = "tbl_tag")
+@Entity
 public class TagEntity extends BaseIDEntity {
 
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)

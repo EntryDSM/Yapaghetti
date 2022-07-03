@@ -20,8 +20,8 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
 @Table(name = "tbl_my_skill")
+@Entity
 public class MySkillEntity {
 
     @EmbeddedId
