@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity;
 
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
-import kr.hs.entrydsm.yapaghetti.global.entity.BaseIDEntity;
+import kr.hs.entrydsm.yapaghetti.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "tbl_tag")
 @Entity
-public class TagEntity extends BaseIDEntity {
+public class TagEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String name;

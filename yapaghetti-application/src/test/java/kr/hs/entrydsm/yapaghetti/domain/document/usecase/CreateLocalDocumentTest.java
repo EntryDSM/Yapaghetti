@@ -43,9 +43,9 @@ class CreateLocalDocumentTest {
                 .willReturn(previewImagePath);
         given(request.getContent())
                 .willReturn(content);
-        given(userSecurityPort.getCurrentUserPublicId())
+        given(userSecurityPort.getCurrentUserId())
                 .willReturn(UUID.randomUUID());
-        given(queryUserPort.queryUserByPublicId(any()))
+        given(queryUserPort.queryUserById(any()))
                 .willReturn(User.builder().build());
 
         createLocalDocumentUseCase.createLocalDocument(request);

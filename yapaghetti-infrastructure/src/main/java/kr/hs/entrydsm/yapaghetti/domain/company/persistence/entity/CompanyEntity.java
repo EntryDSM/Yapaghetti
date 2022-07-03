@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -25,7 +26,7 @@ import javax.persistence.Table;
 public class CompanyEntity {
 
 	@Id
-	private Long userId;
+	private UUID userId;
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)

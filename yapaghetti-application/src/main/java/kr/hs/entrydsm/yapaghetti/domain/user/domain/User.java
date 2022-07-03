@@ -11,7 +11,7 @@ import java.util.UUID;
 @Aggregate
 public class User {
 
-    private final Long id;
+    private final UUID id;
 
     private final String email;
 
@@ -27,10 +27,8 @@ public class User {
 
     private final boolean isVisited;
 
-    private final UUID publicId;
-
     private final UserRole role;
-    
+
     public User setUserPasswordAndVisitedTrue(String password) {
         return User.builder()
                 .id(this.id)
@@ -41,7 +39,6 @@ public class User {
                 .phoneNumber(this.phoneNumber)
                 .location(this.location)
                 .isVisited(true)
-                .publicId(this.publicId)
                 .role(this.role)
                 .build();
     }

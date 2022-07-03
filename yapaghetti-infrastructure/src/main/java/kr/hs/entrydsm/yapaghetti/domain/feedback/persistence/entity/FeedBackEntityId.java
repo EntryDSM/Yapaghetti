@@ -6,6 +6,7 @@ import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Embeddable
@@ -16,6 +17,6 @@ public class FeedBackEntityId implements Serializable {
     private Integer sequence;
 
     @Column(nullable = false)
-    private Long documentId;
+    private UUID documentId;
 
 }
