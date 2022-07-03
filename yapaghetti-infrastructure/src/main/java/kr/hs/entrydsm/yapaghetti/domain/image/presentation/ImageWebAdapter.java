@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.image.presentation;
 import kr.hs.entrydsm.yapaghetti.domain.image.api.UploadImagePort;
 import kr.hs.entrydsm.yapaghetti.domain.image.api.dto.response.ImageUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.image.spi.type.ImageType;
-import kr.hs.entrydsm.yapaghetti.global.exception.ImageNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
