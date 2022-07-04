@@ -47,10 +47,11 @@ class QueryLocalDocumentUseCaseTest {
                 userId,
                 documentId,
                 DocumentType.LOCAL))
-                .willReturn(Document.builder()
-                        .id(userId)
-                        .content(LocalDocumentContent)
-                        .build());
+                .willReturn(
+                        Document.builder()
+                                .id(userId)
+                                .content(LocalDocumentContent)
+                                .build());
 
         queryLocalDocumentUseCase.execute(documentId);
     }
