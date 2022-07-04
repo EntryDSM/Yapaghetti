@@ -4,8 +4,10 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddMySkillRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddTagRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +33,8 @@ public class TagWebAdapter {
     private final DeleteTagPort deleteTagPort;
 
     private final AddMySkillPort addMySkillPort;
+
+    private final GetTagListPort getTagListPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -52,6 +57,12 @@ public class TagWebAdapter {
     @PostMapping
     public void setMySkill(@RequestBody @Valid WebAddMySkillRequest request) {
         addMySkillPort.execute(new DomainAddMySkillRequest(request.getTagList()));
+    }
+
+    @GetMapping
+    public TagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
+                                      @RequestParam("isMajor") boolean isMajor) {
+        return getTagListPort.execute(name, isMajor);
     }
 
 }
