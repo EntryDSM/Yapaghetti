@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
@@ -25,6 +26,7 @@ public class DocumentWebAdapter {
 
     private final CreateLocalDocumentPort createLocalDocumentPort;
     private final QueryPublicDocumentPort queryPublicDocumentPort;
+    private final CopyPublicDocumentPort copyPublicDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -40,5 +42,11 @@ public class DocumentWebAdapter {
     @GetMapping("/public/{document-id}")
     public QueryPublicDocumentResponse getPublicDocument(@PathVariable("document-id") UUID documentId) {
         return queryPublicDocumentPort.execute(documentId);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/copy")
+    public void copyPublicDocumentToLocal() {
+        copyPublicDocumentPort.execute();
     }
 }
