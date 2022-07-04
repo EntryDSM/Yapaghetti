@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.mapper;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserRepository;
+import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DocumentMapper {
 
-    private final UserRepository userRepository;
+    private final UserPersistenceAdapter userPersistenceAdapter;
 
     public Document entityToDomain(DocumentEntity documentEntity) {
         return Document.builder()
@@ -25,7 +25,7 @@ public class DocumentMapper {
     }
 
     public DocumentEntity domainToEntity(Document document) {
-        UserEntity userEntity = userRepository.findById(document.getUserId())
+        UserEntity userEntity = userPersistenceAdapter.findUserById(document.getUserId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return DocumentEntity.builder()
