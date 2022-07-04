@@ -1,11 +1,10 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.FeedBack;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.CommandFeedbackPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackAPI;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @UseCase
-public class CreateFeedbackUseCase implements CreateFeedbackAPI {
+public class CreateFeedbackUseCase implements CreateFeedbackPort {
 
     private final CommandFeedbackPort commandFeedbackPort;
 

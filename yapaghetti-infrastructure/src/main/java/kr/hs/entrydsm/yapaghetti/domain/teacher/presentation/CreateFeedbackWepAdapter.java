@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackAPI;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +21,10 @@ import java.util.UUID;
 @RestController
 public class CreateFeedbackWepAdapter {
 
-    private final CreateFeedbackAPI createFeedbackAPI;
+    private final CreateFeedbackPort createFeedbackAPI;
 
-    @PostMapping("/feedback/{student-id}")
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/feedback/{student-id}")
     public void createFeedback(@PathVariable("student-id") UUID studentId,
                                @RequestBody @Valid WebCreateFeedbackRequest webCreateFeedBackRequest) {
         createFeedbackAPI.createFeedback(
