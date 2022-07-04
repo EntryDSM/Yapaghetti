@@ -26,7 +26,7 @@ public class GetTagListUseCaseTest {
 
     @Test
     void 태그목록() {
-        String name = "%J%";
+        String name = "J";
         boolean isMajor = false;
 
         List<Tag> tags = new ArrayList<>();
