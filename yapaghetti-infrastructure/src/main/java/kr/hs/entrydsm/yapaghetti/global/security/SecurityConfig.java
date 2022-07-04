@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/documents/{document-id}").hasRole(STUDENT)
+                .antMatchers(HttpMethod.DELETE, "/documents/{document-id}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.POST, "/documents/copy").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)

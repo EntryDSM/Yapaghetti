@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
@@ -19,13 +18,13 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class UpdateLocalDocumentTest {
-
-    @Mock
-    QueryUserPort queryUserPort;
+class DeleteLocalDocumentUseCaseTest {
 
     @Mock
     UserSecurityPort userSecurityPort;
+
+    @Mock
+    QueryUserPort queryUserPort;
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -34,36 +33,26 @@ class UpdateLocalDocumentTest {
     CommandDocumentPort commandDocumentPort;
 
     @InjectMocks
-    UpdateLocalDocumentUseCase updateLocalDocumentUseCase;
-
-    @Mock
-    DomainUpdateLocalDocumentRequest request;
+    DeleteLocalDocumentUseCase deleteLocalDocumentUseCase;
 
     @Test
-    void updateLocalDocument() {
+    void deleteLocalDocument() {
         UUID documentId = UUID.randomUUID();
-        String previewImagePath = "updatePreviewImagePath";
-        String content = "updateContent";
         UUID userId = UUID.randomUUID();
 
-        given(request.getDocumentId())
-                .willReturn(documentId);
-        given(request.getPreviewImagePath())
-                .willReturn(previewImagePath);
-        given(request.getContent())
-                .willReturn(content);
         given(userSecurityPort.getCurrentUserId())
                 .willReturn(userId);
         given(queryUserPort.queryUserById(userSecurityPort.getCurrentUserId()))
                 .willReturn(User.builder()
                         .id(userId)
                         .build());
-        given(queryDocumentPort
-                .queryDocumentByIdAndUserIdAndType(documentId, userId, DocumentType.LOCAL))
-                .willReturn(Document.builder()
-                        .id(documentId)
-                        .build());
+        given(queryDocumentPort.queryDocumentByIdAndUserIdAndType(
+                documentId,
+                userId,
+                DocumentType.LOCAL))
+                .willReturn(Document.builder().build());
 
-        updateLocalDocumentUseCase.execute(request);
+        deleteLocalDocumentUseCase.execute(documentId);
     }
+
 }

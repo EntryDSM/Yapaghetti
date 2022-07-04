@@ -15,7 +15,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class DeletePublicDocumentTest {
+class DeletePublicDocumentTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
