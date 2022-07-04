@@ -50,7 +50,7 @@ public class TagWebAdapter {
 
     @GetMapping
     public TagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
-                                      @RequestParam("is_major") boolean isMajor) {
+                                      @RequestParam("isMajor") boolean isMajor) {
         return getTagListPort.execute(name, isMajor);
     }
 
