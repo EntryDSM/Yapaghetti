@@ -20,7 +20,7 @@ public class GetTagListUseCase implements GetTagListPort {
     public DomainTagListResponse execute(String name, boolean isMajor) {
         String queryTagName = "%" + name + "%";
 
-        List<DomainTagDto> tags = queryTagPort.findAllByNameAndIsMajor(name, isMajor).stream()
+        List<DomainTagDto> tags = queryTagPort.findAllByNameAndIsMajor(queryTagName, isMajor).stream()
                 .map(t -> DomainTagDto.builder()
                             .tagId(t.getId())
                             .name(t.getName())
