@@ -4,6 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentR
 
 import java.util.UUID;
 
-public interface QueryPublicDocumentPort {
+public interface QueryLocalDocumentPort {
     QueryDocumentResponse execute(UUID documentId);
 }

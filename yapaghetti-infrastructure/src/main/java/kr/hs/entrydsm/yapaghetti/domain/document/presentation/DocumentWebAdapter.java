@@ -4,13 +4,14 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeleteLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeletePublicDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryPublicDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,7 @@ public class DocumentWebAdapter {
     private final UpdateLocalDocumentPort updateLocalDocumentPort;
     private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
     private final DeletePublicDocumentPort deletePublicDocumentPort;
+    private final QueryLocalDocumentPort queryLocalDocumentPort;
     private final DeleteLocalDocumentPort deleteLocalDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -53,7 +55,7 @@ public class DocumentWebAdapter {
     }
 
     @GetMapping("/public/{document-id}")
-    public QueryPublicDocumentResponse getPublicDocument(@PathVariable("document-id") UUID documentId) {
+    public QueryDocumentResponse getPublicDocument(@PathVariable("document-id") UUID documentId) {
         return queryPublicDocumentPort.execute(documentId);
     }
 
@@ -88,9 +90,15 @@ public class DocumentWebAdapter {
         deletePublicDocumentPort.execute(userId);
     }
 
+    @GetMapping("/{document-id}")
+    public QueryDocumentResponse getLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        return queryLocalDocumentPort.execute(documentId);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{document-id}")
     public void deleteLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         deleteLocalDocumentPort.execute(documentId);
+
     }
 }
