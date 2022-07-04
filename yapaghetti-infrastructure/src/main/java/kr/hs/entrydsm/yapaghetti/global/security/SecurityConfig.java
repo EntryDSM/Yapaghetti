@@ -21,7 +21,6 @@ public class SecurityConfig {
 
     private static final String STUDENT = UserRole.STUDENT.name();
     private static final String TEACHER = UserRole.TEACHER.name();
-    private static final String COMPANY = UserRole.COMPANY.name();
     private static final String MOU = UserRole.MOU.name();
     private static final String NON_MOU = UserRole.NON_MOU.name();
 
