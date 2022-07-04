@@ -11,13 +11,13 @@ import java.util.UUID;
 @Aggregate
 public class Document {
 
-    private UUID id;
+    private final UUID id;
 
-    private String previewImagePath;
+    private final String previewImagePath;
 
-    private String content;
+    private final String content;
 
-    private DocumentType type;
+    private final DocumentType type;
 
-    private UUID userId;
+    private final UUID userId;
 }
