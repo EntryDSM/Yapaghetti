@@ -7,8 +7,8 @@ import lombok.Getter;
 @Builder
 public class DomainAddTagRequest {
 
-    private String name;
+    private final String name;
 
-    private Boolean isMajor;
+    private final Boolean isMajor;
 
 }

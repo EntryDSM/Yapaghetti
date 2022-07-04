@@ -11,10 +11,10 @@ import java.util.UUID;
 @Aggregate
 public class Tag {
 
-    private UUID id;
+    private final UUID id;
 
-    private String name;
+    private final String name;
 
-    private TagType type;
+    private final TagType type;
 
 }
