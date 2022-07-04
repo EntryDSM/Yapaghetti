@@ -93,6 +93,7 @@ public class DocumentWebAdapter {
     @GetMapping("/{document-id}")
     public QueryDocumentResponse getLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         return queryLocalDocumentPort.execute(documentId);
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{document-id}")
