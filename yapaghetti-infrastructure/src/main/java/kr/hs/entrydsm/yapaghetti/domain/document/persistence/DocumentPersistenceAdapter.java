@@ -47,4 +47,12 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
+
+    @Override
+    public Document queryDocumentByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type) {
+        return documentMapper.entityToDomain(
+                documentRepository.findByIdAndUserIdAndType(documentId, userId, type)
+                        .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
+        );
+    }
 }
