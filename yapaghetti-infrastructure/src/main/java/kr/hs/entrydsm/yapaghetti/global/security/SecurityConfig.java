@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/tags/{tag-id}").hasRole(TEACHER)
-                .antMatchers(HttpMethod.GET, "/tags/**").hasAnyRole(STUDENT, TEACHER)
+                .antMatchers(HttpMethod.GET, "/tags").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/documents/{document-id}").hasRole(STUDENT)
