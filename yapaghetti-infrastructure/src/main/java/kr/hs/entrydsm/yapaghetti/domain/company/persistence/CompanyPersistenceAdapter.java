@@ -5,11 +5,13 @@ import kr.hs.entrydsm.yapaghetti.domain.company.exception.CompanyNotFoundExcepti
 import kr.hs.entrydsm.yapaghetti.domain.company.mapper.CompanyMapper;
 import kr.hs.entrydsm.yapaghetti.domain.company.spi.CommandCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.spi.QueryCompanyPort;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor
+@Adapter
 public class CompanyPersistenceAdapter implements QueryCompanyPort, CommandCompanyPort {
 
     private final CompanyRepository companyRepository;
