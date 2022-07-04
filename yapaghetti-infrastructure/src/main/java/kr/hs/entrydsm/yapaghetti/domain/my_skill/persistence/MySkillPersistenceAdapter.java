@@ -4,7 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.mapper.MySkillMapper;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.CommandMySkillPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -32,4 +31,10 @@ public class MySkillPersistenceAdapter implements CommandMySkillPort {
 
         mySkillRepository.saveAll(mySkillEntities);
     }
+
+    @Override
+    public void deleteAllMySKillByUserId(UUID userId) {
+        mySkillRepository.deleteAllByUserId(userId);
+    }
+
 }

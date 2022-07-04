@@ -24,6 +24,8 @@ public class AddMySkillUseCase implements AddMySkillPort {
     public void execute(DomainAddMySkillRequest request) {
         UUID userId = userSecurityPort.getCurrentUserId();
 
+        commandMySkillPort.deleteAllMySKillByUserId(userId);
+
         List<MySkill> mySkills = request.getTagList().stream()
                 .map(tagId -> MySkill.builder()
                                 .tagId(tagId)
