@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class TagDto {
+public class TagElement {
 
     private final UUID tagId;
 

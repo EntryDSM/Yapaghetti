@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TagListResponse {
 
-    private final List<TagDto> tagList;
+    private final List<TagElement> tagList;
 
 }
