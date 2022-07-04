@@ -26,14 +26,14 @@ public class GetTagListUseCaseTest {
 
     @Test
     void 태그목록() {
-        String name = "J";
+        String name = "%J%";
         boolean isMajor = false;
 
         List<Tag> tags = new ArrayList<>();
         tags.add(addTag("Java"));
         tags.add(addTag("JavaScript"));
 
-        given(queryTagPort.findAllByNameLikeAndIsMajor(name, isMajor))
+        given(queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor))
                 .willReturn(tags);
 
         getTagListUseCase.execute(name, isMajor);

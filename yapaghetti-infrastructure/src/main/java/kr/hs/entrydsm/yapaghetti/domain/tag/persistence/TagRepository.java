@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface TagRepository extends CrudRepository<TagEntity, UUID> {
     boolean existsByName(String name);
-    List<TagEntity> findAllByNameLikeAndType(String name, TagType type);
+    List<TagEntity> findAllByNameContainingAndType(String name, TagType type);
 }

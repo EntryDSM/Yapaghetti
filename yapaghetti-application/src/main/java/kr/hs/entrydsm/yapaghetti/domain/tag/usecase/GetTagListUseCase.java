@@ -18,9 +18,7 @@ public class GetTagListUseCase implements GetTagListPort {
 
     @Override
     public TagListResponse execute(String name, boolean isMajor) {
-        String queryTagName = "%" + name + "%";
-
-        List<TagDto> tags = queryTagPort.findAllByNameLikeAndIsMajor(queryTagName, isMajor).stream()
+        List<TagDto> tags = queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor).stream()
                 .map(t -> TagDto.builder()
                             .tagId(t.getId())
                             .name(t.getName())

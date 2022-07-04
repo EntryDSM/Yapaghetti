@@ -42,10 +42,10 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
     }
 
     @Override
-    public List<Tag> findAllByNameLikeAndIsMajor(String name, boolean isMajor) {
+    public List<Tag> findAllByNameContainingAndIsMajor(String name, boolean isMajor) {
         TagType type = isMajor ? TagType.MAJOR : TagType.SKILL;
 
-        return tagRepository.findAllByNameLikeAndType(name, type).stream()
+        return tagRepository.findAllByNameContainingAndType(name, type).stream()
                 .map(tagMapper::entityToDomain)
                 .collect(Collectors.toList());
     }
