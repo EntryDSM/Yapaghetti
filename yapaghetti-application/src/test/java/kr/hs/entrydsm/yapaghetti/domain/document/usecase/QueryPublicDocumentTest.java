@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class QueryPublicDocumentTest {
+class QueryPublicDocumentTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;

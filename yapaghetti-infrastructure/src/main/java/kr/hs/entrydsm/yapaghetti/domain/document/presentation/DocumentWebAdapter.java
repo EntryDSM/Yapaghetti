@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.DeleteLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeletePublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
@@ -40,6 +41,7 @@ public class DocumentWebAdapter {
     private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
     private final DeletePublicDocumentPort deletePublicDocumentPort;
     private final QueryLocalDocumentPort queryLocalDocumentPort;
+    private final DeleteLocalDocumentPort deleteLocalDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -91,5 +93,11 @@ public class DocumentWebAdapter {
     @GetMapping("/{document-id}")
     public QueryDocumentResponse getLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         return queryLocalDocumentPort.execute(documentId);
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{document-id}")
+    public void deleteLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        deleteLocalDocumentPort.execute(documentId);
+
     }
 }
