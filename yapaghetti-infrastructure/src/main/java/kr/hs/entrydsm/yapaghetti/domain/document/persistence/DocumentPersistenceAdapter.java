@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -21,6 +22,14 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     @Override
     public void saveDocument(Document document) {
         documentRepository.save(documentMapper.domainToEntity(document));
+    }
+
+    @Transactional
+    @Override
+    public void updateDocument(Document document) {
+        documentRepository.findById(document.getId())
+                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
+                .changeDocument(document.getPreviewImagePath(), document.getContent());
     }
 
     @Override
