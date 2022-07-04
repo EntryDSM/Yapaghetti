@@ -4,13 +4,16 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryPublicDocumentResponse;
-import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,12 +32,13 @@ public class DocumentWebAdapter {
     private final CreateLocalDocumentPort createLocalDocumentPort;
     private final QueryPublicDocumentPort queryPublicDocumentPort;
     private final CopyPublicDocumentPort copyPublicDocumentPort;
+    private final UpdateLocalDocumentPort updateLocalDocumentPort;
     private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
-        createLocalDocumentPort.createLocalDocument(
+    public void createLocalDocument(@RequestBody @Valid WebLocalDocumentRequest request) {
+        createLocalDocumentPort.execute(
                 DomainCreateLocalDocumentRequest.builder()
                         .previewImagePath(request.getPreviewImagePath())
                         .content(request.getContent())
@@ -51,6 +55,20 @@ public class DocumentWebAdapter {
     @PostMapping("/copy")
     public void copyPublicDocumentToLocal() {
         copyPublicDocumentPort.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{document-id}")
+    public void updateLocalDocument(@PathVariable("document-id") UUID documentId,
+                                    @RequestBody @Valid WebLocalDocumentRequest request) {
+
+        updateLocalDocumentPort.execute(
+                DomainUpdateLocalDocumentRequest.builder()
+                        .documentId(documentId)
+                        .previewImagePath(request.getPreviewImagePath())
+                        .content(request.getContent())
+                        .build()
+        );
     }
 
     @GetMapping("/protected-url")

@@ -48,6 +48,6 @@ class CreateLocalDocumentTest {
         given(queryUserPort.queryUserById(any()))
                 .willReturn(User.builder().build());
 
-        createLocalDocumentUseCase.createLocalDocument(request);
+        createLocalDocumentUseCase.execute(request);
     }
 }
