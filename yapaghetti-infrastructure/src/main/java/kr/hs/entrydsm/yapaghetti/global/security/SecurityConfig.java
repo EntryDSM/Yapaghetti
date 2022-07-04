@@ -39,8 +39,8 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/users/auth").permitAll()
-                .antMatchers("/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/tags").hasAnyRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
