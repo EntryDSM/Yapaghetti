@@ -30,14 +30,14 @@ public class DeleteTagUseCaseTest {
 
     @Test
     void 태그_삭제() {
-        given(commandTagPort.existsById(tagId)).willReturn(true);
+        given(queryTagPort.existsById(tagId)).willReturn(true);
 
         deleteTagUseCase.execute(tagId);
     }
 
     @Test
     void 태그_삭제_실패() {
-        given(commandTagPort.existsById(tagId)).willReturn(false);
+        given(queryTagPort.existsById(tagId)).willReturn(false);
 
         assertThatThrownBy(() -> deleteTagUseCase.execute(tagId))
                 .isInstanceOf(TagNotFoundException.class);
