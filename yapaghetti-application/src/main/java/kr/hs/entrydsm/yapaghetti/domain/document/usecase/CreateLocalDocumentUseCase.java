@@ -20,7 +20,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public void createLocalDocument(DomainCreateLocalDocumentRequest request) {
+    public void execute(DomainCreateLocalDocumentRequest request) {
         User user = queryUserPort.queryUserById(userSecurityPort.getCurrentUserId());
 
         commandDocumentPort.saveDocument(
