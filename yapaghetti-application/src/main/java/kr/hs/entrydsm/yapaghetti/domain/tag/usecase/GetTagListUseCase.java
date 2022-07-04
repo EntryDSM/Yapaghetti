@@ -2,8 +2,8 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.DomainTagDto;
-import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.DomainTagListResponse;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagDto;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import lombok.RequiredArgsConstructor;
 
@@ -17,17 +17,17 @@ public class GetTagListUseCase implements GetTagListPort {
     private final QueryTagPort queryTagPort;
 
     @Override
-    public DomainTagListResponse execute(String name, boolean isMajor) {
+    public TagListResponse execute(String name, boolean isMajor) {
         String queryTagName = "%" + name + "%";
 
-        List<DomainTagDto> tags = queryTagPort.findAllByNameAndIsMajor(queryTagName, isMajor).stream()
-                .map(t -> DomainTagDto.builder()
+        List<TagDto> tags = queryTagPort.findAllByNameAndIsMajor(queryTagName, isMajor).stream()
+                .map(t -> TagDto.builder()
                             .tagId(t.getId())
                             .name(t.getName())
                             .build())
                 .collect(Collectors.toList());
 
-        return new DomainTagListResponse(tags);
+        return new TagListResponse(tags);
     }
 
 }

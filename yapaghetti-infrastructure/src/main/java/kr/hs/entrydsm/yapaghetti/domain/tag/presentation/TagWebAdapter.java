@@ -4,7 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddTagRequest;
-import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.DomainTagListResponse;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddTagRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,8 +49,8 @@ public class TagWebAdapter {
     }
 
     @GetMapping
-    public DomainTagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
-                                            @RequestParam("is_major") boolean isMajor) {
+    public TagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
+                                      @RequestParam("is_major") boolean isMajor) {
         return getTagListPort.execute(name, isMajor);
     }
 

@@ -7,8 +7,8 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class DomainTagListResponse {
+public class TagListResponse {
 
-    private final List<DomainTagDto> tagList;
+    private final List<TagDto> tagList;
 
 }

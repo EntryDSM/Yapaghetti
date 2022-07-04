@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class DomainTagDto {
+public class TagDto {
 
     private final UUID tagId;
 
