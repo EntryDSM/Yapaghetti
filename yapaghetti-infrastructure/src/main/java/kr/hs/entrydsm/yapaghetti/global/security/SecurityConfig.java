@@ -22,7 +22,6 @@ public class SecurityConfig {
 
     private static final String STUDENT = UserRole.STUDENT.name();
     private static final String TEACHER = UserRole.TEACHER.name();
-    private static final String COMPANY = UserRole.COMPANY.name();
     private static final String MOU = UserRole.MOU.name();
     private static final String NON_MOU = UserRole.NON_MOU.name();
 
@@ -43,6 +42,8 @@ public class SecurityConfig {
                 .antMatchers("/users/auth").permitAll()
                 .antMatchers("/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 

@@ -48,4 +48,7 @@ public class StudentEntity {
 	@JoinColumn(name = "tag_id")
 	private TagEntity tagEntity;
 
+	public UUID getTagId() {
+		return tagEntity.getId();
+	}
 }
