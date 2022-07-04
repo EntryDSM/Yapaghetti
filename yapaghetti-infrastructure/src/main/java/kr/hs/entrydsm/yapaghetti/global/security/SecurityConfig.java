@@ -45,6 +45,7 @@ public class SecurityConfig {
 
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
                 .antMatchers(HttpMethod.POST, "/documents/copy").hasAnyRole(STUDENT)
+                .antMatchers(HttpMethod.PATCH, "/documents/{document-id}").hasAnyRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 .anyRequest().authenticated()
