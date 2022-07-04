@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,9 +51,8 @@ public class AddTagUseCaseTest {
         given(request.getName()).willReturn(name);
         given(queryTagPort.existByName(name)).willReturn(true);
 
-        assertThrows(AlreadyExistsTagException.class, () -> {
-            addTagUseCase.execute(request);
-        });
+        assertThatThrownBy(() -> addTagUseCase.execute(request))
+                .isInstanceOf(AlreadyExistsTagException.class);
     }
 
 }
