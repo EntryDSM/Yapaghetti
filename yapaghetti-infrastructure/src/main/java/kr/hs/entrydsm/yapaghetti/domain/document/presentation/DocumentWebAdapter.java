@@ -2,8 +2,10 @@ package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryPublicDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class DocumentWebAdapter {
     private final CreateLocalDocumentPort createLocalDocumentPort;
     private final QueryPublicDocumentPort queryPublicDocumentPort;
     private final CopyPublicDocumentPort copyPublicDocumentPort;
+    private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -48,5 +51,10 @@ public class DocumentWebAdapter {
     @PostMapping("/copy")
     public void copyPublicDocumentToLocal() {
         copyPublicDocumentPort.execute();
+    }
+
+    @GetMapping("/protected-url")
+    public QueryProtectedDocumentUrlResponse getProtectedDocumentUrl() {
+        return queryProtectedDocumentUrlPort.execute();
     }
 }
