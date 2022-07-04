@@ -7,6 +7,7 @@ import kr.hs.entrydsm.yapaghetti.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -38,8 +39,13 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/users/auth").permitAll()
-                .antMatchers("/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
+
+                .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
+
+                .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
+
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 
