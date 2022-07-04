@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.domain.tag.error;
+package kr.hs.entrydsm.yapaghetti.domain.document.error;
 
 import kr.hs.entrydsm.yapaghetti.error.ErrorProperty;
 import lombok.AccessLevel;
@@ -7,12 +7,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum TagErrorCode implements ErrorProperty {
+public enum DocumentErrorCode implements ErrorProperty {
 
-	TAG_NOT_FOUND(404, "태그를 찾을 수 없습니다."),
-    ALREADY_EXISTS_TAG(409, "이미 존재하는 태그입니다.");
+    DOCUMENT_NOT_FOUND(404, "문서를 찾을 수 없습니다.");
 
     private final int status;
     private final String message;
-
 }
