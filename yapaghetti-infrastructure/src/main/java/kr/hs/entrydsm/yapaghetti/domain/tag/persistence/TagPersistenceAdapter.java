@@ -3,12 +3,17 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
+import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +39,15 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
     @Override
     public boolean existsById(UUID tagId) {
         return tagRepository.existsById(tagId);
+    }
+
+    @Override
+    public List<Tag> findAllByNameAndIsMajor(String name, boolean isMajor) {
+        TagType type = isMajor ? TagType.MAJOR : TagType.SKILL;
+
+        return tagRepository.findAllByNameAndType(name, type).stream()
+                .map(tagMapper::entityToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
