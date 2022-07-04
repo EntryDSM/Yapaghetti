@@ -10,7 +10,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,6 +26,18 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     }
 
     @Override
+    @Transactional
+    public void updateDocument(Document document) {
+        getDocumentById(document.getId())
+                .changeDocument(document.getPreviewImagePath(), document.getContent());
+    }
+
+    @Override
+    public void deleteDocument(Document document) {
+        documentRepository.delete(documentMapper.domainToEntity(document));
+    }
+
+    @Override
     public Document queryDocumentById(UUID id) {
         return documentMapper.entityToDomain(
                 queryDocumentEntityById(id)
@@ -33,9 +45,17 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     }
 
     @Override
-    public Document queryPublicDocumentByUserId(UUID userId) {
+    public Document queryDocumentByUserIdAndType(UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
-                documentRepository.findByUserIdAndType(userId, DocumentType.PUBLIC)
+                documentRepository.findByUserIdAndType(userId, type)
+                        .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
+    public Document queryDocumentByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type) {
+        return documentMapper.entityToDomain(
+                documentRepository.findByIdAndUserIdAndType(documentId, userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
@@ -50,6 +70,11 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
 
     public DocumentEntity queryDocumentEntityById(UUID documentId) {
         return documentRepository.findById(documentId)
+                .orElseThrow(()->DocumentNotFoundException.EXCEPTION);
+    }
+
+    private DocumentEntity getDocumentById(UUID id) {
+        return documentRepository.findById(id)
                 .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
     }
 }

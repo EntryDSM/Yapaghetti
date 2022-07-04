@@ -39,13 +39,17 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
-
+                .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
+                .antMatchers(HttpMethod.DELETE, "/tags/{tag-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
-                .antMatchers(HttpMethod.POST, "/documents/copy").hasAnyRole(STUDENT)
+                .antMatchers(HttpMethod.PATCH, "/documents/{document-id}").hasRole(STUDENT)
+                .antMatchers(HttpMethod.POST, "/documents/copy").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)
 
                 .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
 
