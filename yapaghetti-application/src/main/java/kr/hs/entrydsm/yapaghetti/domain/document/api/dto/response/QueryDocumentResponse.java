@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class QueryPublicDocumentResponse {
+public class QueryDocumentResponse {
 
     private final String content;
 
