@@ -17,6 +17,6 @@ public class FeedBack {
 
     private final String content;
 
-    private boolean isApply;
+    private final boolean isApply;
 
 }
