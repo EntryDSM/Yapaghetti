@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 public class TagEntity extends BaseUUIDEntity {
 
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String name;
 
     @Enumerated(EnumType.STRING)
