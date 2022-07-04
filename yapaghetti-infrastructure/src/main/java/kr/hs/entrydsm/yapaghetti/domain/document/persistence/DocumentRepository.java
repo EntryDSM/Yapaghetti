@@ -1,10 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.persistence;
 
-import java.util.UUID;
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface DocumentRepository extends CrudRepository<DocumentEntity, UUID> {
+    Optional<DocumentEntity> findByUserIdAndType(UUID userId, DocumentType type);
 }

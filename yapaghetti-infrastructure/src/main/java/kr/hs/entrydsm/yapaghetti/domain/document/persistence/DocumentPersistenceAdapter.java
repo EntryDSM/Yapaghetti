@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.persistence;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
@@ -26,6 +27,14 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     public Document queryDocumentById(UUID id) {
         return documentMapper.entityToDomain(
                 documentRepository.findById(id)
+                        .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
+    public Document queryPublicDocumentByUserId(UUID userId) {
+        return documentMapper.entityToDomain(
+                documentRepository.findByUserIdAndType(userId, DocumentType.PUBLIC)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
