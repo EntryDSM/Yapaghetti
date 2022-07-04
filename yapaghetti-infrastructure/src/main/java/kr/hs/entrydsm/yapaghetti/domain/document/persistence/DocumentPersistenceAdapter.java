@@ -25,11 +25,16 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
         documentRepository.save(documentMapper.domainToEntity(document));
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void updateDocument(Document document) {
         getDocumentById(document.getId())
                 .changeDocument(document.getPreviewImagePath(), document.getContent());
+    }
+
+    @Override
+    public void deleteDocument(Document document) {
+        documentRepository.delete(documentMapper.domainToEntity(document));
     }
 
     @Override
