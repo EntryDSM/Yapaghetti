@@ -10,14 +10,14 @@ import lombok.Getter;
 @Aggregate
 public class Student {
 
-	private UUID userId;
+	private final UUID userId;
 
-	private Integer grade;
+	private final Integer grade;
 
-	private Integer classNum;
+	private final Integer classNum;
 
-	private Integer number;
+	private final Integer number;
 
-	private UUID tagId;
+	private final UUID tagId;
 
 }
