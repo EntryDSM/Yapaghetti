@@ -19,10 +19,7 @@ public class GetTagListUseCase implements GetTagListPort {
     @Override
     public TagListResponse execute(String name, boolean isMajor) {
         List<TagDto> tags = queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor).stream()
-                .map(t -> TagDto.builder()
-                            .tagId(t.getId())
-                            .name(t.getName())
-                            .build())
+                .map(t -> new TagDto(t.getId(), t.getName()))
                 .collect(Collectors.toList());
 
         return new TagListResponse(tags);
