@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,9 @@ public class DeleteTagUseCaseTest {
 
     @Mock
     CommandTagPort commandTagPort;
+
+    @Mock
+    QueryTagPort queryTagPort;
 
     @InjectMocks
     DeleteTagUseCase deleteTagUseCase;
