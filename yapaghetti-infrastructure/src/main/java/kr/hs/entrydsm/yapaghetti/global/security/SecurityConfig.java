@@ -41,11 +41,12 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
-                .antMatchers(HttpMethod.POST, "/tags").hasAnyRole(TEACHER)
+                .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
-                .antMatchers(HttpMethod.POST, "/documents/copy").hasAnyRole(STUDENT)
+                .antMatchers(HttpMethod.POST, "/documents/copy").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 
