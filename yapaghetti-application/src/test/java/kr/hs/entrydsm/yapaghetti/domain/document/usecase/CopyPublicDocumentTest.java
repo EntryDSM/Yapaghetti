@@ -35,7 +35,7 @@ public class CopyPublicDocumentTest {
         UUID userId = UUID.randomUUID();
 
         given(userSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryDocumentPort.queryPublicDocumentByUserId(userId)).willReturn(
+        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
                 Document.builder()
                         .previewImagePath("testPreviewImage")
                         .content("testContent")

@@ -22,7 +22,7 @@ public class CopyPublicDocumentUseCase implements CopyPublicDocumentPort {
     @Override
     public void execute() {
         UUID currentUserId = userSecurityPort.getCurrentUserId();
-        Document publicDocument = queryDocumentPort.queryPublicDocumentByUserId(currentUserId);
+        Document publicDocument = queryDocumentPort.queryDocumentByUserIdAndType(currentUserId, DocumentType.PUBLIC);
 
         commandDocumentPort.saveDocument(
                 Document.builder()
