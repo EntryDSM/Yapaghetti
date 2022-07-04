@@ -5,9 +5,9 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class TeacherForbiddenException extends YapaghettiException {
 
-    public TeacherForbiddenException() {
+    private TeacherForbiddenException() {
         super(TeacherErrorCode.TEACHER_FORBIDDEN);
     }
 
-    public static final YapaghettiException EXCEPTION = new TeacherInvalidRoleException();
+    public static final YapaghettiException EXCEPTION = new TeacherForbiddenException();
 }

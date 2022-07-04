@@ -5,7 +5,7 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class TeacherInvalidRoleException extends YapaghettiException {
 
-    public TeacherInvalidRoleException() {
+    private TeacherInvalidRoleException() {
         super(TeacherErrorCode.TEACHER_INVALID_ROLE);
     }
 
