@@ -1,9 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddTagRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddMySkillRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddTagRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,8 @@ public class TagWebAdapter {
     private final AddTagPort addTagPort;
     private final DeleteTagPort deleteTagPort;
 
+    private final AddMySkillPort addMySkillPort;
+
     private final GetTagListPort getTagListPort;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,6 +51,12 @@ public class TagWebAdapter {
     @DeleteMapping("/{tag-id}")
     public void deleteTag(@PathVariable("tag-id")UUID tagId) {
         deleteTagPort.execute(tagId);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public void setMySkill(@RequestBody @Valid WebAddMySkillRequest request) {
+        addMySkillPort.execute(new DomainAddMySkillRequest(request.getTagList()));
     }
 
     @GetMapping
