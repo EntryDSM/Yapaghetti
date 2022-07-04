@@ -34,28 +34,117 @@
 │     │                 │  └─ UseCase.java
 │     │                 ├─ domain
 │     │                 │  ├─ company
-│     │                 │  │  └─ .gitKeep
-│     │                 │  ├─ document
 │     │                 │  │  ├─ api
-│     │                 │  │  │  ├─ CreateLocalDocumentPort.java
+│     │                 │  │  │  ├─ UpdateCompanyNamePort.java
 │     │                 │  │  │  └─ dto
 │     │                 │  │  │     └─ request
-│     │                 │  │  │        └─ DomainCreateLocalDocumentRequest.java
+│     │                 │  │  │        └─ DomainUpdateCompanyNameRequest.java
+│     │                 │  │  ├─ domain
+│     │                 │  │  │  └─ Company.java
+│     │                 │  │  ├─ error
+│     │                 │  │  │  └─ CompanyErrorCode.java
+│     │                 │  │  ├─ exception
+│     │                 │  │  │  └─ CompanyNotFoundException.java
+│     │                 │  │  ├─ spi
+│     │                 │  │  │  ├─ CommandCompanyPort.java
+│     │                 │  │  │  ├─ CompanySecurityPort.java
+│     │                 │  │  │  └─ QueryCompanyPort.java
+│     │                 │  │  └─ usecase
+│     │                 │  │     └─ UpdateCompanyNameUseCase.java
+│     │                 │  ├─ document
+│     │                 │  │  ├─ api
+│     │                 │  │  │  ├─ CopyPublicDocumentPort.java
+│     │                 │  │  │  ├─ CreateLocalDocumentPort.java
+│     │                 │  │  │  ├─ DeleteLocalDocumentPort.java
+│     │                 │  │  │  ├─ DeletePublicDocumentPort.java
+│     │                 │  │  │  ├─ QueryLocalDocumentPort.java
+│     │                 │  │  │  ├─ QueryProtectedDocumentUrlPort.java
+│     │                 │  │  │  ├─ QueryPublicDocumentPort.java
+│     │                 │  │  │  ├─ UpdateLocalDocumentPort.java
+│     │                 │  │  │  └─ dto
+│     │                 │  │  │     ├─ request
+│     │                 │  │  │     │  ├─ DomainCreateLocalDocumentRequest.java
+│     │                 │  │  │     │  └─ DomainUpdateLocalDocumentRequest.java
+│     │                 │  │  │     └─ response
+│     │                 │  │  │        ├─ QueryDocumentResponse.java
+│     │                 │  │  │        └─ QueryProtectedDocumentUrlResponse.java
 │     │                 │  │  ├─ domain
 │     │                 │  │  │  ├─ Document.java
 │     │                 │  │  │  └─ DocumentType.java
 │     │                 │  │  ├─ error
+│     │                 │  │  │  └─ DocumentErrorCode.java
 │     │                 │  │  ├─ exception
+│     │                 │  │  │  └─ DocumentNotFoundException.java
 │     │                 │  │  ├─ spi
-│     │                 │  │  │  └─ CommandDocumentPort.java
+│     │                 │  │  │  ├─ CommandDocumentPort.java
+│     │                 │  │  │  └─ QueryDocumentPort.java
 │     │                 │  │  └─ usecase
-│     │                 │  │     └─ CreateLocalDocumentUseCase.java
+│     │                 │  │     ├─ CopyPublicDocumentUseCase.java
+│     │                 │  │     ├─ CreateLocalDocumentUseCase.java
+│     │                 │  │     ├─ DeleteLocalDocumentUseCase.java
+│     │                 │  │     ├─ DeletePublicDocumentUseCase.java
+│     │                 │  │     ├─ QueryLocalDocumentUseCase.java
+│     │                 │  │     ├─ QueryProtectedDocumentUrlUseCase.java
+│     │                 │  │     ├─ QueryPublicDocumentUseCase.java
+│     │                 │  │     └─ UpdateLocalDocumentUseCase.java
 │     │                 │  ├─ feedback
+│     │                 │  ├─ image
+│     │                 │  │  ├─ api
+│     │                 │  │  │  ├─ UploadImagePort.java
+│     │                 │  │  │  └─ dto
+│     │                 │  │  │     └─ response
+│     │                 │  │  │        └─ ImageUrlResponse.java
+│     │                 │  │  ├─ error
+│     │                 │  │  │  └─ ImageErrorCode.java
+│     │                 │  │  ├─ exception
+│     │                 │  │  │  ├─ ImageExtensionInvalidException.java
+│     │                 │  │  │  └─ ImageNotFoundException.java
+│     │                 │  │  ├─ spi
+│     │                 │  │  │  ├─ UploadS3Port.java
+│     │                 │  │  │  └─ type
+│     │                 │  │  │     └─ ImageType.java
+│     │                 │  │  └─ usecase
+│     │                 │  │     └─ UploadImageUseCase.java
 │     │                 │  ├─ my_skill
+│     │                 │  │  ├─ .gitKeep
+│     │                 │  │  ├─ domain
+│     │                 │  │  │  └─ MySkill.java
+│     │                 │  │  └─ spi
+│     │                 │  │     └─ CommandMySkillPort.java
 │     │                 │  ├─ student
-│     │                 │  ├─ tag
+│     │                 │  │  ├─ .gitKeep
 │     │                 │  │  └─ domain
-│     │                 │  │     └─ TagType.java
+│     │                 │  │     └─ Student.java
+│     │                 │  ├─ tag
+│     │                 │  │  ├─ api
+│     │                 │  │  │  ├─ AddMySkillPort.java
+│     │                 │  │  │  ├─ AddTagPort.java
+│     │                 │  │  │  ├─ DeleteTagPort.java
+│     │                 │  │  │  ├─ GetTagListPort.java
+│     │                 │  │  │  └─ dto
+│     │                 │  │  │     ├─ request
+│     │                 │  │  │     │  ├─ DomainAddMySkillRequest.java
+│     │                 │  │  │     │  └─ DomainAddTagRequest.java
+│     │                 │  │  │     └─ response
+│     │                 │  │  │        ├─ TagElement.java
+│     │                 │  │  │        └─ TagListResponse.java
+│     │                 │  │  ├─ domain
+│     │                 │  │  │  ├─ Tag.java
+│     │                 │  │  │  └─ TagType.java
+│     │                 │  │  ├─ error
+│     │                 │  │  │  └─ TagErrorCode.java
+│     │                 │  │  ├─ exception
+│     │                 │  │  │  ├─ AlreadyExistsTagException.java
+│     │                 │  │  │  ├─ TagNotFoundException.java
+│     │                 │  │  │  └─ UnableDeleteTagException.java
+│     │                 │  │  ├─ spi
+│     │                 │  │  │  ├─ CommandTagPort.java
+│     │                 │  │  │  └─ QueryTagPort.java
+│     │                 │  │  └─ usecase
+│     │                 │  │     ├─ AddMySkillUseCase.java
+│     │                 │  │     ├─ AddTagUseCase.java
+│     │                 │  │     ├─ DeleteTagUseCase.java
+│     │                 │  │     └─ GetTagListUseCase.java
 │     │                 │  ├─ teacher
 │     │                 │  └─ user
 │     │                 │     ├─ api
@@ -94,9 +183,28 @@
 │                 └─ entrydsm
 │                    └─ yapaghetti
 │                       └─ domain
+│                          ├─ company
+│                          │  └─ usecase
+│                          │     └─ UpdateCompanyNameUseCaseTest.java
 │                          ├─ document
 │                          │  └─ usecase
-│                          │     └─ CreateLocalDocumentTest.java
+│                          │     ├─ CopyPublicDocumentTest.java
+│                          │     ├─ CreateLocalDocumentTest.java
+│                          │     ├─ DeleteLocalDocumentUseCaseTest.java
+│                          │     ├─ DeletePublicDocumentTest.java
+│                          │     ├─ QueryLocalDocumentUseCaseTest.java
+│                          │     ├─ QueryProtectedDocumentUrlTest.java
+│                          │     ├─ QueryPublicDocumentTest.java
+│                          │     └─ UpdateLocalDocumentTest.java
+│                          ├─ image
+│                          │  └─ usecase
+│                          │     └─ UploadImageUseCaseTest.java
+│                          ├─ tag
+│                          │  └─ usecase
+│                          │     ├─ AddMySkillUseCaseTest.java
+│                          │     ├─ AddTagUseCaseTest.java
+│                          │     ├─ DeleteTagUseCaseTest.java
+│                          │     └─ GetTagListUseCaseTest.java
 │                          └─ user
 │                             └─ usecase
 │                                ├─ FirstPasswordUpdateUseCaseTest.java
@@ -113,11 +221,18 @@
          │              ├─ YapaghettiApplication.java
          │              ├─ domain
          │              │  ├─ company
-         │              │  │  └─ persistence
-         │              │  │     ├─ CompanyPersistenceAdapter.java
-         │              │  │     ├─ CompanyRepository.java
-         │              │  │     └─ entity
-         │              │  │        └─ CompanyEntity.java
+         │              │  │  ├─ mapper
+         │              │  │  │  └─ CompanyMapper.java
+         │              │  │  ├─ persistence
+         │              │  │  │  ├─ CompanyPersistenceAdapter.java
+         │              │  │  │  ├─ CompanyRepository.java
+         │              │  │  │  └─ entity
+         │              │  │  │     └─ CompanyEntity.java
+         │              │  │  └─ presentation
+         │              │  │     ├─ CompanyWebAdapter.java
+         │              │  │     └─ dto
+         │              │  │        └─ request
+         │              │  │           └─ WebUpdateCompanyNameRequest.java
          │              │  ├─ document
          │              │  │  ├─ mapper
          │              │  │  │  └─ DocumentMapper.java
@@ -130,7 +245,7 @@
          │              │  │     ├─ DocumentWebAdapter.java
          │              │  │     └─ dto
          │              │  │        └─ request
-         │              │  │           └─ WebCreateLocalDocumentRequest.java
+         │              │  │           └─ WebLocalDocumentRequest.java
          │              │  ├─ feedback
          │              │  │  └─ persistence
          │              │  │     ├─ FeedBackPersistenceAdapter.java
@@ -138,7 +253,12 @@
          │              │  │     └─ entity
          │              │  │        ├─ FeedBackEntity.java
          │              │  │        └─ FeedBackEntityId.java
+         │              │  ├─ image
+         │              │  │  └─ presentation
+         │              │  │     └─ ImageWebAdapter.java
          │              │  ├─ my_skill
+         │              │  │  ├─ mapper
+         │              │  │  │  └─ MySkillMapper.java
          │              │  │  └─ persistence
          │              │  │     ├─ MySkillPersistenceAdapter.java
          │              │  │     ├─ MySkillRepository.java
@@ -146,17 +266,27 @@
          │              │  │        ├─ MySkillEntity.java
          │              │  │        └─ MySkillEntityId.java
          │              │  ├─ student
-         │              │  │  ├─ StudentPersistenceAdapter.java
-         │              │  │  ├─ StudentRepository.java
+         │              │  │  ├─ mapper
+         │              │  │  │  └─ StudentMapper.java
          │              │  │  └─ persistence
+         │              │  │     ├─ StudentPersistenceAdapter.java
+         │              │  │     ├─ StudentRepository.java
          │              │  │     └─ entity
          │              │  │        └─ StudentEntity.java
          │              │  ├─ tag
-         │              │  │  └─ persistence
-         │              │  │     ├─ TagPersistenceAdapter.java
-         │              │  │     ├─ TagRepository.java
-         │              │  │     └─ entity
-         │              │  │        └─ TagEntity.java
+         │              │  │  ├─ mapper
+         │              │  │  │  └─ TagMapper.java
+         │              │  │  ├─ persistence
+         │              │  │  │  ├─ TagPersistenceAdapter.java
+         │              │  │  │  ├─ TagRepository.java
+         │              │  │  │  └─ entity
+         │              │  │  │     └─ TagEntity.java
+         │              │  │  └─ presentation
+         │              │  │     ├─ TagWebAdapter.java
+         │              │  │     └─ dto
+         │              │  │        └─ request
+         │              │  │           ├─ WebAddMySkillRequest.java
+         │              │  │           └─ WebAddTagRequest.java
          │              │  ├─ teacher
          │              │  │  └─ persistence
          │              │  │     ├─ TeacherPersistenceAdapter.java
@@ -195,8 +325,6 @@
          │              │  │  └─ filter
          │              │  │     └─ GlobalErrorFilter.java
          │              │  ├─ exception
-         │              │  │  ├─ ImageExtensionInvalidException.java
-         │              │  │  ├─ ImageNotFoundException.java
          │              │  │  └─ InternalServerErrorException.java
          │              │  ├─ property
          │              │  │  ├─ AwsS3Properties.java
@@ -221,9 +349,7 @@
          │              │        └─ AuthDetailsService.java
          │              └─ infrastructure
          │                 ├─ s3
-         │                 │  ├─ AwsS3Adapter.java
-         │                 │  └─ type
-         │                 │     └─ ImageType.java
+         │                 │  └─ AwsS3Adapter.java
          │                 ├─ ses
          │                 └─ sms
          └─ resources
