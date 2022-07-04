@@ -1,6 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.persistence;
 
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceAdapter;
+import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
+import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
@@ -16,6 +19,9 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
 
     private final TagRepository tagRepository;
 
+    private final MySkillPersistenceAdapter mySkillPersistenceAdapter;
+    private final StudentPersistenceAdapter studentPersistenceAdapter;
+
     private final TagMapper tagMapper;
 
     @Override
@@ -23,6 +29,20 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
         tagRepository.save(
                 tagMapper.domainToEntity(tag)
         );
+    }
+
+    @Override
+    public boolean existsById(UUID tagId) {
+        return tagRepository.existsById(tagId);
+    }
+
+    @Override
+    public void deleteTagById(UUID tagId) {
+        if (mySkillPersistenceAdapter.existsByTagId(tagId) || studentPersistenceAdapter.existsByTagId(tagId)) {
+            throw UnableDeleteTagException.EXCEPTION;
+        }
+
+        tagRepository.deleteById(tagId);
     }
 
     @Override
