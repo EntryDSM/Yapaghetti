@@ -25,7 +25,7 @@ public class AddTagUseCase implements AddTagPort {
 
         TagType type = request.getIsMajor() ? TagType.MAJOR : TagType.SKILL;
 
-        saveTagPort.saveNewTag(
+        saveTagPort.saveTag(
                 Tag.builder()
                         .name(request.getName())
                         .type(type)

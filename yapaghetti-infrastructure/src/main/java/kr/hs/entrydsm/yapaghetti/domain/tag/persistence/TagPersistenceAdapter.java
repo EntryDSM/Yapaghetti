@@ -19,7 +19,7 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
     private final TagMapper tagMapper;
 
     @Override
-    public void saveNewTag(Tag tag) {
+    public void saveTag(Tag tag) {
         tagRepository.save(
                 tagMapper.domainToEntity(tag)
         );
