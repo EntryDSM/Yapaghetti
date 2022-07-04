@@ -29,14 +29,14 @@ public class DeleteTagUseCaseTest {
     private static final UUID tagId = UUID.randomUUID();
 
     @Test
-    void 태그_삭제() {
+    void 태그_삭제_성공() {
         given(queryTagPort.existsById(tagId)).willReturn(true);
 
         deleteTagUseCase.execute(tagId);
     }
 
     @Test
-    void 태그_삭제_실패() {
+    void 존재하지_않는_태그() {
         given(queryTagPort.existsById(tagId)).willReturn(false);
 
         assertThatThrownBy(() -> deleteTagUseCase.execute(tagId))
