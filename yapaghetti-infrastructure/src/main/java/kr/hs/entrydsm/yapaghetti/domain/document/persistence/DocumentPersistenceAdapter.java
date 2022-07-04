@@ -32,9 +32,9 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     }
 
     @Override
-    public Document queryPublicDocumentByUserId(UUID userId) {
+    public Document queryDocumentByUserIdAndType(UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
-                documentRepository.findByUserIdAndType(userId, DocumentType.PUBLIC)
+                documentRepository.findByUserIdAndType(userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
