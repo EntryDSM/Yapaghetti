@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.DeleteLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeletePublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class DocumentWebAdapter {
     private final UpdateLocalDocumentPort updateLocalDocumentPort;
     private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
     private final DeletePublicDocumentPort deletePublicDocumentPort;
+    private final DeleteLocalDocumentPort deleteLocalDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -83,5 +86,11 @@ public class DocumentWebAdapter {
     @DeleteMapping("/public/{student-id}")
     public void deletePublicDocument(@PathVariable("student-id") UUID userId) {
         deletePublicDocumentPort.execute(userId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{document-id}")
+    public void deleteLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        deleteLocalDocumentPort.execute(documentId);
     }
 }
