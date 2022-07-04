@@ -38,8 +38,13 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
+
                 .antMatchers("/users/auth").permitAll()
                 .antMatchers("/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
+
+                .antMatchers("/documents").hasRole(STUDENT)
+                .antMatchers("/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
+
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 
