@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.DeletePublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
@@ -12,6 +13,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryPublicDoc
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,7 @@ public class DocumentWebAdapter {
     private final CopyPublicDocumentPort copyPublicDocumentPort;
     private final UpdateLocalDocumentPort updateLocalDocumentPort;
     private final QueryProtectedDocumentUrlPort queryProtectedDocumentUrlPort;
+    private final DeletePublicDocumentPort deletePublicDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -74,5 +77,11 @@ public class DocumentWebAdapter {
     @GetMapping("/protected-url")
     public QueryProtectedDocumentUrlResponse getProtectedDocumentUrl() {
         return queryProtectedDocumentUrlPort.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/public/{student-id}")
+    public void deletePublicDocument(@PathVariable("student-id") UUID userId) {
+        deletePublicDocumentPort.execute(userId);
     }
 }
