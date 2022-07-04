@@ -15,15 +15,15 @@ import java.util.UUID;
 @UseCase
 public class UpdateCompanyNameUseCase implements UpdateCompanyNamePort {
 
-    private final QueryCompanyPort companyPersistenceAdapter;
+    private final QueryCompanyPort companyPersistencePort;
     private final CommandCompanyPort commandCompanyPort;
-    private final CompanySecurityPort companySecurityAdapter;
+    private final CompanySecurityPort companySecurityPort;
 
     @Override
     public void execute(DomainUpdateCompanyNameRequest request) {
-        UUID userId = companySecurityAdapter.getCurrentUserId();
+        UUID userId = companySecurityPort.getCurrentUserId();
 
-        Company company = companyPersistenceAdapter.findCompanyByUserId(userId)
+        Company company = companyPersistencePort.findCompanyByUserId(userId)
                 .updateCompanyName(request.getCompanyName());
 
         commandCompanyPort.updateCompany(company);
