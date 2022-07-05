@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,8 +12,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Embeddable
 public class MySkillEntityId implements Serializable {
