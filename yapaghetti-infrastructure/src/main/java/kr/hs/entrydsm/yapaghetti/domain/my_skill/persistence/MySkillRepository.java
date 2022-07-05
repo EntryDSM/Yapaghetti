@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface MySkillRepository extends CrudRepository<MySkillEntity, MySkillEntityId> {
     boolean existsByTagId(UUID tagId);
+    void deleteAllByUserId(UUID userId);
 }

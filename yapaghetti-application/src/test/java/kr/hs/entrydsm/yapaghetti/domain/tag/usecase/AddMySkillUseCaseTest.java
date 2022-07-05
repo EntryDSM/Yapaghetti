@@ -45,6 +45,7 @@ public class AddMySkillUseCaseTest {
                         .build()
         );
 
+        commandMySkillPort.deleteAllMySKillByUserId(userId);
         commandMySkillPort.saveAllMySkill(mySkills);
 
         addMySkillUseCase.execute(request);
