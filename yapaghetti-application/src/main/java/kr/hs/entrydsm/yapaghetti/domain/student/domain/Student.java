@@ -20,4 +20,14 @@ public class Student {
 
 	private final UUID tagId;
 
+	public Student updateTagId(UUID tagId) {
+		return Student.builder()
+				.userId(this.userId)
+				.grade(this.grade)
+				.classNum(this.classNum)
+				.number(this.number)
+				.tagId(tagId)
+				.build();
+	}
+
 }

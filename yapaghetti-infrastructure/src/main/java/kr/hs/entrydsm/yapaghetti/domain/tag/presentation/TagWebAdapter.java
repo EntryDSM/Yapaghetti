@@ -3,16 +3,20 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.presentation;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.SetMajorTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddTagRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddMySkillRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddTagRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebSetMajorTagRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +40,8 @@ public class TagWebAdapter {
 
     private final GetTagListPort getTagListPort;
 
+    private final SetMajorTagPort setMajorTagPort;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void addTag(@RequestBody @Valid WebAddTagRequest request) {
@@ -54,7 +60,7 @@ public class TagWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/my-skill")
     public void setMySkill(@RequestBody @Valid WebAddMySkillRequest request) {
         addMySkillPort.execute(new DomainAddMySkillRequest(request.getTagList()));
     }
@@ -63,6 +69,12 @@ public class TagWebAdapter {
     public TagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
                                       @RequestParam("isMajor") boolean isMajor) {
         return getTagListPort.execute(name, isMajor);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/major")
+    public void setMajor(@RequestBody @Valid WebSetMajorTagRequest request) {
+        setMajorTagPort.execute(new DomainSetMajorTagRequest(request.getTagId()));
     }
 
 }

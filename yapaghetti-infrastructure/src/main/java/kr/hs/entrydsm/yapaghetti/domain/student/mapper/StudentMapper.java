@@ -36,7 +36,7 @@ public class StudentMapper {
 			.orElseThrow(() -> TagNotFoundException.EXCEPTION);
 
 		return StudentEntity.builder()
-			.user(userEntity)
+			.userEntity(userEntity)
 			.grade(student.getGrade())
 			.classNum(student.getClassNum())
 			.number(student.getNumber())

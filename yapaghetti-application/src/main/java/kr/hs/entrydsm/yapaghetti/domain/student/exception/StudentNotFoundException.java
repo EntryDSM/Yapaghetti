@@ -5,10 +5,10 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class StudentNotFoundException extends YapaghettiException {
 
-	private StudentNotFoundException() {
-		super(StudentErrorCode.STUDENT_NOT_FOUND);
-	}
+    public static final StudentNotFoundException EXCEPTION = new StudentNotFoundException();
 
-	public static final YapaghettiException EXCEPTION = new StudentNotFoundException();
+    private StudentNotFoundException() {
+        super(StudentErrorCode.STUDENT_NOT_FOUND);
+    }
 
 }
