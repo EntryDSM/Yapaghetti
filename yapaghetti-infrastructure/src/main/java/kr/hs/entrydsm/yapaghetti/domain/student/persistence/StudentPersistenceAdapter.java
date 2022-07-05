@@ -28,16 +28,6 @@ public class StudentPersistenceAdapter implements CommandStudentPort, QueryStude
 	}
 
 	@Override
-	public Student findById(UUID id) {
-		StudentEntity studentEntity = studentRepository.findById(id)
-				.orElseThrow(() -> {
-					throw StudentNotFoundException.EXCEPTION;
-				});
-
-		return studentMapper.entityToDomain(studentEntity);
-	}
-
-	@Override
 	public Student queryUserById(UUID id) {
 		return studentMapper.entityToDomain(
 			studentRepository.findById(id)
