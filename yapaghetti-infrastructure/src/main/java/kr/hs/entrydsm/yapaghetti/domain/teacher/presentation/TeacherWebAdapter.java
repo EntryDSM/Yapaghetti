@@ -26,12 +26,12 @@ public class TeacherWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
     public void createFeedBack(@PathVariable("student-id") @NotBlank UUID studentId,
-                               @RequestBody @Valid WebCreateFeedBackRequest rerquest) {
+                               @RequestBody @Valid WebCreateFeedBackRequest request) {
         createFeedBackPort.createFeedBack(
                 DomainCreateFeedBackRequest.builder()
                         .studentId(studentId)
-                        .sequence(rerquest.getSequence())
-                        .comment(rerquest.getContent())
+                        .sequence(request.getSequence())
+                        .comment(request.getContent())
                         .build()
         );
     }
