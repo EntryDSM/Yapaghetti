@@ -49,4 +49,8 @@ public class DocumentEntity extends BaseUUIDEntity {
         this.previewImagePath = previewImagePath;
         this.content = content;
     }
+
+    public void changeDocumentType(DocumentType type) {
+        this.type = type;
+    }
 }
