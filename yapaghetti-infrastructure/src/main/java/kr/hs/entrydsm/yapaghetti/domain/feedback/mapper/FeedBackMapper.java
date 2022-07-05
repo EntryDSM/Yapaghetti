@@ -30,7 +30,7 @@ public class FeedBackMapper {
                 )
                 .isApply(feedBack.isApply())
                 .comment(feedBack.getComment())
-                .document(documentEntity)
+//                .document(documentEntity)
                 .build();
     }
 
