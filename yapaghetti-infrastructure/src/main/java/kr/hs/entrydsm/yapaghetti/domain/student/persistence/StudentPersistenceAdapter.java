@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
-import kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.StudentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class StudentPersistenceAdapter implements CommandStudentPort, QueryStudentPort {
 
 	private final StudentRepository studentRepository;
-
 	private final StudentMapper studentMapper;
 
 	public boolean existsByTagId(UUID tagId) {
@@ -29,13 +27,10 @@ public class StudentPersistenceAdapter implements CommandStudentPort, QueryStude
 	}
 
 	@Override
-	public Student findById(UUID id) {
-		StudentEntity studentEntity = studentRepository.findById(id)
-				.orElseThrow(() -> {
-					throw StudentNotFoundException.EXCEPTION;
-				});
-
-		return studentMapper.entityToDomain(studentEntity);
+	public Student queryUserById(UUID id) {
+		return studentMapper.entityToDomain(
+			studentRepository.findById(id)
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+		);
 	}
-
 }
