@@ -6,5 +6,5 @@ import kr.hs.entrydsm.yapaghetti.domain.company.persistence.entity.CompanyEntity
 import org.springframework.data.repository.CrudRepository;
 
 public interface CompanyRepository extends CrudRepository<CompanyEntity, UUID> {
-    Optional<CompanyEntity> findByUserId(UUID userId);
+    Optional<CompanyEntity> findByUserEntityId(UUID userId);
 }

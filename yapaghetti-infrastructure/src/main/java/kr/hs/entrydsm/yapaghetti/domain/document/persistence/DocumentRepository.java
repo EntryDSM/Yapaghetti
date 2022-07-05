@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DocumentRepository extends CrudRepository<DocumentEntity, UUID> {
-    Optional<DocumentEntity> findByUserIdAndType(UUID userId, DocumentType type);
+    Optional<DocumentEntity> findByUserEntityIdAndType(UUID userId, DocumentType type);
 
-    Optional<DocumentEntity> findByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type);
+    Optional<DocumentEntity> findByIdAndUserEntityIdAndType(UUID id, UUID userId, DocumentType type);
 }

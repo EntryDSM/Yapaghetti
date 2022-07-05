@@ -24,7 +24,7 @@ public class MySkillPersistenceAdapter implements CommandMySkillPort {
     private final MySkillMapper mySkillMapper;
 
     public boolean existsByTagId(UUID tagId) {
-        return mySkillRepository.existsByTagId(tagId);
+        return mySkillRepository.existsByTagEntityId(tagId);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MySkillPersistenceAdapter implements CommandMySkillPort {
 
     @Override
     public void deleteAllMySKillByUserId(UUID userId) {
-        mySkillRepository.deleteAllByUserId(userId);
+        mySkillRepository.deleteAllByUserEntityId(userId);
     }
 
     private boolean existsTag(UUID tagId) {
