@@ -1,9 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.student.api.GetMyInfoPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.ReflectFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,9 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentWebAdapter {
 
 	private final GetMyInfoPort getMyInfoPort;
+	private final ReflectFeedbackPort reflectFeedbackPort;
 
 	@GetMapping
 	public MyInfoResponse queryMyInfo() {
 		return getMyInfoPort.execute();
+	}
+
+	@PatchMapping("/feedback/{sequence}")
+	public void reflectFeedback(@PathVariable Integer sequence) {
+		reflectFeedbackPort.execute(sequence);
 	}
 }
