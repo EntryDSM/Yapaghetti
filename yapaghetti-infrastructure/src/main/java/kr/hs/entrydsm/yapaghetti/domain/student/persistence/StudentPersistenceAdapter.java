@@ -8,7 +8,6 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -24,7 +23,6 @@ public class StudentPersistenceAdapter implements CommandStudentPort, QueryStude
 		return studentRepository.existsByTagEntityId(tagId);
 	}
 
-	@Transactional
 	@Override
 	public void saveStudent(Student student) {
 		studentRepository.save(studentMapper.domainToEntity(student));
