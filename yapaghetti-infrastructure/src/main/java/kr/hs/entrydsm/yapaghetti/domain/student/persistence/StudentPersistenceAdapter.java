@@ -36,7 +36,8 @@ public class StudentPersistenceAdapter implements CommandStudentPort, QueryStude
 				.orElseThrow(() -> {
 					throw StudentNotFoundException.EXCEPTION;
 				});
-		
+
 		return studentMapper.entityToDomain(studentEntity);
 	}
+
 }
