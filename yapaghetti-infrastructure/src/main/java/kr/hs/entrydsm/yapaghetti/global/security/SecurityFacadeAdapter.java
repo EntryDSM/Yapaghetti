@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.global.security;
 
 import kr.hs.entrydsm.yapaghetti.domain.company.spi.CompanySecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class SecurityFacadeAdapter implements UserSecurityPort, CompanySecurityPort, DocumentSecurityPort {
+public class SecurityFacadeAdapter implements UserSecurityPort, CompanySecurityPort, StudentSecurityPort, DocumentSecurityPort {
 
     private final PasswordEncoder passwordEncoder;
 
