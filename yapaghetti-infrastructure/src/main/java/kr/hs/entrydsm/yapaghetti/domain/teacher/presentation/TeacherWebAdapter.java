@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class TeacherWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
-    public void createFeedBack(@PathVariable("student-id") UUID studentId,
+    public void createFeedBack(@PathVariable("student-id") @NotBlank UUID studentId,
                                @RequestBody @Valid WebCreateFeedBackRequest webCreateFeedBackRequest) {
         createFeedBackPort.createFeedBack(
                 DomainCreateFeedBackRequest.builder()
