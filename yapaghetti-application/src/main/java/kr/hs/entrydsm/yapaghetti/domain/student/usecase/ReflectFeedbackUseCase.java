@@ -26,7 +26,7 @@ public class ReflectFeedbackUseCase implements ReflectFeedbackPort {
 		UUID userId = studentSecurityPort.getCurrentUserId();
 
 		Document document = queryDocumentPort
-			.queryDocumentByUserIdAndType(userId, DocumentType.PROTECTED);
+			.queryDocumentByUserIdAndType(userId, DocumentType.STAY);
 
 		Feedback feedback = queryFeedBackPort
 			.queryFeedbackByDocumentIdAndSequence(document.getId(), sequence)

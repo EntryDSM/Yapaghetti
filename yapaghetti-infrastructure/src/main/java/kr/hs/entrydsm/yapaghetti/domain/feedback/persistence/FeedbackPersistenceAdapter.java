@@ -6,9 +6,11 @@ import kr.hs.entrydsm.yapaghetti.domain.feedback.exception.FeedbackNotFoundExcep
 import kr.hs.entrydsm.yapaghetti.domain.feedback.mapper.FeedbackMapper;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.CommandFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.QueryFeedbackPort;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Adapter
 public class FeedbackPersistenceAdapter implements QueryFeedbackPort, CommandFeedbackPort {
 
     private final FeedbackRepository feedbackRepository;

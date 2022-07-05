@@ -40,7 +40,7 @@ public class ReflectFeedbackUseCaseTest {
 		UUID userId = UUID.randomUUID();
 		UUID documentId = UUID.randomUUID();
 
-		DocumentType documentType = DocumentType.PROTECTED;
+		DocumentType documentType = DocumentType.STAY;
 		Integer sequence = 1;
 
 		given(studentSecurityPort.getCurrentUserId())
