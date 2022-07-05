@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface StudentRepository extends CrudRepository<StudentEntity, UUID> {
-    boolean existsByTagId(UUID tagId);
+    boolean existsByTagEntityId(UUID tagId);
 }

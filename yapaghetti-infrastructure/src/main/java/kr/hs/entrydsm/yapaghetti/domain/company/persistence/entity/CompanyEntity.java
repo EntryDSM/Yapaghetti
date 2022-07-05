@@ -31,7 +31,7 @@ public class CompanyEntity {
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private UserEntity userEntity;
 
 	@Column(columnDefinition = "VARCHAR(40)", nullable = false)
 	private String companyName;

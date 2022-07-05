@@ -33,7 +33,7 @@ public class StudentEntity {
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private UserEntity userEntity;
 
 	@Column(columnDefinition = "TINYINT", nullable = false)
 	private Integer grade;

@@ -2,11 +2,14 @@ package kr.hs.entrydsm.yapaghetti.domain.user.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordUpdatePort;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.SignInPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.UpdateUserInformationPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainSignInRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainUpdateUserInformationRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.response.SignInResponse;
 import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebSignInRequest;
+import kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request.WebUpdateUserInformationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,6 +28,7 @@ public class UserWebAdapter {
 
     private final SignInPort signInPort;
     private final FirstPasswordUpdatePort firstPasswordUpdatePort;
+    private final UpdateUserInformationPort userInformationPort;
 
     @PostMapping("/auth")
     public SignInResponse signIn(@RequestBody @Valid WebSignInRequest request) {
@@ -47,5 +51,19 @@ public class UserWebAdapter {
                         .build()
                 );
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/information")
+    public void updateUserInformation(@RequestBody @Valid WebUpdateUserInformationRequest request) {
+        userInformationPort.execute(
+                DomainUpdateUserInformationRequest.builder()
+                        .location(request.getLocation())
+                        .name(request.getName())
+                        .phoneNumber(request.getPhoneNumber())
+                        .profileImagePath(request.getProfileImagePath())
+                        .build()
+        );
+    }
+
 
 }

@@ -21,7 +21,7 @@ public class StudentPersistenceAdapter implements CommandStudentPort, QueryStude
 	private final StudentMapper studentMapper;
 
 	public boolean existsByTagId(UUID tagId) {
-		return studentRepository.existsByTagId(tagId);
+		return studentRepository.existsByTagEntityId(tagId);
 	}
 
 	@Transactional
