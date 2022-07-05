@@ -11,20 +11,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FeedbackPersistenceAdapter implements QueryFeedbackPort, CommandFeedbackPort {
 
-    private final FeedBackRepository feedBackRepository;
+    private final FeedbackRepository feedbackRepository;
     private final FeedbackMapper feedbackMapper;
 
     @Override
     public Feedback queryFeedbackByDocumentIdAndSequence(UUID documentId, Integer sequence) {
         return feedbackMapper.entityToDomain(
-            feedBackRepository.findByIdDocumentIdAndIdSequence(documentId, sequence)
+            feedbackRepository.findByIdDocumentIdAndIdSequence(documentId, sequence)
                 .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION)
         );
     }
 
     @Override
     public void updateFeedback(Feedback feedback) {
-        feedBackRepository.save(
+        feedbackRepository.save(
             feedbackMapper.domainToEntity(feedback)
         );
     }
