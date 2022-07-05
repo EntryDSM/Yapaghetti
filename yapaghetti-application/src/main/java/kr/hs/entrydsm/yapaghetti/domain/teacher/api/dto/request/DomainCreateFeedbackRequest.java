@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class DomainCreateFeedbackRequest {
 
