@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class FeedBackMapper {
-
     private final DocumentPersistenceAdapter documentPersistenceAdapter;
 
     private final DocumentMapper documentMapper;
