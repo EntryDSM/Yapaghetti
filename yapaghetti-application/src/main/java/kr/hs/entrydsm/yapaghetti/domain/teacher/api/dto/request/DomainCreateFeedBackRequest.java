@@ -10,5 +10,5 @@ import java.util.UUID;
 public class DomainCreateFeedBackRequest {
     private UUID studentId;
     private Integer sequence;
-    private String content;
+    private String comment;
 }

@@ -30,7 +30,7 @@ public class TeacherWebAdapter {
                 DomainCreateFeedBackRequest.builder()
                         .studentId(studentId)
                         .sequence(webCreateFeedBackRequest.getSequence())
-                        .content(webCreateFeedBackRequest.getContent())
+                        .comment(webCreateFeedBackRequest.getContent())
                         .build()
         );
     }

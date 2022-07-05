@@ -29,7 +29,7 @@ public class CreateFeedBackUseCase implements CreateFeedBackPort {
                 FeedBack.builder()
                         .documentId(documentId)
                         .sequence(domainCreateFeedBackRequest.getSequence())
-                        .comment(domainCreateFeedBackRequest.getContent())
+                        .comment(domainCreateFeedBackRequest.getComment())
                         .isApply(false)
                         .build()
         );
