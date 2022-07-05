@@ -37,6 +37,13 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
         documentRepository.delete(documentMapper.domainToEntity(document));
     }
 
+    @Transactional
+    @Override
+    public void cancelStayDocument(Document document) {
+        getDocumentById(document.getId())
+                .changeDocumentType(DocumentType.LOCAL);
+    }
+
     @Override
     public Document queryDocumentById(UUID id) {
         return documentMapper.entityToDomain(
