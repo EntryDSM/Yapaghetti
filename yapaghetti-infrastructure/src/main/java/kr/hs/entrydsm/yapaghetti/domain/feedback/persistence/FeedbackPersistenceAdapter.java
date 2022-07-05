@@ -30,4 +30,12 @@ public class FeedbackPersistenceAdapter implements QueryFeedbackPort, CommandFee
             feedbackMapper.domainToEntity(feedback)
         );
     }
+
+    @Override
+    public void saveFeedback(Feedback feedback) {
+        feedbackRepository.save(
+                feedbackMapper.domainToEntity(feedback)
+        );
+    }
+
 }
