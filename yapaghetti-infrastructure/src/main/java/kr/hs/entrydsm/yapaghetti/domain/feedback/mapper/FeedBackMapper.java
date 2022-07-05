@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class FeedBackMapper {
-    private final DocumentPersistenceAdapter documentPersistenceAdapter;
 
+    private final DocumentPersistenceAdapter documentPersistenceAdapter;
     private final DocumentMapper documentMapper;
 
     public FeedBackEntity domainToEntity(FeedBack feedBack) {
@@ -24,13 +24,13 @@ public class FeedBackMapper {
         return FeedBackEntity.builder()
                 .id(
                         FeedBackEntityId.builder()
-                                .documentId(feedBack.getDocumentId())
                                 .sequence(feedBack.getSequence())
+                                .documentId(feedBack.getDocumentId())
                                 .build()
                 )
-                .isApply(feedBack.isApply())
+                .document(documentEntity)
                 .comment(feedBack.getComment())
-//                .document(documentEntity)
+                .isApply(feedBack.isApply())
                 .build();
     }
 
