@@ -20,16 +20,16 @@ public class CreateFeedBackUseCase implements CreateFeedBackPort {
     private final CommandFeedBackPort commandFeedBackPort;
 
     @Override
-    public void createFeedBack(DomainCreateFeedBackRequest domainCreateFeedBackRequest) {
+    public void createFeedBack(DomainCreateFeedBackRequest request) {
         UUID documentId = queryDocumentPort.queryDocumentByUserIdAndType(
-                domainCreateFeedBackRequest.getStudentId(), DocumentType.STAY
+                request.getStudentId(), DocumentType.STAY
         ).getId();
 
         commandFeedBackPort.saveFeedBack(
                 FeedBack.builder()
                         .documentId(documentId)
-                        .sequence(domainCreateFeedBackRequest.getSequence())
-                        .comment(domainCreateFeedBackRequest.getComment())
+                        .sequence(request.getSequence())
+                        .comment(request.getComment())
                         .isApply(false)
                         .build()
         );
