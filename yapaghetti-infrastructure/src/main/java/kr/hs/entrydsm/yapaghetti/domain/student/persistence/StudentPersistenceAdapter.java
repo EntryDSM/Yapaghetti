@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
-import kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.StudentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
