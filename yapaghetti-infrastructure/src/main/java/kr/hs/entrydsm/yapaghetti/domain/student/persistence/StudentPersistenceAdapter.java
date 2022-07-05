@@ -12,7 +12,7 @@ public class StudentPersistenceAdapter {
 	private final StudentRepository studentRepository;
 
 	public boolean existsByTagId(UUID tagId) {
-		return studentRepository.existsByTagId(tagId);
+		return studentRepository.existsByTagEntityId(tagId);
 	}
 
 }

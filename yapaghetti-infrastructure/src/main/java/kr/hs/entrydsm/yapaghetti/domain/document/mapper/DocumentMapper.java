@@ -32,7 +32,7 @@ public class DocumentMapper {
                 .previewImagePath(document.getPreviewImagePath())
                 .content(document.getContent())
                 .type(document.getType())
-                .user(userEntity)
+                .userEntity(userEntity)
                 .build();
     }
 }

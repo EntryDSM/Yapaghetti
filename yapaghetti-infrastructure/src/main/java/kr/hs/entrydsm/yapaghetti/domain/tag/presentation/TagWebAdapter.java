@@ -54,7 +54,7 @@ public class TagWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/my-skill")
     public void setMySkill(@RequestBody @Valid WebAddMySkillRequest request) {
         addMySkillPort.execute(new DomainAddMySkillRequest(request.getTagList()));
     }

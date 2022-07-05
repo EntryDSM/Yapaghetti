@@ -30,7 +30,7 @@ public class FeedBackEntity {
     @MapsId("documentId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "document_id", nullable = false)
-    private DocumentEntity document;
+    private DocumentEntity documentEntity;
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String comment;

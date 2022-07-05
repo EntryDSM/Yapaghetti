@@ -47,7 +47,7 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     @Override
     public Document queryDocumentByUserIdAndType(UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
-                documentRepository.findByUserIdAndType(userId, type)
+                documentRepository.findByUserEntityIdAndType(userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
@@ -55,7 +55,7 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     @Override
     public Document queryDocumentByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
-                documentRepository.findByIdAndUserIdAndType(documentId, userId, type)
+                documentRepository.findByIdAndUserEntityIdAndType(documentId, userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
     }
