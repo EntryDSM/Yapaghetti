@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.global.annotation.config;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;

@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.CancelStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeleteLocalDocumentPort;
@@ -42,6 +43,7 @@ public class DocumentWebAdapter {
     private final DeletePublicDocumentPort deletePublicDocumentPort;
     private final QueryLocalDocumentPort queryLocalDocumentPort;
     private final DeleteLocalDocumentPort deleteLocalDocumentPort;
+    private final CancelStayDocumentPort cancelStayDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -99,6 +101,11 @@ public class DocumentWebAdapter {
     @DeleteMapping("/{document-id}")
     public void deleteLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         deleteLocalDocumentPort.execute(documentId);
+    }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/cancel/{document-id}")
+    public void cancelStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        cancelStayDocumentPort.execute(documentId);
     }
 }
