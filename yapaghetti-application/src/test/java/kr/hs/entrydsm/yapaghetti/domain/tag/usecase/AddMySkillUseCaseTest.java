@@ -2,7 +2,8 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,10 +20,10 @@ import static org.mockito.BDDMockito.given;
 public class AddMySkillUseCaseTest {
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    TagSecurityPort tagSecurityPort;
 
     @Mock
-    CommandMySkillPort commandMySkillPort;
+    TagCommandMySkillPort tagCommandMySkillPort;
 
     @InjectMocks
     AddMySkillUseCase addMySkillUseCase;
@@ -34,7 +35,7 @@ public class AddMySkillUseCaseTest {
     void 기술태그_설정() {
         UUID userId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(tagSecurityPort.getCurrentUserId()).willReturn(userId);
 
         List<MySkill> mySkills = new ArrayList<>();
         mySkills.add(
@@ -44,8 +45,8 @@ public class AddMySkillUseCaseTest {
                         .build()
         );
 
-        commandMySkillPort.deleteAllMySKillByUserId(userId);
-        commandMySkillPort.saveAllMySkill(mySkills);
+        tagCommandMySkillPort.deleteAllMySKillByUserId(userId);
+        tagCommandMySkillPort.saveAllMySkill(mySkills);
 
         addMySkillUseCase.execute(request);
     }

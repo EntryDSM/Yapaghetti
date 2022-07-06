@@ -6,6 +6,8 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,10 +24,10 @@ import static org.mockito.BDDMockito.given;
 public class SetMajorTagUseCaseTest {
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    TagSecurityPort tagSecurityPort;
 
     @Mock
-    QueryStudentPort queryStudentPort;
+    TagQueryStudentPort tagQueryStudentPort;
 
     @Mock
     QueryTagPort queryTagPort;
@@ -41,8 +43,8 @@ public class SetMajorTagUseCaseTest {
         UUID userId = UUID.randomUUID();
         UUID tagId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryStudentPort.queryUserById(userId)).willReturn(
+        given(tagSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(tagQueryStudentPort.queryUserById(userId)).willReturn(
                 Student.builder()
                         .userId(userId)
                         .grade(3)
@@ -61,8 +63,8 @@ public class SetMajorTagUseCaseTest {
         UUID userId = UUID.randomUUID();
         UUID tagId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryStudentPort.queryUserById(userId)).willReturn(
+        given(tagSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(tagQueryStudentPort.queryUserById(userId)).willReturn(
                 Student.builder()
                         .userId(userId)
                         .grade(3)

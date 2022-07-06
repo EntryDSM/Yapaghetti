@@ -3,10 +3,10 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,10 +21,10 @@ import static org.mockito.BDDMockito.given;
 class DeleteLocalDocumentUseCaseTest {
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    DocumentSecurityPort documentSecurityPort;
 
     @Mock
-    QueryUserPort queryUserPort;
+    DocumentQueryUserPort documentQueryUserPort;
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -40,9 +40,9 @@ class DeleteLocalDocumentUseCaseTest {
         UUID documentId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId())
+        given(documentSecurityPort.getCurrentUserId())
                 .willReturn(userId);
-        given(queryUserPort.queryUserById(userSecurityPort.getCurrentUserId()))
+        given(documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId()))
                 .willReturn(User.builder()
                         .id(userId)
                         .build());

@@ -3,10 +3,10 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ import static org.mockito.BDDMockito.given;
 class CancelStayDocumentUseCaseTest {
 
     @Mock
-    QueryUserPort queryUserPort;
+    DocumentQueryUserPort documentQueryUserPort;
 
     @Mock
     CommandDocumentPort commandDocumentPort;
@@ -42,7 +42,7 @@ class CancelStayDocumentUseCaseTest {
 
         given(documentSecurityPort.getCurrentUserId())
                 .willReturn(userId);
-        given(queryUserPort.queryUserById(documentSecurityPort.getCurrentUserId()))
+        given(documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId()))
                 .willReturn(
                         User.builder()
                                 .id(userId)
