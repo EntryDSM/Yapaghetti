@@ -10,7 +10,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -28,13 +27,6 @@ public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDoc
     @Override
     public void deleteDocument(Document document) {
         documentRepository.delete(documentMapper.domainToEntity(document));
-    }
-
-    @Transactional
-    @Override
-    public void cancelStayDocument(Document document) {
-        getDocumentById(document.getId())
-                .changeDocumentType(DocumentType.LOCAL);
     }
 
     @Override
