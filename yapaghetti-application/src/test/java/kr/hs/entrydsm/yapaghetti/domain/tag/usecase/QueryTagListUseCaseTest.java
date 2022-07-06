@@ -16,13 +16,13 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class GetTagListUseCaseTest {
+public class QueryTagListUseCaseTest {
 
     @Mock
     QueryTagPort queryTagPort;
 
     @InjectMocks
-    GetTagListUseCase getTagListUseCase;
+    QueryTagListUseCase queryTagListUseCase;
 
     @Test
     void 태그목록() {
@@ -36,7 +36,7 @@ public class GetTagListUseCaseTest {
         given(queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor))
                 .willReturn(tags);
 
-        getTagListUseCase.execute(name, isMajor);
+        queryTagListUseCase.execute(name, isMajor);
     }
 
     private Tag addTag(String name) {

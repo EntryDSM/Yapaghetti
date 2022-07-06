@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.QueryTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagElement;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @UseCase
-public class GetTagListUseCase implements GetTagListPort {
+public class QueryTagListUseCase implements QueryTagListPort {
 
     private final QueryTagPort queryTagPort;
 
