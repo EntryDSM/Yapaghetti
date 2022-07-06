@@ -5,9 +5,9 @@ import static org.mockito.BDDMockito.given;
 import java.util.List;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.QueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
@@ -32,7 +32,7 @@ public class GetMyInfoUseCaseTest {
 	StudentSecurityPort studentSecurityPort;
 
 	@Mock
-	QueryMySkillPort queryMySkillPort;
+	StudentQueryMySkillPort studentQueryMySkillPort;
 
 	@Mock
 	QueryTagPort queryTagPort;
@@ -58,7 +58,7 @@ public class GetMyInfoUseCaseTest {
 			.willReturn(
 				User.builder().build()
 			);
-		given(queryMySkillPort.queryMySkillByUserId(userId))
+		given(studentQueryMySkillPort.queryMySkillByUserId(userId))
 			.willReturn(
 				List.of(MySkill.builder()
 				.userId(userId)

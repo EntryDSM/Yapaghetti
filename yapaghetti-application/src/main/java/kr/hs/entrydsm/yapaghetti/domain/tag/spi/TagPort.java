@@ -1,4 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.spi;
 
-public interface TagPort extends CommandTagPort, QueryTagPort {
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryTagPort;
+
+public interface TagPort extends CommandTagPort, QueryTagPort, StudentQueryTagPort {
 }

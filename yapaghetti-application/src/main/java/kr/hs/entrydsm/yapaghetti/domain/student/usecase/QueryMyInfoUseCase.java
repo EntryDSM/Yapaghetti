@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.QueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.QueryMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
@@ -23,8 +24,8 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
 	private final QueryStudentPort queryStudentPort;
 	private final QueryUserPort queryUserPort;
 	private final StudentSecurityPort studentSecurityPort;
-	private final QueryMySkillPort queryMySkillPort;
-	private final QueryTagPort queryTagPort;
+	private final StudentQueryMySkillPort studentQueryMySkillPort;
+	private final StudentQueryTagPort studentQueryTagPort;
 
 	@Override
 	public MyInfoResponse execute() {
@@ -34,12 +35,12 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
 
 		User user = queryUserPort.queryUserById(userId);
 
-		List<String> tagList = queryMySkillPort.queryMySkillByUserId(userId).stream()
-			.map(mySkill -> queryTagPort.queryTagById(mySkill.getTagId()))
+		List<String> tagList = studentQueryMySkillPort.queryMySkillByUserId(userId).stream()
+			.map(mySkill -> studentQueryTagPort.queryTagById(mySkill.getTagId()))
 			.map(Tag::getName)
 			.collect(Collectors.toList());
 
-		String major = queryTagPort.queryTagById(student.getTagId()).getName();
+		String major = studentQueryTagPort.queryTagById(student.getTagId()).getName();
 
 		return MyInfoResponse.builder()
 			.grade(student.getGrade())

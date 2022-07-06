@@ -1,4 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.my_skill.spi;
 
-public interface MySkillPort extends CommandMySkillPort, QueryMySkillPort {
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryMySkillPort;
+
+public interface MySkillPort extends CommandMySkillPort, StudentQueryMySkillPort {
 }
