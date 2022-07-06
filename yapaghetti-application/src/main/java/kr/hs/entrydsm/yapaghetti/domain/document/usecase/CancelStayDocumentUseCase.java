@@ -32,14 +32,6 @@ public class CancelStayDocumentUseCase implements CancelStayDocumentPort {
                 DocumentType.STAY
         );
 
-        commandDocumentPort.saveDocument(
-                Document.builder()
-                        .id(document.getId())
-                        .previewImagePath(document.getPreviewImagePath())
-                        .content(document.getContent())
-                        .type(DocumentType.STAY)
-                        .userId(currentUser.getId())
-                        .build()
-        );
+        commandDocumentPort.saveDocument(document.cancelStayDocument());
     }
 }
