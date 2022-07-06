@@ -32,6 +32,6 @@ public class ReflectFeedbackUseCase implements ReflectFeedbackPort {
 			.queryFeedbackByDocumentIdAndSequence(document.getId(), sequence)
 			.reflectFeedback();
 
-		commandFeedbackPort.updateFeedback(feedback);
+		commandFeedbackPort.saveFeedback(feedback);
 	}
 }
