@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceA
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
+import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
@@ -48,6 +49,14 @@ public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
         return tagRepository.findAllByNameContainingAndType(name, type).stream()
                 .map(tagMapper::entityToDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Tag queryTagById(UUID tagId) {
+        return tagMapper.entityToDomain(
+            tagRepository.findById(tagId)
+                .orElseThrow(() -> TagNotFoundException.EXCEPTION)
+        );
     }
 
     @Override

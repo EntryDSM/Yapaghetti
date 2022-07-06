@@ -42,7 +42,7 @@ public class SetMajorTagUseCaseTest {
         UUID tagId = UUID.randomUUID();
 
         given(userSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryStudentPort.findById(userId)).willReturn(
+        given(queryStudentPort.queryUserById(userId)).willReturn(
                 Student.builder()
                         .userId(userId)
                         .grade(3)
@@ -62,7 +62,7 @@ public class SetMajorTagUseCaseTest {
         UUID tagId = UUID.randomUUID();
 
         given(userSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryStudentPort.findById(userId)).willReturn(
+        given(queryStudentPort.queryUserById(userId)).willReturn(
                 Student.builder()
                         .userId(userId)
                         .grade(3)
