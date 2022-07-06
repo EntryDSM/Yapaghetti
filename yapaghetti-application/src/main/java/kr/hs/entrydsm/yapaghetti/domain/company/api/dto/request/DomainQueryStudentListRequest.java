@@ -1,14 +1,14 @@
 package kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class DomainQueryStudentListRequest {
 
-    private final String name = "%";
-    private final String major = "%";
-    private final String classNum = "%";
+    private String name = "%";
+    private String major = "%";
+    private String classNum = "%";
 
 }
