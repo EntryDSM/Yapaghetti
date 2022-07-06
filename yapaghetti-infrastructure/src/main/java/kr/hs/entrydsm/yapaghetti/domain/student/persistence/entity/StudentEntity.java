@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity;
 
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +18,6 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
@@ -63,4 +70,5 @@ public class StudentEntity {
 	public UUID getTagId() {
 		return tagEntity.getId();
 	}
+
 }

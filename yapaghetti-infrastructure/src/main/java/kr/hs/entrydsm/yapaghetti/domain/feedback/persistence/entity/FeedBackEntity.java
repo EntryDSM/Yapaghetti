@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity;
 
+import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,4 +39,7 @@ public class FeedBackEntity {
     @Column(columnDefinition = "BIT(1)", nullable = false)
     private Boolean isApply;
 
+    public UUID getDocumentId() {
+        return documentEntity.getId();
+    }
 }

@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.mapper.MySkillMapper;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.CommandMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.MySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Adapter
-public class MySkillPersistenceAdapter implements CommandMySkillPort {
+public class MySkillPersistenceAdapter implements MySkillPort {
 
     private final MySkillRepository mySkillRepository;
 
@@ -38,6 +38,12 @@ public class MySkillPersistenceAdapter implements CommandMySkillPort {
     }
 
     @Override
+    public List<MySkill> queryMySkillByUserId(UUID userId) {
+        return mySkillRepository.findByUserEntityId(userId).stream()
+            .map(mySkillMapper::entityToDomain)
+            .collect(Collectors.toList());
+    }
+  
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }

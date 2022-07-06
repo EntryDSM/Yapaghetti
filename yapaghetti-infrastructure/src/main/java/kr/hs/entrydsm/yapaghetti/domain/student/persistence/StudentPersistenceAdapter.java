@@ -6,6 +6,10 @@ import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
+import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +28,7 @@ import static kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.QUserEnti
 public class StudentPersistenceAdapter implements StudentPort {
 
     private final StudentRepository studentRepository;
+	  private final StudentMapper studentMapper;
     private final JPAQueryFactory jpaQueryFactory;
 
     public boolean existsByTagId(UUID tagId) {
@@ -72,4 +77,16 @@ public class StudentPersistenceAdapter implements StudentPort {
         return "%" + value + "%";
     }
 
+	@Override
+	public void saveStudent(Student student) {
+		studentRepository.save(studentMapper.domainToEntity(student));
+	}
+
+	@Override
+	public Student queryUserById(UUID id) {
+		return studentMapper.entityToDomain(
+			studentRepository.findById(id)
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+		);
+	}
 }
