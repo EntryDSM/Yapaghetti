@@ -39,7 +39,7 @@ class UpdateCompanyNameUseCaseTest {
         UUID userId = UUID.randomUUID();
         given(companySecurityPort.getCurrentUserId())
                 .willReturn(userId);
-        given(queryCompanyPort.findCompanyByUserId(userId))
+        given(queryCompanyPort.queryCompanyByUserId(userId))
                 .willReturn(
                         Company.builder()
                                 .companyName("테스트")

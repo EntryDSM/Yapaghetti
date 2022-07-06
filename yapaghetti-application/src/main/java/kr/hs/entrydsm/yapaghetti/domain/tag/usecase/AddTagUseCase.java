@@ -19,7 +19,7 @@ public class AddTagUseCase implements AddTagPort {
 
     @Override
     public void execute(DomainAddTagRequest request) {
-        if (queryTagPort.existByName(request.getName())) {
+        if (queryTagPort.existsByName(request.getName())) {
             throw AlreadyExistsTagException.EXCEPTION;
         }
 

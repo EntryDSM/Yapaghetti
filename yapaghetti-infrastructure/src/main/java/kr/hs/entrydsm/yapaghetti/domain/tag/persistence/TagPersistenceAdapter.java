@@ -7,13 +7,11 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -41,7 +39,7 @@ public class TagPersistenceAdapter implements TagPort {
     }
 
     @Override
-    public List<Tag> findAllByNameContainingAndIsMajor(String name, boolean isMajor) {
+    public List<Tag> queryAllTagByNameContainingAndIsMajor(String name, boolean isMajor) {
         TagType type = isMajor ? TagType.MAJOR : TagType.SKILL;
 
         return tagRepository.findAllByNameContainingAndType(name, type).stream()
@@ -67,12 +65,8 @@ public class TagPersistenceAdapter implements TagPort {
     }
 
     @Override
-    public boolean existByName(String name) {
+    public boolean existsByName(String name) {
         return tagRepository.existsByName(name);
-    }
-
-    public Optional<TagEntity> findTagById(UUID tagId) {
-        return tagRepository.findById(tagId);
     }
 
 }

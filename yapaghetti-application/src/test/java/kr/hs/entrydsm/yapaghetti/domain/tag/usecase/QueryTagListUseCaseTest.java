@@ -33,7 +33,7 @@ public class QueryTagListUseCaseTest {
         tags.add(addTag("Java"));
         tags.add(addTag("JavaScript"));
 
-        given(queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor))
+        given(queryTagPort.queryAllTagByNameContainingAndIsMajor(name, isMajor))
                 .willReturn(tags);
 
         queryTagListUseCase.execute(name, isMajor);

@@ -18,7 +18,7 @@ public class QueryTagListUseCase implements QueryTagListPort {
 
     @Override
     public TagListResponse execute(String name, boolean isMajor) {
-        List<TagElement> tags = queryTagPort.findAllByNameContainingAndIsMajor(name, isMajor).stream()
+        List<TagElement> tags = queryTagPort.queryAllTagByNameContainingAndIsMajor(name, isMajor).stream()
                 .map(t -> new TagElement(t.getId(), t.getName()))
                 .collect(Collectors.toList());
 
