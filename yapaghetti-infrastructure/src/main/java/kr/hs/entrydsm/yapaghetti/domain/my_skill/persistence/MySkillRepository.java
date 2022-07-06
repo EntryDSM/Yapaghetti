@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface MySkillRepository extends CrudRepository<MySkillEntity, MySkillEntityId> {
-    List<MySkillEntity> findByUserId(UUID userId);
+    List<MySkillEntity> findByUserEntityId(UUID userId);
     boolean existsByTagEntityId(UUID tagId);
     void deleteAllByUserEntityId(UUID userId);
 }

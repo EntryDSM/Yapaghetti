@@ -39,7 +39,7 @@ public class MySkillPersistenceAdapter implements MySkillPort {
 
     @Override
     public List<MySkill> queryMySkillByUserId(UUID userId) {
-        return mySkillRepository.findByUserId(userId).stream()
+        return mySkillRepository.findByUserEntityId(userId).stream()
             .map(mySkillMapper::entityToDomain)
             .collect(Collectors.toList());
     }
