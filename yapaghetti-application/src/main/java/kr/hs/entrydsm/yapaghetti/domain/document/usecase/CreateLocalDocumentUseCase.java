@@ -6,6 +6,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLoc
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
@@ -16,13 +17,13 @@ import lombok.RequiredArgsConstructor;
 @UseCase
 public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
 
-    private final QueryUserPort queryUserPort;
+    private final DocumentQueryUserPort documentQueryUserPort;
     private final DocumentSecurityPort documentSecurityPort;
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
     public void execute(DomainCreateLocalDocumentRequest request) {
-        User user = queryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
+        User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         commandDocumentPort.saveDocument(
                 Document.builder()
