@@ -5,8 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
-public class DocumentPersistenceAdapter implements CommandDocumentPort, QueryDocumentPort {
+public class DocumentPersistenceAdapter implements DocumentPort {
 
     private final DocumentRepository documentRepository;
     private final DocumentMapper documentMapper;

@@ -7,21 +7,19 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagPort;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
-import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
-import lombok.RequiredArgsConstructor;
-
 @RequiredArgsConstructor
 @Adapter
-public class TagPersistenceAdapter implements CommandTagPort, QueryTagPort {
+public class TagPersistenceAdapter implements TagPort {
 
     private final TagRepository tagRepository;
 

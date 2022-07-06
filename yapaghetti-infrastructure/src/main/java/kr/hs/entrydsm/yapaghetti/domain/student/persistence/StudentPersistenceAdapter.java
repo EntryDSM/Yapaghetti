@@ -3,8 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
-import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
-import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
-public class StudentPersistenceAdapter implements CommandStudentPort, QueryStudentPort {
+public class StudentPersistenceAdapter implements StudentPort {
 
 	private final StudentRepository studentRepository;
 	private final StudentMapper studentMapper;
