@@ -5,7 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.QueryMySkillPort;
-import kr.hs.entrydsm.yapaghetti.domain.student.api.GetMyInfoPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.QueryMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class GetMyInfoUseCase implements GetMyInfoPort {
+public class QueryMyInfoUseCase implements QueryMyInfoPort {
 
 	private final QueryStudentPort queryStudentPort;
 	private final QueryUserPort queryUserPort;

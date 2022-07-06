@@ -38,7 +38,7 @@ public class GetMyInfoUseCaseTest {
 	QueryTagPort queryTagPort;
 
 	@InjectMocks
-	GetMyInfoUseCase getMyInfoUseCase;
+	QueryMyInfoUseCase getMyInfoUseCase;
 
 	@Test
 	void execute() {

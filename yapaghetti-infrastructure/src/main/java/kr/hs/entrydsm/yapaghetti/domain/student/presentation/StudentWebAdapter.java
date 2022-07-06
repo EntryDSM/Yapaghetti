@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.presentation;
 
-import kr.hs.entrydsm.yapaghetti.domain.student.api.GetMyInfoPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.QueryMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.ReflectFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import lombok.NonNull;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentWebAdapter {
 
-	private final GetMyInfoPort getMyInfoPort;
+	private final QueryMyInfoPort queryMyInfoPort;
 	private final ReflectFeedbackPort reflectFeedbackPort;
 
 	@GetMapping
 	public MyInfoResponse queryMyInfo() {
-		return getMyInfoPort.execute();
+		return queryMyInfoPort.execute();
 	}
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
