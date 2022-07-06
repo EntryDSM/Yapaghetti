@@ -49,7 +49,7 @@ public class CreateFeedbackTest {
         given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY))
                 .willReturn(Document.builder().build());
 
-        createFeedbackUseCase.createFeedback(request);
+        createFeedbackUseCase.execute(request);
 
     }
 

@@ -20,7 +20,7 @@ public class CreateFeedbackUseCase implements CreateFeedbackPort {
     private final QueryDocumentPort queryDocumentPort;
 
     @Override
-    public void createFeedback(DomainCreateFeedbackRequest request) {
+    public void execute(DomainCreateFeedbackRequest request) {
 
         UUID documentId = queryDocumentPort.queryDocumentByUserIdAndType(
                 request.getStudentId(), DocumentType.STAY

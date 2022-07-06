@@ -5,6 +5,6 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeed
 
 public interface CreateFeedbackPort {
 
-    void createFeedback(DomainCreateFeedbackRequest request);
+    void execute(DomainCreateFeedbackRequest request);
 
 }
