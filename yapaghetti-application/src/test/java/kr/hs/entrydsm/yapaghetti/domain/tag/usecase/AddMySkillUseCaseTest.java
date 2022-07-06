@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.CommandMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;

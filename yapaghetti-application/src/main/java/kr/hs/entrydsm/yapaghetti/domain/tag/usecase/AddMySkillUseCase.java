@@ -2,9 +2,9 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.CommandMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagSecurityPort;
 import lombok.RequiredArgsConstructor;
 
@@ -18,13 +18,13 @@ public class AddMySkillUseCase implements AddMySkillPort {
 
     private final TagSecurityPort tagSecurityPort;
 
-    private final CommandMySkillPort commandMySkillPort;
+    private final TagCommandMySkillPort tagCommandMySkillPort;
 
     @Override
     public void execute(DomainAddMySkillRequest request) {
         UUID userId = tagSecurityPort.getCurrentUserId();
 
-        commandMySkillPort.deleteAllMySKillByUserId(userId);
+        tagCommandMySkillPort.deleteAllMySKillByUserId(userId);
 
         List<MySkill> mySkills = request.getTagList().stream()
                 .map(tagId -> MySkill.builder()
@@ -33,7 +33,7 @@ public class AddMySkillUseCase implements AddMySkillPort {
                                 .build()
                 ).collect(Collectors.toList());
 
-        commandMySkillPort.saveAllMySkill(mySkills);
+        tagCommandMySkillPort.saveAllMySkill(mySkills);
     }
 
 }
