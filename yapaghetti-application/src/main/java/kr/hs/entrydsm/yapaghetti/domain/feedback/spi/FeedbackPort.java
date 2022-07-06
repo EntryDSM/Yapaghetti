@@ -1,4 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.spi;
 
-public interface FeedbackPort extends CommandFeedbackPort, QueryFeedbackPort {
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryFeedbackPort;
+
+public interface FeedbackPort extends CommandFeedbackPort, StudentQueryFeedbackPort {
 }

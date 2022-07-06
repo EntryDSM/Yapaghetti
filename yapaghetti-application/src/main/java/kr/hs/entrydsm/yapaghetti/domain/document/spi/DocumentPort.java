@@ -1,4 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.spi;
 
-public interface DocumentPort extends CommandDocumentPort, QueryDocumentPort {
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryDocumentPort;
+
+public interface DocumentPort extends CommandDocumentPort, QueryDocumentPort, StudentQueryDocumentPort {
 }

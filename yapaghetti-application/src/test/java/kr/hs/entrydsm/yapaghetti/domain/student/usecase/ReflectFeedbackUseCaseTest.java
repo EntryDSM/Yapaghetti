@@ -9,7 +9,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.CommandFeedbackPort;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.QueryFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
