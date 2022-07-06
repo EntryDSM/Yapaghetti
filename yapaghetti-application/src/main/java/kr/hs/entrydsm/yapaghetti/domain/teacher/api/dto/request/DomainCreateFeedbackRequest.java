@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class DomainCreateFeedbackRequest {
 
     private UUID studentId;
