@@ -5,7 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.api.AddTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.SetMajorTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddMySkillRequest;
-import kr.hs.entrydsm.yapaghetti.domain.tag.api.GetTagListPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.QueryTagListPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainAddTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.presentation.dto.request.WebAddMySkillRequest;
@@ -38,7 +38,7 @@ public class TagWebAdapter {
 
     private final AddMySkillPort addMySkillPort;
 
-    private final GetTagListPort getTagListPort;
+    private final QueryTagListPort queryTagListPort;
 
     private final SetMajorTagPort setMajorTagPort;
 
@@ -66,9 +66,9 @@ public class TagWebAdapter {
     }
 
     @GetMapping
-    public TagListResponse getTagList(@RequestParam(value = "name", defaultValue = "") String name,
+    public TagListResponse queryTagList(@RequestParam(value = "name", defaultValue = "") String name,
                                       @RequestParam("isMajor") boolean isMajor) {
-        return getTagListPort.execute(name, isMajor);
+        return queryTagListPort.execute(name, isMajor);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

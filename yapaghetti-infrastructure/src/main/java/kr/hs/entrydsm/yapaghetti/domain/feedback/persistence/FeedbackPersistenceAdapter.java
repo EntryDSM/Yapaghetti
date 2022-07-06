@@ -1,19 +1,17 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.persistence;
 
-import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.exception.FeedbackNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.mapper.FeedbackMapper;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedBackEntity;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedBackEntityId;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.CommandFeedbackPort;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.QueryFeedbackPort;
+import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.FeedbackPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Adapter
-public class FeedbackPersistenceAdapter implements QueryFeedbackPort, CommandFeedbackPort {
+public class FeedbackPersistenceAdapter implements FeedbackPort {
 
     private final FeedbackRepository feedbackRepository;
     private final FeedbackMapper feedbackMapper;

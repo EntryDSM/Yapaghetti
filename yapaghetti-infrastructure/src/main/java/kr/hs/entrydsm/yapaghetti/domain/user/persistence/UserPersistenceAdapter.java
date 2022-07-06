@@ -4,8 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.user.mapper.UserMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
-public class UserPersistenceAdapter implements QueryUserPort, CommandUserPort {
+public class UserPersistenceAdapter implements UserPort {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;

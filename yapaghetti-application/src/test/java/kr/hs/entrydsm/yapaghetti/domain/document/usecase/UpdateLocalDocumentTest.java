@@ -4,6 +4,8 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLoc
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
@@ -22,10 +24,10 @@ import static org.mockito.BDDMockito.given;
 class UpdateLocalDocumentTest {
 
     @Mock
-    QueryUserPort queryUserPort;
+    DocumentQueryUserPort documentQueryUserPort;
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    DocumentSecurityPort documentSecurityPort;
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -52,9 +54,9 @@ class UpdateLocalDocumentTest {
                 .willReturn(previewImagePath);
         given(request.getContent())
                 .willReturn(content);
-        given(userSecurityPort.getCurrentUserId())
+        given(documentSecurityPort.getCurrentUserId())
                 .willReturn(userId);
-        given(queryUserPort.queryUserById(userSecurityPort.getCurrentUserId()))
+        given(documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId()))
                 .willReturn(User.builder()
                         .id(userId)
                         .build());

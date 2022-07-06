@@ -1,23 +1,24 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.usecase;
 
-import static org.mockito.BDDMockito.given;
-
-import java.util.List;
-import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.QueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class GetMyInfoUseCaseTest {
@@ -26,19 +27,19 @@ public class GetMyInfoUseCaseTest {
 	QueryStudentPort queryStudentPort;
 
 	@Mock
-	QueryUserPort queryUserPort;
+	StudentQueryUserPort studentQueryUserPort;
 
 	@Mock
 	StudentSecurityPort studentSecurityPort;
 
 	@Mock
-	QueryMySkillPort queryMySkillPort;
+	StudentQueryMySkillPort studentQueryMySkillPort;
 
 	@Mock
-	QueryTagPort queryTagPort;
+	StudentQueryTagPort studentQueryTagPort;
 
 	@InjectMocks
-	GetMyInfoUseCase getMyInfoUseCase;
+	QueryMyInfoUseCase getMyInfoUseCase;
 
 	@Test
 	void execute() {
@@ -54,18 +55,18 @@ public class GetMyInfoUseCaseTest {
 					.tagId(tagId)
 					.build()
 			);
-		given(queryUserPort.queryUserById(userId))
+		given(studentQueryUserPort.queryUserById(userId))
 			.willReturn(
 				User.builder().build()
 			);
-		given(queryMySkillPort.queryMySkillByUserId(userId))
+		given(studentQueryMySkillPort.queryMySkillByUserId(userId))
 			.willReturn(
 				List.of(MySkill.builder()
 				.userId(userId)
 				.tagId(tagId)
 				.build())
 			);
-		given(queryTagPort.queryTagById(tagId))
+		given(studentQueryTagPort.queryTagById(tagId))
 			.willReturn(
 				Tag.builder()
 				.name(tagName)

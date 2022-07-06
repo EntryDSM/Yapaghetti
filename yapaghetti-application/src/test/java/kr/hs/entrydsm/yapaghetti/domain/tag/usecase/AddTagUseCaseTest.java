@@ -39,7 +39,7 @@ public class AddTagUseCaseTest {
 
         given(TagType.MAJOR.equals(type) && request.getIsMajor()).willReturn(true);
 
-        given(queryTagPort.existByName(name)).willReturn(false);
+        given(queryTagPort.existsByName(name)).willReturn(false);
 
         addTagUseCase.execute(request);
     }
@@ -49,7 +49,7 @@ public class AddTagUseCaseTest {
         String name = "프론트엔드";
 
         given(request.getName()).willReturn(name);
-        given(queryTagPort.existByName(name)).willReturn(true);
+        given(queryTagPort.existsByName(name)).willReturn(true);
 
         assertThatThrownBy(() -> addTagUseCase.execute(request))
                 .isInstanceOf(AlreadyExistsTagException.class);
