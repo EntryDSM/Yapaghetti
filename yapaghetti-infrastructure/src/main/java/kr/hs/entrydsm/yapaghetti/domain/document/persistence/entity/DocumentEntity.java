@@ -45,11 +45,6 @@ public class DocumentEntity extends BaseUUIDEntity {
         return userEntity.getId();
     }
 
-    public void changeDocument(String previewImagePath, String content) {
-        this.previewImagePath = previewImagePath;
-        this.content = content;
-    }
-
     public void changeDocumentType(DocumentType type) {
         this.type = type;
     }

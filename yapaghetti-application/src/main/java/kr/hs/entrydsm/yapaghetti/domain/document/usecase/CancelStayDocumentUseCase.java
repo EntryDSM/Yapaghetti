@@ -24,14 +24,22 @@ public class CancelStayDocumentUseCase implements CancelStayDocumentPort {
 
     @Override
     public void execute(UUID documentId) {
-        User user = queryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
+        User currentUser = queryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         Document document = queryDocumentPort.queryDocumentByIdAndUserIdAndType(
                 documentId,
-                user.getId(),
+                currentUser.getId(),
                 DocumentType.STAY
         );
 
-        commandDocumentPort.cancelStayDocument(document);
+        commandDocumentPort.saveDocument(
+                Document.builder()
+                        .id(document.getId())
+                        .previewImagePath(document.getPreviewImagePath())
+                        .content(document.getContent())
+                        .type(DocumentType.STAY)
+                        .userId(currentUser.getId())
+                        .build()
+        );
     }
 }

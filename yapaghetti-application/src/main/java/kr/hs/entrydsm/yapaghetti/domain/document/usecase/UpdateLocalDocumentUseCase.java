@@ -30,14 +30,13 @@ public class UpdateLocalDocumentUseCase implements UpdateLocalDocumentPort {
                         request.getDocumentId(), currentUser.getId(), DocumentType.LOCAL
                 );
 
-        commandDocumentPort.updateDocument(
+        commandDocumentPort.saveDocument(
                 Document.builder()
                         .id(document.getId())
                         .previewImagePath(request.getPreviewImagePath())
                         .content(request.getContent())
                         .type(DocumentType.LOCAL)
                         .userId(currentUser.getId())
-                        .build()
-        );
+                        .build());
     }
 }
