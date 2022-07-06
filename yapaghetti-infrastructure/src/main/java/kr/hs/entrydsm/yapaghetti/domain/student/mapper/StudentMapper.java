@@ -3,10 +3,10 @@ package kr.hs.entrydsm.yapaghetti.domain.student.mapper;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.StudentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagPersistenceAdapter;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
-import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserPersistenceAdapter;
+import kr.hs.entrydsm.yapaghetti.domain.user.persistence.UserRepository;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
-	private final UserPersistenceAdapter userPersistenceAdapter;
-	private final TagPersistenceAdapter tagPersistenceAdapter;
+	private final UserRepository userRepository;
+	private final TagRepository tagRepository;
 
 	public Student entityToDomain(StudentEntity studentEntity) {
 		return Student.builder()
@@ -29,10 +29,10 @@ public class StudentMapper {
 	}
 
 	public StudentEntity domainToEntity(Student student) {
-		UserEntity userEntity = userPersistenceAdapter.findUserById(student.getUserId())
+		UserEntity userEntity = userRepository.findById(student.getUserId())
 			.orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-		TagEntity tagEntity = tagPersistenceAdapter.findTagById(student.getTagId())
+		TagEntity tagEntity = tagRepository.findById(student.getTagId())
 			.orElseThrow(() -> TagNotFoundException.EXCEPTION);
 
 		return StudentEntity.builder()
