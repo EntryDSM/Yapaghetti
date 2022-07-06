@@ -8,14 +8,14 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.api.SetMajorTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagSecurityPort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
 public class SetMajorTagUseCase implements SetMajorTagPort {
 
-    private final UserSecurityPort userSecurityPort;
+    private final TagSecurityPort tagSecurityPort;
 
     private final QueryStudentPort queryStudentPort;
 
@@ -25,7 +25,7 @@ public class SetMajorTagUseCase implements SetMajorTagPort {
 
     @Override
     public void execute(DomainSetMajorTagRequest request) {
-        Student student = queryStudentPort.queryUserById(userSecurityPort.getCurrentUserId());
+        Student student = queryStudentPort.queryUserById(tagSecurityPort.getCurrentUserId());
 
         if (!queryTagPort.existsById(request.getTagId())) {
             throw TagNotFoundException.EXCEPTION;
