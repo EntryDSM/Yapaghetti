@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceA
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
+import kr.hs.entrydsm.yapaghetti.domain.tag.exception.AlreadyExistsTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
@@ -34,8 +35,10 @@ public class TagPersistenceAdapter implements TagPort {
     }
 
     @Override
-    public boolean existsById(UUID tagId) {
-        return tagRepository.existsById(tagId);
+    public void existsById(UUID tagId) {
+        if (!tagRepository.existsById(tagId)) {
+            throw TagNotFoundException.EXCEPTION;
+        }
     }
 
     @Override
@@ -57,6 +60,10 @@ public class TagPersistenceAdapter implements TagPort {
 
     @Override
     public void deleteTagById(UUID tagId) {
+        if (!tagRepository.existsById(tagId)) {
+            throw TagNotFoundException.EXCEPTION;
+        }
+
         if (mySkillPersistenceAdapter.existsByTagId(tagId) || studentPersistenceAdapter.existsByTagId(tagId)) {
             throw UnableDeleteTagException.EXCEPTION;
         }
@@ -65,8 +72,10 @@ public class TagPersistenceAdapter implements TagPort {
     }
 
     @Override
-    public boolean existsByName(String name) {
-        return tagRepository.existsByName(name);
+    public void existsByName(String name) {
+        if (tagRepository.existsByName(name)) {
+            throw AlreadyExistsTagException.EXCEPTION;
+        }
     }
 
 }
