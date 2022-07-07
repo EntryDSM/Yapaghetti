@@ -28,9 +28,7 @@ public class SetMajorTagUseCase implements SetMajorTagPort {
     public void execute(DomainSetMajorTagRequest request) {
         Student student = tagQueryStudentPort.queryUserById(tagSecurityPort.getCurrentUserId());
 
-        if (!queryTagPort.existsById(request.getTagId())) {
-            throw TagNotFoundException.EXCEPTION;
-        }
+        queryTagPort.existsById(request.getTagId());
 
         commandStudentPort.saveStudent(student.updateTagId(request.getTagId()));
     }
