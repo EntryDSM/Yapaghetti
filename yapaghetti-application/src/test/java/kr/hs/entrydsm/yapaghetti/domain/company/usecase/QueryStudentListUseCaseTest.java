@@ -20,8 +20,9 @@ class QueryStudentListUseCaseTest {
 
     @Test
     void execute() {
-        DomainQueryStudentListRequest request = new DomainQueryStudentListRequest();
-        request.setName("test");
+        DomainQueryStudentListRequest request = new DomainQueryStudentListRequest(
+                "test", null, null
+        );
 
         queryStudentListUseCase.execute(request);
     }
