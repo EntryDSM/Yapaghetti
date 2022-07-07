@@ -32,4 +32,11 @@ public class StudentPersistenceAdapter implements StudentPort {
 				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
 		);
 	}
+
+	@Override
+	public void deleteStudent(Student student) {
+		studentRepository.delete(
+				studentMapper.domainToEntity(student)
+		);
+	}
 }
