@@ -21,7 +21,7 @@ class QueryStudentListUseCaseTest {
     @Test
     void execute() {
         DomainQueryStudentListRequest request = new DomainQueryStudentListRequest(
-                "test", null, null
+                "test", "major", "2"
         );
 
         queryStudentListUseCase.execute(request);
