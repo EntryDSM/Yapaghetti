@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -35,4 +36,10 @@ public class CompanyEntity {
 
 	@Column(columnDefinition = "VARCHAR(40)", nullable = false)
 	private String companyName;
+
+	@Column(columnDefinition = "DATETIME", nullable = false)
+	private LocalDateTime startAt;
+
+	@Column(columnDefinition = "DATETIME", nullable = false)
+	private LocalDateTime endAt;
 }
