@@ -72,9 +72,7 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     }
 
-    private String likePreProcessing(String value) {
-        return "%" + value + "%";
-    }
+    
 
     @Override
     public void saveStudent(Student student) {
@@ -87,5 +85,33 @@ public class StudentPersistenceAdapter implements StudentPort {
                 studentRepository.findById(id)
                         .orElseThrow(() -> StudentNotFoundException.EXCEPTION)
         );
+    }
+
+	public boolean existsByTagId(UUID tagId) {
+		return studentRepository.existsByTagEntityId(tagId);
+	}
+
+	@Override
+	public void saveStudent(Student student) {
+		studentRepository.save(studentMapper.domainToEntity(student));
+	}
+
+	@Override
+	public Student queryUserById(UUID id) {
+		return studentMapper.entityToDomain(
+			studentRepository.findById(id)
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+		);
+	}
+
+	@Override
+	public void deleteStudent(Student student) {
+		studentRepository.delete(
+				studentMapper.domainToEntity(student)
+		);
+	}
+  
+  private String likePreProcessing(String value) {
+        return "%" + value + "%";
     }
 }
