@@ -1,10 +1,10 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.spi;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryFeedBackResponse;
+import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface DocumentQueryFeedbackPort {
-    List<QueryFeedBackResponse> queryFeedbackByDocumentId(UUID documentId);
+    List<Feedback> queryFeedbackByDocumentId(UUID documentId);
 }
