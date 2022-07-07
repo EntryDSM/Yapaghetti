@@ -23,6 +23,5 @@ public class DeleteCompanyUseCase implements DeleteCompanyPort {
 
         teacherCommandCompanyPort.deleteCompany(company);
     }
-
-
+    
 }
