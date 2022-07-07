@@ -18,9 +18,9 @@ public class CompanyPersistenceAdapter implements QueryCompanyPort, CommandCompa
     private final CompanyMapper companyMapper;
 
     @Override
-    public Company findCompanyByUserId(UUID userId) {
+    public Company queryCompanyByUserId(UUID userId) {
         return companyMapper.entityToDomain(
-                companyRepository.findByUserId(userId)
+                companyRepository.findByUserEntityId(userId)
                         .orElseThrow(() -> CompanyNotFoundException.EXCEPTION)
         );
     }

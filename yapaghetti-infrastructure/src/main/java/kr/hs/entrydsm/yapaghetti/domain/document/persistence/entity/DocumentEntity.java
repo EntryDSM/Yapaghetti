@@ -39,14 +39,13 @@ public class DocumentEntity extends BaseUUIDEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    private UserEntity userEntity;
 
     public UUID getUserId() {
-        return user.getId();
+        return userEntity.getId();
     }
 
-    public void changeDocument(String previewImagePath, String content) {
-        this.previewImagePath = previewImagePath;
-        this.content = content;
+    public void changeDocumentType(DocumentType type) {
+        this.type = type;
     }
 }

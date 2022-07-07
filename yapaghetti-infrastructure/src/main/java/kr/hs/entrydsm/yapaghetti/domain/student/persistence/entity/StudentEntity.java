@@ -1,5 +1,13 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity;
 
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,14 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
-import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Getter
@@ -33,7 +33,7 @@ public class StudentEntity {
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private UserEntity userEntity;
 
 	@Column(columnDefinition = "TINYINT", nullable = false)
 	private Integer grade;
@@ -51,4 +51,5 @@ public class StudentEntity {
 	public UUID getTagId() {
 		return tagEntity.getId();
 	}
+
 }

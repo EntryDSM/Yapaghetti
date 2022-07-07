@@ -25,7 +25,7 @@ public class CompanyMapper {
         UserEntity user = userPersistenceAdapter.findUserById(company.getUserId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
         return CompanyEntity.builder()
-                .user(user)
+                .userEntity(user)
                 .companyName(company.getCompanyName())
                 .build();
     }

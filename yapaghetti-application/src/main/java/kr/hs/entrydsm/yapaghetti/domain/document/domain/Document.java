@@ -20,4 +20,24 @@ public class Document {
     private final DocumentType type;
 
     private final UUID userId;
+
+    public Document cancelStayDocument() {
+        return Document.builder()
+                .id(this.id)
+                .previewImagePath(this.previewImagePath)
+                .content(this.content)
+                .type(DocumentType.LOCAL)
+                .userId(this.userId)
+                .build();
+    }
+
+    public Document updateLocalDocument(String previewImagePath, String content) {
+        return Document.builder()
+                .id(this.id)
+                .previewImagePath(previewImagePath)
+                .content(content)
+                .type(this.type)
+                .userId(this.userId)
+                .build();
+    }
 }

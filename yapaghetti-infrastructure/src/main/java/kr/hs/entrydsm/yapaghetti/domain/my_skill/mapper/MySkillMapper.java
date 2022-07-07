@@ -19,4 +19,11 @@ public class MySkillMapper {
                 .build();
     }
 
+    public MySkill entityToDomain(MySkillEntity mySkillEntity) {
+        return MySkill.builder()
+            .tagId(mySkillEntity.getId().getTagId())
+            .userId(mySkillEntity.getId().getUserId())
+            .build();
+    }
+
 }

@@ -2,8 +2,8 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ public class QueryProtectedDocumentUrlTest {
     QueryDocumentPort queryDocumentPort;
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    DocumentSecurityPort documentSecurityPort;
 
     @InjectMocks
     QueryProtectedDocumentUrlUseCase queryProtectedDocumentUrlUseCase;
@@ -31,7 +31,7 @@ public class QueryProtectedDocumentUrlTest {
         UUID userId = UUID.randomUUID();
         UUID documentId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
         given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PROTECTED)).willReturn(
                 Document.builder()
                         .id(documentId)

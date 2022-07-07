@@ -3,8 +3,8 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ class CopyPublicDocumentTest {
     CommandDocumentPort commandDocumentPort;
 
     @Mock
-    UserSecurityPort userSecurityPort;
+    DocumentSecurityPort documentSecurityPort;
 
     @InjectMocks
     CopyPublicDocumentUseCase copyPublicDocumentUseCase;
@@ -34,7 +34,7 @@ class CopyPublicDocumentTest {
     void copy() {
         UUID userId = UUID.randomUUID();
 
-        given(userSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
         given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
                 Document.builder()
                         .previewImagePath("testPreviewImage")
