@@ -20,6 +20,8 @@ public class StudentElement {
 
     private final String previewImagePath;
 
+    private final String profileImagePath;
+
     public StudentElement(UUID studentId, String major, List<String> tagList, String name, String grade, String classNum, Integer number, String previewImagePath, String profileImagePath) {
         this.studentId = studentId;
         this.major = major;
@@ -29,7 +31,5 @@ public class StudentElement {
         this.previewImagePath = previewImagePath;
         this.profileImagePath = profileImagePath;
     }
-
-    private final String profileImagePath;
 
 }
