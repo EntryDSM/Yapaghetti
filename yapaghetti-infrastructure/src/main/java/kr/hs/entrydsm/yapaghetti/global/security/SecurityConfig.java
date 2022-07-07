@@ -48,6 +48,7 @@ public class SecurityConfig {
                 // teachers
                 .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.DELETE, "/teachers/company/{company-id}").hasRole(TEACHER)
 
                 // tags
                 .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
@@ -66,6 +67,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/documents/{document-id}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.DELETE, "/documents/{document-id}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.POST, "/documents/copy").hasRole(STUDENT)
+                .antMatchers(HttpMethod.POST, "/documents/{document-id}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)

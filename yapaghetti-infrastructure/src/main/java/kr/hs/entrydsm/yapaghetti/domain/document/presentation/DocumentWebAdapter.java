@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
@@ -47,6 +48,7 @@ public class DocumentWebAdapter {
     private final DeleteLocalDocumentPort deleteLocalDocumentPort;
     private final QueryStayDocumentPort queryStayDocumentPort;
     private final CancelStayDocumentPort cancelStayDocumentPort;
+    private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -115,5 +117,11 @@ public class DocumentWebAdapter {
     @PatchMapping("/cancel/{document-id}")
     public void cancelStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         cancelStayDocumentPort.execute(documentId);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{document-id}")
+    public void requestLocalDocumentToPublic(@PathVariable("document-id") @NotBlank UUID documentId) {
+        requestLocalDocumentToPublicPort.execute(documentId);
     }
 }

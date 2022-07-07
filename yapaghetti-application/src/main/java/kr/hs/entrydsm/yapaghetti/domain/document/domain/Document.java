@@ -21,12 +21,12 @@ public class Document {
 
     private final UUID userId;
 
-    public Document cancelStayDocument() {
+    public Document changeDocumentType(DocumentType type) {
         return Document.builder()
                 .id(this.id)
                 .previewImagePath(this.previewImagePath)
                 .content(this.content)
-                .type(DocumentType.LOCAL)
+                .type(type)
                 .userId(this.userId)
                 .build();
     }
