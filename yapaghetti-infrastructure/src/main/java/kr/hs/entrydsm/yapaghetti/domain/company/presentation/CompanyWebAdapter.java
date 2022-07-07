@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.company.presentation.dto.request.WebUpda
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class CompanyWebAdapter {
     }
 
     @GetMapping("/students")
-    public QueryStudentListResponse queryStudentList(DomainQueryStudentListRequest request) {
+    public QueryStudentListResponse queryStudentList(@ModelAttribute DomainQueryStudentListRequest request) {
         return queryStudentListPort.execute(request);
     }
 
