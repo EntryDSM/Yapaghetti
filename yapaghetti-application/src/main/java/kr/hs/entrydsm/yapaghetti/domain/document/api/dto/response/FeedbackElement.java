@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class QueryFeedBackResponse {
+public class FeedbackElement {
 
     private final Integer sequence;
 
