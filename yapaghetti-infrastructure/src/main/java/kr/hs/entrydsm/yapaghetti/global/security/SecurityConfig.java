@@ -39,17 +39,27 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
+
+                // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.PATCH, "/users/information").hasAnyRole(STUDENT, TEACHER, MOU)
+
+                // teachers
                 .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
+
+                // tags
                 .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/tags/{tag-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "/tags/my-skill").hasRole(STUDENT)
                 .antMatchers(HttpMethod.POST, "/tags/major").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/tags").hasAnyRole(STUDENT, TEACHER)
+
+                // images
                 .antMatchers(HttpMethod.POST, "/images").hasAnyRole(STUDENT, TEACHER, MOU)
+
+                // documents
                 .antMatchers(HttpMethod.POST, "/documents").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/documents/{document-id}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/documents/cancel/{document-id}").hasRole(STUDENT)
@@ -59,8 +69,13 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents//stay/{document-id}").hasAnyRole(STUDENT, TEACHER)
+
+                // students
                 .antMatchers(HttpMethod.GET, "/students").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/students/feedback/{sequence}").hasRole(STUDENT)
+
+                // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
