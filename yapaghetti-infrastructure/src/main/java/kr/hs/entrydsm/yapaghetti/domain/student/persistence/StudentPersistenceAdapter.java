@@ -30,10 +30,6 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final StudentMapper studentMapper;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public boolean existsByTagId(UUID tagId) {
-        return studentRepository.existsByTagEntityId(tagId);
-    }
-
     @Override
     public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String major, String classNum) {
         QTagEntity majorTag = new QTagEntity("majorTag");
@@ -72,7 +68,6 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     }
 
-    
 
     @Override
     public void saveStudent(Student student) {
@@ -87,31 +82,18 @@ public class StudentPersistenceAdapter implements StudentPort {
         );
     }
 
-	public boolean existsByTagId(UUID tagId) {
-		return studentRepository.existsByTagEntityId(tagId);
-	}
+    @Override
+    public void deleteStudent(Student student) {
+        studentRepository.delete(
+                studentMapper.domainToEntity(student)
+        );
+    }
 
-	@Override
-	public void saveStudent(Student student) {
-		studentRepository.save(studentMapper.domainToEntity(student));
-	}
+    public boolean existsByTagId(UUID tagId) {
+        return studentRepository.existsByTagEntityId(tagId);
+    }
 
-	@Override
-	public Student queryUserById(UUID id) {
-		return studentMapper.entityToDomain(
-			studentRepository.findById(id)
-				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
-		);
-	}
-
-	@Override
-	public void deleteStudent(Student student) {
-		studentRepository.delete(
-				studentMapper.domainToEntity(student)
-		);
-	}
-  
-  private String likePreProcessing(String value) {
+    private String likePreProcessing(String value) {
         return "%" + value + "%";
     }
 }
