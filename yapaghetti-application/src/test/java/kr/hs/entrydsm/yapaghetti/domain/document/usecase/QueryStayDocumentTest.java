@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryFeedBackResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryFeedbackPort;

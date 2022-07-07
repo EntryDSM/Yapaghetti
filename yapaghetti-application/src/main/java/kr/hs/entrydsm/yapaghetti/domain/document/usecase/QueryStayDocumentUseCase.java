@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryFeedBackResponse;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.FeedbackElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
@@ -25,13 +25,13 @@ public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
     public QueryStayDocumentResponse execute(UUID documentId) {
         Document stayDocument = queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY);
 
-        List<QueryFeedBackResponse> feedBackList = queryFeedbackPort.queryFeedbackByDocumentId(documentId)
+        List<FeedbackElement> feedbackList = queryFeedbackPort.queryFeedbackByDocumentId(documentId)
                 .stream()
-                .map(f -> new QueryFeedBackResponse(f.getSequence(), f.getComment()))
+                .map(f -> new FeedbackElement(f.getSequence(), f.getComment()))
                 .collect(Collectors.toList());
 
         return new QueryStayDocumentResponse(
-                feedBackList,
+                feedbackList,
                 stayDocument.getContent()
         );
     }

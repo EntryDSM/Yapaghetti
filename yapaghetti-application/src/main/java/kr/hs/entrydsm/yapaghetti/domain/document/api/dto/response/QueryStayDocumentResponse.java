@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class QueryStayDocumentResponse {
 
-    private final List<QueryFeedBackResponse> feedBackList;
+    private final List<FeedbackElement> feedbackList;
 
     private final String content;
 
