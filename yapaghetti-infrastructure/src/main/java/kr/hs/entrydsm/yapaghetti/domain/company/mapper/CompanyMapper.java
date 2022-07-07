@@ -18,6 +18,8 @@ public class CompanyMapper {
         return Company.builder()
                 .userId(company.getUserId())
                 .companyName(company.getCompanyName())
+                .startAt(company.getStartAt())
+                .endAt(company.getEndAt())
                 .build();
     }
 
@@ -26,6 +28,8 @@ public class CompanyMapper {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
         return CompanyEntity.builder()
                 .userEntity(user)
+                .startAt(company.getStartAt())
+                .endAt(company.getEndAt())
                 .companyName(company.getCompanyName())
                 .build();
     }
