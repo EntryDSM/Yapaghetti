@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,5 +41,5 @@ public class CompanyEntity {
 	private LocalDateTime startAt;
 
 	@Column(columnDefinition = "DATETIME", nullable = false)
-	private LocalDateTime finishAt;
+	private LocalDateTime endAt;
 }
