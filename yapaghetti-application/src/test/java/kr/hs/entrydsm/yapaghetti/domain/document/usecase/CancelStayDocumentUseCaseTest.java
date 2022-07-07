@@ -53,10 +53,10 @@ class CancelStayDocumentUseCaseTest {
                 userId,
                 DocumentType.STAY)
         ).willReturn(
-                        Document.builder()
-                                .id(documentId)
-                                .build()
-                );
+                Document.builder()
+                        .id(documentId)
+                        .build()
+        );
 
         cancelStayDocumentUseCase.execute(documentId);
     }

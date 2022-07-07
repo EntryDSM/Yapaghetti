@@ -9,7 +9,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
