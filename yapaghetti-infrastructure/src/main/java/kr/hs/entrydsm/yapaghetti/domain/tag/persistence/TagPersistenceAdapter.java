@@ -60,9 +60,7 @@ public class TagPersistenceAdapter implements TagPort {
 
     @Override
     public void deleteTagById(UUID tagId) {
-        if (!tagRepository.existsById(tagId)) {
-            throw TagNotFoundException.EXCEPTION;
-        }
+        queryTagById(tagId);
 
         if (mySkillPersistenceAdapter.existsByTagId(tagId) || studentPersistenceAdapter.existsByTagId(tagId)) {
             throw UnableDeleteTagException.EXCEPTION;
