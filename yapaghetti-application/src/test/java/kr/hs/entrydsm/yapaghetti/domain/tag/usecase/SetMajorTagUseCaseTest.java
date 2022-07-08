@@ -54,29 +54,8 @@ public class SetMajorTagUseCaseTest {
                         .build()
         );
 
-        given(queryTagPort.existsById(tagId)).willReturn(true);
+        queryTagPort.existsById(tagId);
         setMajorTagUseCase.execute(new DomainSetMajorTagRequest(tagId));
-    }
-
-    @Test
-    void 대표_분야_설정_존재하지_않는_태그() {
-        UUID userId = UUID.randomUUID();
-        UUID tagId = UUID.randomUUID();
-
-        given(tagSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(tagQueryStudentPort.queryUserById(userId)).willReturn(
-                Student.builder()
-                        .userId(userId)
-                        .grade(3)
-                        .classNum(1)
-                        .number(13)
-                        .tagId(UUID.randomUUID())
-                        .build()
-        );
-
-        given(queryTagPort.existsById(tagId)).willReturn(false);
-        assertThatThrownBy(() -> setMajorTagUseCase.execute(new DomainSetMajorTagRequest(tagId)))
-                .isInstanceOf(TagNotFoundException.class);
     }
 
 }

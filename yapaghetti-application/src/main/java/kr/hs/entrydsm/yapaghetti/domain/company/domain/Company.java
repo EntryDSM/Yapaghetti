@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.annotation.Aggregate;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -14,6 +15,10 @@ public class Company {
     private final UUID userId;
 
     private final String companyName;
+
+    private final LocalDateTime startAt;
+
+    private final LocalDateTime endAt;
 
     public Company updateCompanyName(String companyName) {
         return Company.builder()

@@ -39,20 +39,7 @@ public class AddTagUseCaseTest {
 
         given(TagType.MAJOR.equals(type) && request.getIsMajor()).willReturn(true);
 
-        given(queryTagPort.existsByName(name)).willReturn(false);
-
         addTagUseCase.execute(request);
-    }
-
-    @Test
-    void 태그_저장_중복_이름() {
-        String name = "프론트엔드";
-
-        given(request.getName()).willReturn(name);
-        given(queryTagPort.existsByName(name)).willReturn(true);
-
-        assertThatThrownBy(() -> addTagUseCase.execute(request))
-                .isInstanceOf(AlreadyExistsTagException.class);
     }
 
 }
