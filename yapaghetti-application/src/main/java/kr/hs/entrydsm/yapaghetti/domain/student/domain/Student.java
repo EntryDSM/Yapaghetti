@@ -18,7 +18,7 @@ public class Student {
 
 	private final Integer number;
 
-	private final UUID tagId;
+	private final UUID tagId; // 학생의 대표 분야 태그에 대한 Id입니다
 
 	public Student updateTagId(UUID tagId) {
 		return Student.builder()

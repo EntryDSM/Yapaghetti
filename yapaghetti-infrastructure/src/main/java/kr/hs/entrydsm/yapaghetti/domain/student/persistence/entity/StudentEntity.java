@@ -44,9 +44,10 @@ public class StudentEntity {
 	@Column(columnDefinition = "TINYINT", nullable = false)
 	private Integer number;
 
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tag_id")
-	private TagEntity tagEntity;
+	private TagEntity tagEntity; // 학생의 대표 분야 태그에 대한 Id입니다
 
 	public UUID getTagId() {
 		return tagEntity.getId();
