@@ -7,7 +7,9 @@ import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.FeedbackPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Adapter
@@ -19,8 +21,8 @@ public class FeedbackPersistenceAdapter implements FeedbackPort {
     @Override
     public Feedback queryFeedbackByDocumentIdAndSequence(UUID documentId, Integer sequence) {
         return feedbackMapper.entityToDomain(
-            feedbackRepository.findByIdDocumentIdAndIdSequence(documentId, sequence)
-                .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION)
+                feedbackRepository.findByIdDocumentIdAndIdSequence(documentId, sequence)
+                        .orElseThrow(() -> FeedbackNotFoundException.EXCEPTION)
         );
     }
 
@@ -31,4 +33,11 @@ public class FeedbackPersistenceAdapter implements FeedbackPort {
         );
     }
 
+    @Override
+    public List<Feedback> queryFeedbackByDocumentId(UUID documentId) {
+        return feedbackRepository.findByIdDocumentId(documentId)
+                .stream()
+                .map(feedbackMapper::entityToDomain)
+                .collect(Collectors.toList());
+    }
 }

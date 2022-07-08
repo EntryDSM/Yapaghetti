@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity;
 
-import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -23,10 +23,10 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_feedback")
 @Entity
-public class FeedBackEntity {
+public class FeedbackEntity {
 
     @EmbeddedId
-    private FeedBackEntityId id;
+    private FeedbackEntityId id;
 
     @MapsId("documentId")
     @ManyToOne(fetch = FetchType.LAZY)

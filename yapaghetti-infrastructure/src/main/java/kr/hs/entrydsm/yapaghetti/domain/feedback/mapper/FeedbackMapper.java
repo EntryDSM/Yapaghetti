@@ -1,8 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.mapper;
 
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedBackEntity;
-import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedBackEntityId;
+import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedbackEntity;
+import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedbackEntityId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class FeedbackMapper {
 
-	public FeedBackEntity domainToEntity(Feedback feedback) {
-		return FeedBackEntity.builder()
+	public FeedbackEntity domainToEntity(Feedback feedback) {
+		return FeedbackEntity.builder()
 			.id(
-				new FeedBackEntityId(
+				new FeedbackEntityId(
 					feedback.getSequence(),
 					feedback.getDocumentId()
 				)
@@ -23,7 +23,7 @@ public class FeedbackMapper {
 			.build();
 	}
 
-	public Feedback entityToDomain(FeedBackEntity feedBackEntity) {
+	public Feedback entityToDomain(FeedbackEntity feedBackEntity) {
 		return Feedback.builder()
 			.sequence(feedBackEntity.getId().getSequence())
 			.documentId(feedBackEntity.getDocumentId())

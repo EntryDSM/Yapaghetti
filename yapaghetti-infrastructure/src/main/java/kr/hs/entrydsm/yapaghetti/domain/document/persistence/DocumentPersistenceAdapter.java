@@ -36,6 +36,14 @@ public class DocumentPersistenceAdapter implements DocumentPort {
     }
 
     @Override
+    public Document queryDocumentByIdAndType(UUID documentId, DocumentType type) {
+        return documentMapper.entityToDomain(
+                documentRepository.findByIdAndType(documentId, type)
+                        .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
     public Document queryDocumentByUserIdAndType(UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
                 documentRepository.findByUserEntityIdAndType(userId, type)

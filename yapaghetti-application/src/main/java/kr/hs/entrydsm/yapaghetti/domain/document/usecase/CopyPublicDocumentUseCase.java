@@ -7,7 +7,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
