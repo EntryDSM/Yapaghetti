@@ -3,7 +3,9 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ShowStudentDetailInformationPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.websocket.server.PathParam;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -27,6 +27,7 @@ import java.util.UUID;
 @RestController
 public class TeacherWebAdapter {
 
+    private final ShowStudentDetailInformationPort showStudentDetailInformation;
     private final CreateFeedbackPort createFeedbackPort;
     private final DeleteStudentPort deleteStudentPort;
     private final DeleteCompanyPort deleteCompanyPort;
@@ -48,6 +49,11 @@ public class TeacherWebAdapter {
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
+    }
+
+    @GetMapping("/student/{student-id}")
+    public StudentDetailInformation showStudentDetailInformation(@PathVariable("student-id") UUID studentId){
+        return showStudentDetailInformation.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
