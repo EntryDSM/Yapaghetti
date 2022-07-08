@@ -1,11 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class DomainCreateLocalDocumentRequest {
+@AllArgsConstructor
+public class DomainCreateDocumentRequest {
 
     private final String previewImagePath;
     private final String content;
