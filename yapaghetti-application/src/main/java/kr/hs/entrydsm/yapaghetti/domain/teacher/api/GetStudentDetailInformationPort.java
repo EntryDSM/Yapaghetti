@@ -4,6 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailIn
 
 import java.util.UUID;
 
-public interface ShowStudentDetailInformationPort {
+public interface GetStudentDetailInformationPort {
     StudentDetailInformation execute(UUID studentId);
 }

@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ShowStudentDetailInformationPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetStudentDetailInformationPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @UseCase
-public class ShowStudentDetailInformationUseCase implements ShowStudentDetailInformationPort {
+public class GetStudentDetailInformationUseCase implements GetStudentDetailInformationPort {
 
     private final TeacherQueryStudentPort teacherQueryStudentPort;
     private final TeacherQueryUserPort teacherQueryUserPort;

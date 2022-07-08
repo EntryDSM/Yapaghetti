@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ShowStudentDetailInformationPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetStudentDetailInformationPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @RestController
 public class TeacherWebAdapter {
 
-    private final ShowStudentDetailInformationPort showStudentDetailInformation;
+    private final GetStudentDetailInformationPort showStudentDetailInformation;
     private final CreateFeedbackPort createFeedbackPort;
     private final DeleteStudentPort deleteStudentPort;
     private final DeleteCompanyPort deleteCompanyPort;
