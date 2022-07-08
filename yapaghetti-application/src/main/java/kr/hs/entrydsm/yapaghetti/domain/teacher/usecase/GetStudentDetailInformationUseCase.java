@@ -29,7 +29,7 @@ public class GetStudentDetailInformationUseCase implements GetStudentDetailInfor
     public StudentDetailInformation execute(UUID studentId) {
         Student student = teacherQueryStudentPort.queryUserById(studentId);
         User user = teacherQueryUserPort.queryUserById(student.getUserId());
-        String majorTagName = teacherQueryTagPort.queryMajorTagByID(student.getTagId()).getName();
+        String majorTagName = teacherQueryTagPort.queryMajorTagById(student.getTagId()).getName();
         Integer gcn = makeGcn(student.getGrade(), student.getGrade(), student.getClassNum());
 
         return StudentDetailInformation

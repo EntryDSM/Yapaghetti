@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface TeacherQueryTagPort {
     Tag queryTagById(UUID tagId);
 
-    Tag queryMajorTagByID(UUID tagId);
+    Tag queryMajorTagById(UUID tagId);
 }
