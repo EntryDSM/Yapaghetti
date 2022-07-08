@@ -64,6 +64,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/students").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/students/feedback/{sequence}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
+                .antMatchers(HttpMethod.GET, "/companies/students").hasAnyRole(MOU, NON_MOU)
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 

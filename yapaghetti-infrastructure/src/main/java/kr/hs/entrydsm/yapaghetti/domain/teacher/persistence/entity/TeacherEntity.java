@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class TeacherEntity {
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", columnDefinition = "BINARY(16)")
     private UserEntity userEntity;
 
 }
