@@ -36,6 +36,7 @@ public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort
                         .stream()
                         .map(document -> DocumentElement.builder()
                                 .documentId(document.getId())
+                                .previewImagePath(document.getPreviewImagePath())
                                 .name(user.getName())
                                 .major(tag.getName())
                                 .build())
