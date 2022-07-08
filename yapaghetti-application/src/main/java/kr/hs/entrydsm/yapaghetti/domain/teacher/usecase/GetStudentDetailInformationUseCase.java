@@ -4,7 +4,7 @@ import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetStudentDetailInformationPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformationResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryTagPort;
@@ -26,13 +26,13 @@ public class GetStudentDetailInformationUseCase implements GetStudentDetailInfor
     private final TeacherQueryMySkillPort teacherQueryMySkillPort;
 
     @Override
-    public StudentDetailInformation execute(UUID studentId) {
+    public StudentDetailInformationResponse execute(UUID studentId) {
         Student student = teacherQueryStudentPort.queryUserById(studentId);
         User user = teacherQueryUserPort.queryUserById(student.getUserId());
         String majorTagName = teacherQueryTagPort.queryMajorTagById(student.getTagId()).getName();
         Integer gcn = makeGcn(student.getGrade(), student.getGrade(), student.getClassNum());
 
-        return StudentDetailInformation
+        return StudentDetailInformationResponse
                 .builder()
                     .name(user.getName())
                     .phoneNumber(user.getPhoneNumber())

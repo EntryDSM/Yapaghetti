@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class StudentDetailInformation {
+public class StudentDetailInformationResponse {
     private String name;
     private String email;
     private String phoneNumber;

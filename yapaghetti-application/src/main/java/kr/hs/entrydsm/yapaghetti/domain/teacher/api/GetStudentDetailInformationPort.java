@@ -1,9 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.api;
 
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformationResponse;
 
 import java.util.UUID;
 
 public interface GetStudentDetailInformationPort {
-    StudentDetailInformation execute(UUID studentId);
+    StudentDetailInformationResponse execute(UUID studentId);
 }
