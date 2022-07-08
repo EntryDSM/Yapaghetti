@@ -59,6 +59,14 @@ public class TagPersistenceAdapter implements TagPort {
     }
 
     @Override
+    public Tag queryMajorTagByID(UUID tagId) {
+        return tagMapper.entityToDomain(
+                tagRepository.findByIdAndType(tagId, TagType.MAJOR)
+                        .orElseThrow(() -> TagNotFoundException.EXCEPTION)
+        );
+    }
+
+    @Override
     public void deleteTagById(UUID tagId) {
         queryTagById(tagId);
 
