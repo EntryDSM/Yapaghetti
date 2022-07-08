@@ -29,6 +29,7 @@ import static kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.QUserEnti
 public class StudentPersistenceAdapter implements StudentPort {
 
     private final StudentRepository studentRepository;
+    private final TagRepository tagRepository;
     private final StudentMapper studentMapper;
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -70,11 +71,14 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     }
 
+	@Override
+	public void saveStudent(Student student) {
+		if (!tagRepository.existsById(student.getTagId())) {
+			throw TagNotFoundException.EXCEPTION;
+		}
 
-    @Override
-    public void saveStudent(Student student) {
-        studentRepository.save(studentMapper.domainToEntity(student));
-    }
+		studentRepository.save(studentMapper.domainToEntity(student));
+	}
 
     @Override
     public Student queryUserById(UUID id) {
@@ -83,6 +87,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                         .orElseThrow(() -> StudentNotFoundException.EXCEPTION)
         );
     }
+
 
     @Override
     public void deleteStudent(Student student) {
@@ -98,37 +103,5 @@ public class StudentPersistenceAdapter implements StudentPort {
     private String likePreProcessing(String value) {
         return "%" + value + "%";
     }
-
-	private final StudentRepository studentRepository;
-	private final TagRepository tagRepository;
-	private final StudentMapper studentMapper;
-
-	public boolean existsByTagId(UUID tagId) {
-		return studentRepository.existsByTagEntityId(tagId);
-	}
-
-	@Override
-	public void saveStudent(Student student) {
-		if (!tagRepository.existsById(student.getTagId())) {
-			throw TagNotFoundException.EXCEPTION;
-		}
-
-		studentRepository.save(studentMapper.domainToEntity(student));
-	}
-
-	@Override
-	public Student queryUserById(UUID id) {
-		return studentMapper.entityToDomain(
-			studentRepository.findById(id)
-				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
-		);
-	}
-
-	@Override
-	public void deleteStudent(Student student) {
-		studentRepository.delete(
-				studentMapper.domainToEntity(student)
-		);
-	}
 
 }
