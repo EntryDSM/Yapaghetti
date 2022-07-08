@@ -52,7 +52,7 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/student/{student-id}")
-    public StudentDetailInformationResponse showStudentDetailInformation(@PathVariable("student-id") UUID studentId){
+    public StudentDetailInformationResponse showStudentDetailInformation(@PathVariable("student-id") UUID studentId) {
         return showStudentDetailInformation.execute(studentId);
     }
 
