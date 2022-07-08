@@ -9,6 +9,8 @@ import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundExcepti
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -96,4 +98,37 @@ public class StudentPersistenceAdapter implements StudentPort {
     private String likePreProcessing(String value) {
         return "%" + value + "%";
     }
+
+	private final StudentRepository studentRepository;
+	private final TagRepository tagRepository;
+	private final StudentMapper studentMapper;
+
+	public boolean existsByTagId(UUID tagId) {
+		return studentRepository.existsByTagEntityId(tagId);
+	}
+
+	@Override
+	public void saveStudent(Student student) {
+		if (!tagRepository.existsById(student.getTagId())) {
+			throw TagNotFoundException.EXCEPTION;
+		}
+
+		studentRepository.save(studentMapper.domainToEntity(student));
+	}
+
+	@Override
+	public Student queryUserById(UUID id) {
+		return studentMapper.entityToDomain(
+			studentRepository.findById(id)
+				.orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+		);
+	}
+
+	@Override
+	public void deleteStudent(Student student) {
+		studentRepository.delete(
+				studentMapper.domainToEntity(student)
+		);
+	}
+
 }

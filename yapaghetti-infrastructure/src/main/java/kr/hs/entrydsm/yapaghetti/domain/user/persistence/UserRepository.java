@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface UserRepository extends CrudRepository<UserEntity, UUID>, UserQuerydslExtension {
     Optional<UserEntity> findByEmail(String email);
+
+    Optional<UserEntity> findById(UUID userId);
 }
