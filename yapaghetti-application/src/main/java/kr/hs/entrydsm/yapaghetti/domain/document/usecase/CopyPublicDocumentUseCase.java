@@ -29,6 +29,7 @@ public class CopyPublicDocumentUseCase implements CopyPublicDocumentPort {
                         .previewImagePath(publicDocument.getPreviewImagePath())
                         .content(publicDocument.getContent())
                         .type(DocumentType.LOCAL)
+                        .isApproved(false)
                         .userId(currentUserId)
                         .build()
         );

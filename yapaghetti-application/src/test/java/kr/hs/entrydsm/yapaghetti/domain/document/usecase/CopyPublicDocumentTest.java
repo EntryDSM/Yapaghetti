@@ -41,6 +41,7 @@ class CopyPublicDocumentTest {
                         .content("testContent")
                         .type(DocumentType.PUBLIC)
                         .userId(userId)
+                        .isApproved(false)
                         .build()
         );
 

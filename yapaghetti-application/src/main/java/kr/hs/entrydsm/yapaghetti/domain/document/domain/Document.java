@@ -19,6 +19,8 @@ public class Document {
 
     private final DocumentType type;
 
+    private final Boolean isApproved;
+
     private final UUID userId;
 
     public Document changeDocumentType(DocumentType type) {
@@ -28,6 +30,7 @@ public class Document {
                 .content(this.content)
                 .type(type)
                 .userId(this.userId)
+                .isApproved(DocumentType.PUBLIC.equals(type))
                 .build();
     }
 
@@ -38,6 +41,7 @@ public class Document {
                 .content(content)
                 .type(this.type)
                 .userId(this.userId)
+                .isApproved(false)
                 .build();
     }
 }
