@@ -2,13 +2,10 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
-import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagSecurityPort;
-import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -50,7 +47,7 @@ public class SetMajorTagUseCaseTest {
                         .grade(3)
                         .classNum(1)
                         .number(13)
-                        .tagId(UUID.randomUUID())
+                        .majorTagId(UUID.randomUUID())
                         .build()
         );
 

@@ -40,7 +40,7 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
 			.map(Tag::getName)
 			.collect(Collectors.toList());
 
-		String major = studentQueryTagPort.queryTagById(student.getTagId()).getName();
+		String major = studentQueryTagPort.queryTagById(student.getMajorTagId()).getName();
 
 		return MyInfoResponse.builder()
 			.grade(student.getGrade())

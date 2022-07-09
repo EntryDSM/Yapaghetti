@@ -59,7 +59,7 @@ public class StudentEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tag_id")
-	private TagEntity tagEntity;
+	private TagEntity majorTagEntity;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity")
 	private Set<DocumentEntity> documentList = new HashSet<>();
@@ -68,7 +68,7 @@ public class StudentEntity {
 	private Set<MySkillEntity> mySkillList = new HashSet<>();
 
 	public UUID getTagId() {
-		return tagEntity.getId();
+		return majorTagEntity.getId();
 	}
 
 }

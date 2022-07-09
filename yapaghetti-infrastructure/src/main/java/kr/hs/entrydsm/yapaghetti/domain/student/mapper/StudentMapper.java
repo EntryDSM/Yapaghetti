@@ -24,7 +24,7 @@ public class StudentMapper {
 			.grade(studentEntity.getGrade())
 			.classNum(studentEntity.getClassNum())
 			.number(studentEntity.getNumber())
-			.tagId(studentEntity.getTagId())
+			.majorTagId(studentEntity.getTagId())
 			.build();
 	}
 
@@ -32,7 +32,7 @@ public class StudentMapper {
 		UserEntity userEntity = userRepository.findById(student.getUserId())
 			.orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-		TagEntity tagEntity = tagRepository.findById(student.getTagId())
+		TagEntity tagEntity = tagRepository.findById(student.getMajorTagId())
 			.orElseThrow(() -> TagNotFoundException.EXCEPTION);
 
 		return StudentEntity.builder()
@@ -40,7 +40,7 @@ public class StudentMapper {
 			.grade(student.getGrade())
 			.classNum(student.getClassNum())
 			.number(student.getNumber())
-			.tagEntity(tagEntity)
+			.majorTagEntity(tagEntity)
 			.build();
 	}
 }

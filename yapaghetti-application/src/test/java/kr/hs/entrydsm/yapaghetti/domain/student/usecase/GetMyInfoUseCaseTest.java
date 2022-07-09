@@ -52,7 +52,7 @@ public class GetMyInfoUseCaseTest {
 		given(queryStudentPort.queryUserById(userId))
 			.willReturn(
 				Student.builder()
-					.tagId(tagId)
+					.majorTagId(tagId)
 					.build()
 			);
 		given(studentQueryUserPort.queryUserById(userId))

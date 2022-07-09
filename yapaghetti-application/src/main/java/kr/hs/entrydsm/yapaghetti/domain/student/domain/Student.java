@@ -18,7 +18,7 @@ public class Student {
 
 	private final Integer number;
 
-	private final UUID tagId;
+	private final UUID majorTagId;
 
 	public Student updateTagId(UUID tagId) {
 		return Student.builder()
@@ -26,7 +26,7 @@ public class Student {
 				.grade(this.grade)
 				.classNum(this.classNum)
 				.number(this.number)
-				.tagId(tagId)
+				.majorTagId(tagId)
 				.build();
 	}
 

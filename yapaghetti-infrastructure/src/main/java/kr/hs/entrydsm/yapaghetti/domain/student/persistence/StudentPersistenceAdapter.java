@@ -41,7 +41,7 @@ public class StudentPersistenceAdapter implements StudentPort {
         return jpaQueryFactory
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
-                .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(studentEntity.majorTagEntity, majorTag)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.mySkillList, mySkillEntity)
                 .leftJoin(mySkillEntity.tagEntity, skillTag)
@@ -73,7 +73,7 @@ public class StudentPersistenceAdapter implements StudentPort {
 
 	@Override
 	public void saveStudent(Student student) {
-		if (!tagRepository.existsById(student.getTagId())) {
+		if (!tagRepository.existsById(student.getMajorTagId())) {
 			throw TagNotFoundException.EXCEPTION;
 		}
 
