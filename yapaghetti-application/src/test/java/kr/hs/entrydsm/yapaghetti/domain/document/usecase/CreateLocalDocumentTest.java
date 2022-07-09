@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
@@ -32,7 +32,7 @@ class CreateLocalDocumentTest {
     CreateLocalDocumentUseCase createLocalDocumentUseCase;
 
     @Mock
-    DomainCreateDocumentRequest request;
+    DomainCreateLocalDocumentRequest request;
 
     @Test
     void createLocalDocument() {
