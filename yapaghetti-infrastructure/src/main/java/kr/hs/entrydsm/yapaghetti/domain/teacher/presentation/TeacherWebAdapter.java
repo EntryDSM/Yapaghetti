@@ -48,7 +48,7 @@ public class TeacherWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/company/{company-id}")
+    @DeleteMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
         deleteCompanyPort.execute(companyId);
     }
