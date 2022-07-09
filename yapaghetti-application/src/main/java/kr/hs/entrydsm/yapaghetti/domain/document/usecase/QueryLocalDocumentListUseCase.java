@@ -29,7 +29,7 @@ public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort
     public QueryLocalDocumentListResponse execute() {
         User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
-        Tag tag = documentQueryStudentPort.queryTagByStudentId(user.getId());
+        Tag majorTag = documentQueryStudentPort.queryTagByStudentId(user.getId());
 
         List<DocumentElement> localDocumentList =
                 queryDocumentPort.queryDocumentAllByUserIdAndType(user.getId(), DocumentType.LOCAL)
@@ -38,7 +38,7 @@ public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort
                                 .documentId(document.getId())
                                 .previewImagePath(document.getPreviewImagePath())
                                 .name(user.getName())
-                                .major(tag.getName())
+                                .major(majorTag.getName())
                                 .build())
                         .collect(Collectors.toList());
 
