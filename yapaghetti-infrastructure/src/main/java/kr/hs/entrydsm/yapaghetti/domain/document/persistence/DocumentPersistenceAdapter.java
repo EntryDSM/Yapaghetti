@@ -4,7 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
-import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +27,6 @@ public class DocumentPersistenceAdapter implements DocumentPort {
     @Override
     public void deleteDocument(Document document) {
         documentRepository.delete(documentMapper.domainToEntity(document));
-    }
-
-    @Override
-    public Document queryDocumentById(UUID id) {
-        return documentMapper.entityToDomain(
-                getDocumentById(id)
-        );
     }
 
     @Override
@@ -66,10 +58,5 @@ public class DocumentPersistenceAdapter implements DocumentPort {
                 documentRepository.findByIdAndUserEntityIdAndType(documentId, userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
-    }
-
-    private DocumentEntity getDocumentById(UUID id) {
-        return documentRepository.findById(id)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
     }
 }

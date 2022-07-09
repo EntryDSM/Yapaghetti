@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +18,8 @@ public class QueryPublicDocumentUseCase implements QueryPublicDocumentPort {
 
     @Override
     public QueryDocumentResponse execute(UUID documentId) {
-        Document document = queryDocumentPort.queryDocumentById(documentId);
+        Document publicDocument = queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.PUBLIC);
 
-        return new QueryDocumentResponse(document.getContent());
+        return new QueryDocumentResponse(publicDocument.getContent());
     }
 }
