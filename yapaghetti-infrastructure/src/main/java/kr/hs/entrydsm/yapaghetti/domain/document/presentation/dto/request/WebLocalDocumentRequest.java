@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class WebDocumentRequest {
+public class WebLocalDocumentRequest {
 
     @Max(255)
     @NotBlank
