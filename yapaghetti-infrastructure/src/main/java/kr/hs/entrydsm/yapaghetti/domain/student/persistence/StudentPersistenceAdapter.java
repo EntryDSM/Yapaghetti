@@ -11,6 +11,7 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +33,39 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final TagRepository tagRepository;
     private final StudentMapper studentMapper;
     private final JPAQueryFactory jpaQueryFactory;
+
+    @Override
+    public StudentDetailResponse findNameEmailPhoneNumberMajorTagNameGradeClassNumNumberByStudentId(UUID studentId) {
+        QTagEntity majorTag = new QTagEntity("majorTag");
+        QTagEntity skillTag = new QTagEntity("skillTag");
+
+        return (StudentDetailResponse) jpaQueryFactory
+                .from(studentEntity)
+                .leftJoin(studentEntity.userEntity, userEntity)
+                .leftJoin(studentEntity.majorTagEntity, majorTag)
+                .leftJoin(studentEntity.mySkillList, mySkillEntity)
+                .where(
+                        studentEntity.userId.eq(studentId)
+                                .and(userEntity.id.eq(studentId))
+                )
+                .transform(
+                        groupBy(studentEntity.userId)
+                                .as(
+                                        Projections.constructor(
+                                                StudentDetailResponse.class,
+                                                userEntity.name,
+                                                userEntity.email,
+                                                userEntity.phoneNumber,
+                                                majorTag.name,
+                                                list(skillTag.name),
+                                                studentEntity.grade.stringValue(),
+                                                studentEntity.classNum.stringValue(),
+                                                studentEntity.number
+                                        )
+                                )
+                );
+
+    }
 
     @Override
     public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String major, String classNum) {
