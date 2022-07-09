@@ -6,6 +6,7 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import java.nio.charset.StandardCharsets;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import kr.hs.entrydsm.yapaghetti.global.property.AwsSesProperties;
@@ -35,7 +36,7 @@ public class AwsSESAdapter implements SendMailPort {
 
 	private Content createContent(String text) {
 		return new Content()
-			.withCharset("UTF-8")
+			.withCharset(StandardCharsets.UTF_8.name())
 			.withData(text);
 	}
 }
