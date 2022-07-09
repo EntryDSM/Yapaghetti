@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
@@ -29,7 +29,7 @@ class UpdateStayDocumentTest {
     DocumentSecurityPort documentSecurityPort;
 
     @Mock
-    DomainCreateDocumentRequest request;
+    DomainUpdateStayDocumentRequest request;
 
     @InjectMocks
     UpdateStayDocumentUseCase updateStayDocumentUseCase;
