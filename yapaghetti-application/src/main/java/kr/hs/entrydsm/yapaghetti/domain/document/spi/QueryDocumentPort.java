@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface QueryDocumentPort {
-    Document queryDocumentById(UUID documentId);
-
     Document queryDocumentByIdAndType(UUID documentId, DocumentType type);
 
     Document queryDocumentByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type);

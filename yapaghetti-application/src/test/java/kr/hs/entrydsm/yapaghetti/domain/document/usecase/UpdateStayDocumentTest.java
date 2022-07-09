@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class CopyPublicDocumentTest {
+class UpdateStayDocumentTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -27,25 +28,22 @@ class CopyPublicDocumentTest {
     @Mock
     DocumentSecurityPort documentSecurityPort;
 
+    @Mock
+    DomainUpdateStayDocumentRequest request;
+
     @InjectMocks
-    CopyPublicDocumentUseCase copyPublicDocumentUseCase;
+    UpdateStayDocumentUseCase updateStayDocumentUseCase;
 
     @Test
-    void copy() {
-        UUID userId = UUID.randomUUID();
+    void updateDocument() {
+        UUID currentUserId = UUID.randomUUID();
 
-        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
-                Document.builder()
-                        .previewImagePath("testPreviewImage")
-                        .content("testContent")
-                        .type(DocumentType.PUBLIC)
-                        .userId(userId)
-                        .isApproved(false)
-                        .build()
-        );
+        given(request.getPreviewImagePath()).willReturn("testPreviewImagePath");
+        given(request.getContent()).willReturn("testContent");
+        given(documentSecurityPort.getCurrentUserId()).willReturn(currentUserId);
+        given(queryDocumentPort.queryDocumentByUserIdAndType(currentUserId, DocumentType.STAY))
+                .willReturn(Document.builder().build());
 
-        copyPublicDocumentUseCase.execute();
+        updateStayDocumentUseCase.execute(request);
     }
-
 }

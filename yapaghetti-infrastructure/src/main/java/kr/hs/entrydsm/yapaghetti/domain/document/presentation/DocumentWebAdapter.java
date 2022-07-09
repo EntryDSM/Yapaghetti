@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.ApproveStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CancelStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
@@ -13,14 +14,18 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayAndPublicDocumentP
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
-import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateLocalDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateStayDocumentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,17 +58,16 @@ public class DocumentWebAdapter {
     private final QueryStayDocumentPort queryStayDocumentPort;
     private final CancelStayDocumentPort cancelStayDocumentPort;
     private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
+    private final UpdateStayDocumentPort updateStayDocumentPort;
     private final QueryLocalDocumentListPort queryLocalDocumentListPort;
     private final QueryStayAndPublicDocumentPreviewPort queryStayAndPublicDocumentPreviewPort;
+    private final ApproveStayDocumentPort approveStayDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createLocalDocument(@RequestBody @Valid WebLocalDocumentRequest request) {
+    public void createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
         createLocalDocumentPort.execute(
-                DomainCreateLocalDocumentRequest.builder()
-                        .previewImagePath(request.getPreviewImagePath())
-                        .content(request.getContent())
-                        .build()
+                new DomainCreateLocalDocumentRequest(request.getPreviewImagePath(), request.getContent())
         );
     }
 
@@ -81,7 +85,7 @@ public class DocumentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{document-id}")
     public void updateLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId,
-                                    @RequestBody @Valid WebLocalDocumentRequest request) {
+                                    @RequestBody @Valid WebUpdateLocalDocumentRequest request) {
 
         updateLocalDocumentPort.execute(
                 DomainUpdateLocalDocumentRequest.builder()
@@ -131,6 +135,14 @@ public class DocumentWebAdapter {
         requestLocalDocumentToPublicPort.execute(documentId);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/stay")
+    public void updateStayDocument(@RequestBody @Valid WebUpdateStayDocumentRequest request) {
+        updateStayDocumentPort.execute(
+                new DomainUpdateStayDocumentRequest(request.getPreviewImagePath(), request.getContent())
+        );
+    }
+    
     @GetMapping("/list")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
@@ -141,5 +153,11 @@ public class DocumentWebAdapter {
             @PathVariable("student-id") @NotBlank UUID studentId
     ) {
         return queryStayAndPublicDocumentPreviewPort.execute(studentId);
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/stay/approve/{document-id}")
+    public void approveStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        approveStayDocumentPort.execute(documentId);
     }
 }
