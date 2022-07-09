@@ -31,7 +31,7 @@ public class UpdateLocalDocumentUseCase implements UpdateLocalDocumentPort {
                 );
 
         commandDocumentPort.saveDocument(
-                document.updateLocalDocument(request.getPreviewImagePath(), request.getContent())
+                document.updateDocumentPreviewAndContent(request.getPreviewImagePath(), request.getContent())
         );
     }
 }

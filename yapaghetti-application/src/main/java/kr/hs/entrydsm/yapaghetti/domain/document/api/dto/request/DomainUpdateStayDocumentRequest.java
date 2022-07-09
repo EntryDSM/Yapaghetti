@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class DomainCreateLocalDocumentRequest {
-
+public class DomainUpdateStayDocumentRequest {
     private final String previewImagePath;
     private final String content;
 }

@@ -71,8 +71,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)
-                .antMatchers(HttpMethod.GET, "/documents//stay/{document-id}").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/documents/stay/reject/{document-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/documents/stay/{document-id}").hasAnyRole(STUDENT, TEACHER)
+                .antMatchers(HttpMethod.PATCH, "/documents/stay").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents/list").hasRole(STUDENT)
+                .antMatchers(HttpMethod.PATCH, "/documents/stay/approve/{document-id}").hasRole(TEACHER)
 
                 // students
                 .antMatchers(HttpMethod.GET, "/students").hasRole(STUDENT)

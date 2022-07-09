@@ -19,6 +19,8 @@ public class Document {
 
     private final DocumentType type;
 
+    private final Boolean isApproved;
+
     private final UUID userId;
 
     public Document changeDocumentType(DocumentType type) {
@@ -28,16 +30,18 @@ public class Document {
                 .content(this.content)
                 .type(type)
                 .userId(this.userId)
+                .isApproved(DocumentType.PUBLIC.equals(type))
                 .build();
     }
 
-    public Document updateLocalDocument(String previewImagePath, String content) {
+    public Document updateDocumentPreviewAndContent(String previewImagePath, String content) {
         return Document.builder()
                 .id(this.id)
                 .previewImagePath(previewImagePath)
                 .content(content)
                 .type(this.type)
                 .userId(this.userId)
+                .isApproved(false)
                 .build();
     }
 }
