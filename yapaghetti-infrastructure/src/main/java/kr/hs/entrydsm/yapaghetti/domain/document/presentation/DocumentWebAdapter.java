@@ -5,6 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeleteLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.DeletePublicDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
@@ -14,6 +15,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
@@ -49,6 +51,7 @@ public class DocumentWebAdapter {
     private final QueryStayDocumentPort queryStayDocumentPort;
     private final CancelStayDocumentPort cancelStayDocumentPort;
     private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
+    private final QueryLocalDocumentListPort queryLocalDocumentListPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -112,7 +115,7 @@ public class DocumentWebAdapter {
     public QueryStayDocumentResponse getStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
         return queryStayDocumentPort.execute(documentId);
     }
-  
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/cancel/{document-id}")
     public void cancelStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
@@ -123,5 +126,10 @@ public class DocumentWebAdapter {
     @PostMapping("/{document-id}")
     public void requestLocalDocumentToPublic(@PathVariable("document-id") @NotBlank UUID documentId) {
         requestLocalDocumentToPublicPort.execute(documentId);
+    }
+
+    @GetMapping("/list")
+    public QueryLocalDocumentListResponse getLocalDocumentList() {
+        return queryLocalDocumentListPort.execute();
     }
 }

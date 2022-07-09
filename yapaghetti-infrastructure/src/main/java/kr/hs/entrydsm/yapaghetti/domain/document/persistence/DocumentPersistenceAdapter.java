@@ -9,7 +9,9 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Adapter
@@ -49,6 +51,13 @@ public class DocumentPersistenceAdapter implements DocumentPort {
                 documentRepository.findByUserEntityIdAndType(userId, type)
                         .orElseThrow(() -> DocumentNotFoundException.EXCEPTION)
         );
+    }
+
+    @Override
+    public List<Document> queryDocumentAllByUserIdAndType(UUID userId, DocumentType type) {
+        return documentRepository.findAllByUserEntityIdAndType(userId, type).stream()
+                .map(documentMapper::entityToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
