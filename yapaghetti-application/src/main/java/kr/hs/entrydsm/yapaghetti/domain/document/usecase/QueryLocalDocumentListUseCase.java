@@ -31,7 +31,6 @@ public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort
         UUID currentUserId = documentSecurityPort.getCurrentUserId();
         User user = documentQueryUserPort.queryUserById(currentUserId);
 
-
         Tag majorTag = documentQueryTagPort.queryMajorTagByStudentId(currentUserId);
 
         List<DocumentElement> localDocumentList =
