@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
@@ -29,7 +29,7 @@ class QueryLocalDocumentListUseCaseTest {
     DocumentSecurityPort documentSecurityPort;
 
     @Mock
-    DocumentQueryStudentPort documentQueryStudentPort;
+    DocumentQueryTagPort documentQueryTagPort;
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -55,7 +55,7 @@ class QueryLocalDocumentListUseCaseTest {
                                 .name(userName)
                                 .build()
                 );
-        given(documentQueryStudentPort.queryTagByStudentId(userId))
+        given(documentQueryTagPort.queryMajorTagByStudentId(userId))
                 .willReturn(
                         Tag.builder()
                                 .id(tagId)

@@ -4,6 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 
 import java.util.UUID;
 
-public interface DocumentQueryStudentPort {
-    Tag queryTagByStudentId(UUID studentId);
+public interface DocumentQueryTagPort {
+    Tag queryMajorTagByStudentId(UUID studentId);
 }
