@@ -31,7 +31,7 @@ public class Document {
                 .build();
     }
 
-    public Document updateLocalDocument(String previewImagePath, String content) {
+    public Document updateDocumentPreviewAndContent(String previewImagePath, String content) {
         return Document.builder()
                 .id(this.id)
                 .previewImagePath(previewImagePath)
