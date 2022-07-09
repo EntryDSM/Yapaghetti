@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayAndPublicDocumentPreviewPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
@@ -17,6 +18,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLoc
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebLocalDocumentRequest;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,7 @@ public class DocumentWebAdapter {
     private final CancelStayDocumentPort cancelStayDocumentPort;
     private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
     private final QueryLocalDocumentListPort queryLocalDocumentListPort;
+    private final QueryStayAndPublicDocumentPreviewPort queryStayAndPublicDocumentPreviewPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -131,5 +134,12 @@ public class DocumentWebAdapter {
     @GetMapping("/list")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
+    }
+
+    @GetMapping("/preview/{student-id}")
+    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(
+            @PathVariable("student-id") @NotBlank UUID studentId
+    ) {
+        return queryStayAndPublicDocumentPreviewPort.execute(studentId);
     }
 }
