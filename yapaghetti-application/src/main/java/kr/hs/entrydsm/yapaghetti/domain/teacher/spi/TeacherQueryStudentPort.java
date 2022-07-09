@@ -7,5 +7,4 @@ import java.util.UUID;
 
 public interface TeacherQueryStudentPort {
     Student queryUserById(UUID studentId);
-    StudentDetailResponse findNameEmailPhoneNumberMajorTagNameGradeClassNumNumberByStudentId(UUID studentId);
 }

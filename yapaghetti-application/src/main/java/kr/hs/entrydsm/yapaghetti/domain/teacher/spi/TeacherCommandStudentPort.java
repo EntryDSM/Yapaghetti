@@ -1,7 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.spi;
 
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
+
+import java.util.UUID;
 
 public interface TeacherCommandStudentPort {
     void deleteStudent(Student student);
+    StudentDetailResponse findNameEmailPhoneNumberMajorTagNameGradeClassNumNumberByStudentId(UUID studentId);
 }
