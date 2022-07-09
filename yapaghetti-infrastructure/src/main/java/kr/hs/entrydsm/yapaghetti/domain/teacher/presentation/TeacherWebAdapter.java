@@ -52,7 +52,7 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/company/{company-id}")
-    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") UUID companyId) {
+    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
 
