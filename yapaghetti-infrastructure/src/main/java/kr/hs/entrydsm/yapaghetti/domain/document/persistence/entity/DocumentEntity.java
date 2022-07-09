@@ -37,6 +37,7 @@ public class DocumentEntity extends BaseUUIDEntity {
     @Column(columnDefinition = "VARCHAR(9)", nullable = false)
     private DocumentType type;
 
+    @Column(columnDefinition = "BIT(1)", nullable = false)
     private Boolean isApproved;
 
     @ManyToOne(fetch = FetchType.LAZY)
