@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash
 public class AuthCodeEntity {
