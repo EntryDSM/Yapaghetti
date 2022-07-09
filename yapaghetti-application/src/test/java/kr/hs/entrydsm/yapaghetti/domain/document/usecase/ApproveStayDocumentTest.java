@@ -38,6 +38,7 @@ class ApproveStayDocumentTest {
                         .content("testContent")
                         .type(DocumentType.STAY)
                         .userId(userId)
+                        .isApproved(false)
                         .build()
         );
 
