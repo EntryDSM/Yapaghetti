@@ -57,4 +57,19 @@ public class User {
                 .build();
     }
 
+    public User setNameAndPhoneNumberAndLocationAndEmail(String name, String phoneNumber, String email, String location) {
+        return User.builder()
+                .id(this.id)
+                .email(email)
+                .password(this.password)
+                .name(name)
+                .profileImagePath(profileImagePath)
+                .phoneNumber(phoneNumber)
+                .location(location)
+                .isVisited(this.isVisited)
+                .role(this.role)
+                .build();
+
+    }
+
 }
