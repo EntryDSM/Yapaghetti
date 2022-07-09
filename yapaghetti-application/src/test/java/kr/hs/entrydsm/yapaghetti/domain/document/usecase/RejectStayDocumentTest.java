@@ -35,8 +35,6 @@ class RejectStayDocumentTest {
                         .build()
         );
 
-        // TODO 거절 비즈니스 로직 테스트 추가
-
         rejectStayDocumentUseCase.execute(documentId);
     }
 }

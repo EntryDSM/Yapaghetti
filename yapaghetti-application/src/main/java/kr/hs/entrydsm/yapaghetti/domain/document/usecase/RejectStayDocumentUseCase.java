@@ -21,6 +21,8 @@ public class RejectStayDocumentUseCase implements RejectStayDocumentPort {
     public void execute(UUID documentId) {
         Document stayDocument = queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY);
 
-        // TODO 거절 비즈니스 로직 추가
+        commandDocumentPort.saveDocument(
+                stayDocument.reject()
+        );
     }
 }
