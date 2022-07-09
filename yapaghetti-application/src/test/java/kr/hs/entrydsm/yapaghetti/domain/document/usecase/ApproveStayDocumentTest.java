@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +15,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class CopyPublicDocumentTest {
+class ApproveStayDocumentTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -24,28 +23,25 @@ class CopyPublicDocumentTest {
     @Mock
     CommandDocumentPort commandDocumentPort;
 
-    @Mock
-    DocumentSecurityPort documentSecurityPort;
-
     @InjectMocks
-    CopyPublicDocumentUseCase copyPublicDocumentUseCase;
+    ApproveStayDocumentUseCase approveStayDocumentUseCase;
 
     @Test
-    void copy() {
+    void approveDocument() {
+        UUID documentId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
+        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
                 Document.builder()
-                        .previewImagePath("testPreviewImage")
+                        .id(documentId)
+                        .previewImagePath("testPreviewImagePath")
                         .content("testContent")
-                        .type(DocumentType.PUBLIC)
+                        .type(DocumentType.STAY)
                         .userId(userId)
                         .isApproved(false)
                         .build()
         );
 
-        copyPublicDocumentUseCase.execute();
+        approveStayDocumentUseCase.execute(documentId);
     }
-
 }

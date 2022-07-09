@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.ApproveStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CancelStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
@@ -57,6 +58,7 @@ public class DocumentWebAdapter {
     private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
     private final UpdateStayDocumentPort updateStayDocumentPort;
     private final QueryLocalDocumentListPort queryLocalDocumentListPort;
+    private final ApproveStayDocumentPort approveStayDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -141,5 +143,11 @@ public class DocumentWebAdapter {
     @GetMapping("/list")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/stay/approve/{document-id}")
+    public void approveStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        approveStayDocumentPort.execute(documentId);
     }
 }
