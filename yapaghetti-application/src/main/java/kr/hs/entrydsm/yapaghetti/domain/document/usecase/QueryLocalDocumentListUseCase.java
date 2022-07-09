@@ -5,7 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.DocumentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
@@ -14,6 +14,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -22,17 +23,19 @@ public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort
 
     private final DocumentQueryUserPort documentQueryUserPort;
     private final DocumentSecurityPort documentSecurityPort;
-    private final DocumentQueryStudentPort documentQueryStudentPort;
+    private final DocumentQueryTagPort documentQueryTagPort;
     private final QueryDocumentPort queryDocumentPort;
 
     @Override
     public QueryLocalDocumentListResponse execute() {
-        User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
+        UUID currentUserId = documentSecurityPort.getCurrentUserId();
+        User user = documentQueryUserPort.queryUserById(currentUserId);
 
-        Tag majorTag = documentQueryStudentPort.queryTagByStudentId(user.getId());
+
+        Tag majorTag = documentQueryTagPort.queryMajorTagByStudentId(currentUserId);
 
         List<DocumentElement> localDocumentList =
-                queryDocumentPort.queryDocumentAllByUserIdAndType(user.getId(), DocumentType.LOCAL)
+                queryDocumentPort.queryDocumentAllByUserIdAndType(currentUserId, DocumentType.LOCAL)
                         .stream()
                         .map(document -> DocumentElement.builder()
                                 .documentId(document.getId())
