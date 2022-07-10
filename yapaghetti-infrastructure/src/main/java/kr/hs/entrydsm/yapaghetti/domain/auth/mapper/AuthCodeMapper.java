@@ -5,7 +5,6 @@ import kr.hs.entrydsm.yapaghetti.domain.auth.persistence.entity.AuthCodeEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Component
 public class AuthCodeMapper {
 

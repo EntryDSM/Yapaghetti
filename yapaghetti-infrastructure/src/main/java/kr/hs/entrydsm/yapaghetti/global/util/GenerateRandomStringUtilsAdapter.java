@@ -5,7 +5,6 @@ import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 
-@RequiredArgsConstructor
 @Adapter
 public class GenerateRandomStringUtilsAdapter implements GenerateRandomStringPort {
 
