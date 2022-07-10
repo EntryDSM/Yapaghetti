@@ -8,11 +8,11 @@ import java.util.UUID;
 @Getter
 @Builder
 public class CompanyDetailResponse {
-    private String name;
-    private String companyId;
-    private String companyName;
-    private String phoneNumber;
-    private String email;
-    private String location;
-    private String profileImagePath;
+    private final String name;
+    private final String companyId;
+    private final String companyName;
+    private final String phoneNumber;
+    private final String email;
+    private final String location;
+    private final String profileImagePath;
 }
