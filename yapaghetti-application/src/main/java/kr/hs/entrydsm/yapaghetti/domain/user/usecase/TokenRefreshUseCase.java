@@ -27,7 +27,9 @@ public class TokenRefreshUseCase implements TokenRefreshPort {
         String accessToken = userJwtPort.generateAccessToken(user.getId(), user.getRole());
         String refreshToken = userJwtPort.generateRefreshToken(user.getId(), user.getRole());
 
-        commandRefreshTokenPort.saveRefreshToken(refreshTokenModel.update(refreshToken, userJwtPort.getRefreshExp()));
+        commandRefreshTokenPort.saveRefreshToken(
+                refreshTokenModel.update(refreshToken, userJwtPort.getRefreshExp())
+        );
 
         return new TokenRefreshResponse(user.getRole(), accessToken, refreshToken);
     }
