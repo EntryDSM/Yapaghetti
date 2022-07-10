@@ -8,9 +8,10 @@ import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.core.types.Projections.constructor;
 import static kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity.documentEntity;
 import static kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.QMySkillEntity.mySkillEntity;
 import static kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.QStudentEntity.studentEntity;
@@ -86,6 +88,36 @@ public class StudentPersistenceAdapter implements StudentPort {
                 studentRepository.findById(id)
                         .orElseThrow(() -> StudentNotFoundException.EXCEPTION)
         );
+    }
+
+    @Override
+    public StudentDetailInformation queryStudentDetail(UUID studentId) {
+        QTagEntity majorTag = new QTagEntity("majorTag");
+        QTagEntity skillTag = new QTagEntity("skillTag");
+
+        return jpaQueryFactory
+                .select(
+                        constructor(
+                                StudentDetailInformation.class,
+                                userEntity.name,
+                                studentEntity.grade,
+                                studentEntity.classNum,
+                                studentEntity.number,
+                                userEntity.email,
+                                userEntity.phoneNumber,
+                                majorTag.name,
+                                list(skillTag.name)
+                        )
+                )
+                .from(studentEntity)
+                .leftJoin(studentEntity.userEntity, userEntity)
+                .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(mySkillEntity.tagEntity, skillTag)
+                .where(
+                        studentEntity.userId.eq(studentId)
+                                .and(userEntity.id.eq(studentId))
+                )
+                .fetchOne();
     }
 
 
