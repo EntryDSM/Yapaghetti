@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AuthCodeErrorCode implements ErrorProperty {
 
-	AUTH_CODE_LIMIT_NOT_FOUND(404, "인증횟수 제한을 찾을 수 없습니다."),
+	AUTH_CODE_NOT_FOUND(404, "인증코드를 찾을 수 없습니다."),
 
 	AUTH_CODE_OVER_LIMIT(429, "인증 제한 횟수를 초과했습니다.");
 
