@@ -10,6 +10,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.dto.SpiTokenResponse;
 import kr.hs.entrydsm.yapaghetti.global.exception.InternalServerErrorException;
 import kr.hs.entrydsm.yapaghetti.global.property.JwtProperties;
 import kr.hs.entrydsm.yapaghetti.global.security.exception.InvalidTokenException;
@@ -66,19 +67,14 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID userId, UserRole role) {
-        return generateToken(userId, role, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration());
+    public SpiTokenResponse getToken(UUID userId, UserRole userRole) {
+        return new SpiTokenResponse(
+                generateToken(userId, userRole, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration()),
+                generateToken(userId, userRole, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration()),
+                jwtProperties.getRefreshExp()
+        );
     }
 
-    @Override
-    public String generateRefreshToken(UUID userId, UserRole role) {
-        return generateToken(userId, role, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration());
-    }
-
-    @Override
-    public Long getRefreshExp() {
-        return jwtProperties.getRefreshExp();
-    }
 
     private String generateToken(UUID userId, UserRole role, String type, Date expiration) {
         try {

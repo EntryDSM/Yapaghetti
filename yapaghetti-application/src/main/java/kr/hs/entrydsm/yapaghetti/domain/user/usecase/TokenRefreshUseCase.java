@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.domain.user.usecase;
+    package kr.hs.entrydsm.yapaghetti.domain.user.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.TokenRefreshPort;
@@ -6,6 +6,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.response.TokenRefreshRespon
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.RefreshToken;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.*;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.dto.SpiTokenResponse;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -24,14 +25,18 @@ public class TokenRefreshUseCase implements TokenRefreshPort {
 
         User user = queryUserPort.queryUserById(userSecurityPort.getCurrentUserId());
 
-        String accessToken = userJwtPort.generateAccessToken(user.getId(), user.getRole());
-        String refreshToken = userJwtPort.generateRefreshToken(user.getId(), user.getRole());
+        SpiTokenResponse tokenResponse = userJwtPort.getToken(user.getId(), user.getRole());
+
 
         commandRefreshTokenPort.saveRefreshToken(
-                refreshTokenModel.update(refreshToken, userJwtPort.getRefreshExp())
+                refreshTokenModel.update(tokenResponse.getRefreshToken(), tokenResponse.getRefreshExp())
         );
 
-        return new TokenRefreshResponse(user.getRole(), accessToken, refreshToken);
+        return new TokenRefreshResponse(
+                user.getRole(),
+                tokenResponse.getAccessToken(),
+                tokenResponse.getRefreshToken()
+        );
     }
 
 }
