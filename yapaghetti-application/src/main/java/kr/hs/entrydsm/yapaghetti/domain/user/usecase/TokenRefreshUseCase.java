@@ -27,7 +27,6 @@ public class TokenRefreshUseCase implements TokenRefreshPort {
 
         SpiTokenResponse tokenResponse = userJwtPort.getToken(user.getId(), user.getRole());
 
-
         commandRefreshTokenPort.saveRefreshToken(
                 refreshTokenModel.update(tokenResponse.getRefreshToken(), tokenResponse.getRefreshExp())
         );

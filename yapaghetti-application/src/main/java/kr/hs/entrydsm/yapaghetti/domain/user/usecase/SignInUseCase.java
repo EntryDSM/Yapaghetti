@@ -12,6 +12,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandRefreshTokenPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.dto.SpiTokenResponse;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -35,22 +36,21 @@ public class SignInUseCase implements SignInPort {
             throw UserInvalidRoleException.EXCEPTION;
         }
 
-        String accessToken = userJwtPort.generateAccessToken(user.getId(), user.getRole());
-        String refreshToken = userJwtPort.generateRefreshToken(user.getId(), user.getRole());
+        SpiTokenResponse tokenResponse = userJwtPort.getToken(user.getId(), user.getRole());
 
         commandRefreshTokenPort.saveRefreshToken(
                 RefreshToken.builder()
                         .id(user.getId().toString())
-                        .refreshToken(refreshToken)
-                        .ttl(userJwtPort.getRefreshExp())
+                        .refreshToken(tokenResponse.getRefreshToken())
+                        .ttl(tokenResponse.getRefreshExp())
                         .build()
         );
 
         return SignInResponse.builder()
                 .firstLogin(user.isVisited())
                 .userType(user.getRole())
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
+                .accessToken(tokenResponse.getAccessToken())
+                .refreshToken(tokenResponse.getRefreshToken())
                 .build();
     }
 
