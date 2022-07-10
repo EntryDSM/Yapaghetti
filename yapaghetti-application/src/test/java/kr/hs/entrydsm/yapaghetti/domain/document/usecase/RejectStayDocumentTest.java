@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +15,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class CopyPublicDocumentTest {
+class RejectStayDocumentTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -24,28 +23,18 @@ class CopyPublicDocumentTest {
     @Mock
     CommandDocumentPort commandDocumentPort;
 
-    @Mock
-    DocumentSecurityPort documentSecurityPort;
-
     @InjectMocks
-    CopyPublicDocumentUseCase copyPublicDocumentUseCase;
+    RejectStayDocumentUseCase rejectStayDocumentUseCase;
 
     @Test
-    void copy() {
-        UUID userId = UUID.randomUUID();
+    void rejectDocument() {
+        UUID documentId = UUID.randomUUID();
 
-        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
-        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
+        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
                 Document.builder()
-                        .previewImagePath("testPreviewImage")
-                        .content("testContent")
-                        .type(DocumentType.PUBLIC)
-                        .userId(userId)
-                        .isRejected(false)
                         .build()
         );
 
-        copyPublicDocumentUseCase.execute();
+        rejectStayDocumentUseCase.execute(documentId);
     }
-
 }
