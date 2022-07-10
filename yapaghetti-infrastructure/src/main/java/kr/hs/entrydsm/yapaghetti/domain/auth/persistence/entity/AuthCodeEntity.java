@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.auth.persistence.entity;
 
+import java.time.LocalDateTime;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class AuthCodeEntity {
 
 	@TimeToLive
 	private Long timeToLive;
+
+	private LocalDateTime authTime;
 
 	private boolean isVerify;
 
