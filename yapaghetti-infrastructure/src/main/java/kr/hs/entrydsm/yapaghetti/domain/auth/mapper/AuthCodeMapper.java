@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.auth.mapper;
 
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
 import kr.hs.entrydsm.yapaghetti.domain.auth.persistence.entity.AuthCodeEntity;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +14,7 @@ public class AuthCodeMapper {
 			.type(authCode.getType())
 			.isVerify(authCode.isVerify())
 			.timeToLive(authCode.getTimeToLive())
+			.authTime(authCode.getAuthTime())
 			.build();
 	}
 
@@ -24,6 +24,7 @@ public class AuthCodeMapper {
 			.authCode(authCodeEntity.getAuthCode())
 			.type(authCodeEntity.getType())
 			.timeToLive(authCodeEntity.getTimeToLive())
+			.authTime(authCodeEntity.getAuthTime())
 			.isVerify(authCodeEntity.isVerify())
 			.build();
 	}
