@@ -66,13 +66,13 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID publicId, UserRole role) {
-        return generateToken(publicId, role, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration());
+    public String generateAccessToken(UUID userId, UserRole role) {
+        return generateToken(userId, role, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration());
     }
 
     @Override
-    public String generateRefreshToken(UUID publicId, UserRole role) {
-        return generateToken(publicId, role, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration());
+    public String generateRefreshToken(UUID userId, UserRole role) {
+        return generateToken(userId, role, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration());
     }
 
     @Override
@@ -80,12 +80,12 @@ public class JwtTokenProvider implements UserJwtPort {
         return jwtProperties.getRefreshExp();
     }
 
-    private String generateToken(UUID publicId, UserRole role, String type, Date expiration) {
+    private String generateToken(UUID userId, UserRole role, String type, Date expiration) {
         try {
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(publicId.toString())
+                    .subject(userId.toString())
                     .claim("role", role.name())
                     .claim("type", type)
                     .expirationTime(expiration)
