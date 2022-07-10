@@ -52,7 +52,6 @@ public class TeacherWebAdapter {
         deleteStudentPort.execute(studentId);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/company/{company-id}")
     public void updateCompany(@PathVariable("company-id") @NotBlank UUID companyId,
                               @RequestBody @Valid WebUpdateCompanyRequest request) {
