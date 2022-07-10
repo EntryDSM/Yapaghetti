@@ -4,9 +4,11 @@ import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.SignInPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainSignInRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.response.SignInResponse;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.RefreshToken;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserInvalidPasswordException;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserInvalidRoleException;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandRefreshTokenPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
@@ -19,6 +21,7 @@ public class SignInUseCase implements SignInPort {
     private final QueryUserPort queryUserPort;
     private final UserSecurityPort userSecurityPort;
     private final UserJwtPort userJwtPort;
+    private final CommandRefreshTokenPort commandRefreshTokenPort;
 
     @Override
     public SignInResponse signIn(DomainSignInRequest request) {
@@ -32,11 +35,22 @@ public class SignInUseCase implements SignInPort {
             throw UserInvalidRoleException.EXCEPTION;
         }
 
+        String accessToken = userJwtPort.generateAccessToken(user.getId(), user.getRole());
+        String refreshToken = userJwtPort.generateRefreshToken(user.getId(), user.getRole());
+
+        commandRefreshTokenPort.saveRefreshToken(
+                RefreshToken.builder()
+                        .id(user.getId().toString())
+                        .refreshToken(refreshToken)
+                        .ttl(userJwtPort.getRefreshExp())
+                        .build()
+        );
+
         return SignInResponse.builder()
                 .firstLogin(user.isVisited())
                 .userType(user.getRole())
-                .accessToken(userJwtPort.generateAccessToken(user.getId(), user.getRole()))
-                //TODO refreshToken
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 
