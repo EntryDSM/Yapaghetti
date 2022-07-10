@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface UserJwtPort {
     String generateAccessToken(UUID publicId, UserRole role);
+    String generateRefreshToken(UUID publicId, UserRole role);
+    Long getRefreshExp();
 }

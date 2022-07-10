@@ -33,6 +33,7 @@ public class JwtTokenProvider implements UserJwtPort {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final String JWT_ACCESS_TOKEN_TYPE = "access_token";
+    private static final String JWT_REFRESH_TOKEN_TYPE = "refresh_token";
 
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
@@ -65,15 +66,28 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID id, UserRole role) {
+    public String generateAccessToken(UUID publicId, UserRole role) {
+        return generateToken(publicId, role, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration());
+    }
+
+    @Override
+    public String generateRefreshToken(UUID publicId, UserRole role) {
+        return generateToken(publicId, role, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration());
+    }
+
+    @Override
+    public Long getRefreshExp() {
+        return jwtProperties.getRefreshExp();
+    }
+
+    private String generateToken(UUID publicId, UserRole role, String type, Date expiration) {
         try {
-            Date expiration = getAccessExpiration();
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(id.toString())
+                    .subject(publicId.toString())
                     .claim("role", role.name())
-                    .claim("type", JWT_ACCESS_TOKEN_TYPE)
+                    .claim("type", type)
                     .expirationTime(expiration)
                     .build();
 
@@ -92,6 +106,10 @@ public class JwtTokenProvider implements UserJwtPort {
 
     private Date getAccessExpiration() {
         return new Date(System.currentTimeMillis() + jwtProperties.getAccessExp());
+    }
+
+    private Date getRefreshExpiration() {
+        return new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp());
     }
 
 }
