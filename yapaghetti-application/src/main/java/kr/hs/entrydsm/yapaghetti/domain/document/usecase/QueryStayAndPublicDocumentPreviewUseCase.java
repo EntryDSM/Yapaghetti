@@ -3,14 +3,17 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayAndPublicDocumentPreviewPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
-import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.StayAndPublicDocumentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @UseCase
@@ -23,13 +26,16 @@ public class QueryStayAndPublicDocumentPreviewUseCase implements QueryStayAndPub
     public QueryStayAndPublicDocumentPreviewResponse execute(UUID studentId) {
         Student student = documentQueryStudentPort.queryStudentById(studentId);
 
-        Document stayDocument = queryDocumentPort
-                .queryDocumentByUserIdAndType(student.getUserId(), DocumentType.STAY);
-        Document publicDocument = queryDocumentPort
-                .queryDocumentByUserIdAndType(student.getUserId(), DocumentType.PUBLIC);
+        List<DocumentType> types = new ArrayList<>();
+        types.add(DocumentType.LOCAL);
+        types.add(DocumentType.PROTECTED);
 
-        return new QueryStayAndPublicDocumentPreviewResponse(
-                stayDocument.getPreviewImagePath(), publicDocument.getPreviewImagePath()
-        );
+        List<StayAndPublicDocumentElement> documentElements =
+                queryDocumentPort.queryDocumentAllByUserIdAndTypeNotIn(student.getUserId(), types)
+                        .stream()
+                        .map(document -> new StayAndPublicDocumentElement(document.getType(), document.getPreviewImagePath()))
+                        .collect(Collectors.toList());
+
+        return new QueryStayAndPublicDocumentPreviewResponse(documentElements);
     }
 }
