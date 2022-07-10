@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.StayAndPublicDocumentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryStudentPort;
@@ -11,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
@@ -30,8 +33,11 @@ class QueryStayAndPublicDocumentPreviewUseCaseTest {
     @Test
     void QueryPublicAndStayDocumentPreview() {
         UUID studentId = UUID.randomUUID();
-        String stayPreviewImagePath = "stayPreviewImagePath";
-        String publicPreviewImagePath = "publicPreviewImagePath";
+        String previewImagePath = "testPreviewImagePath";
+        List<DocumentType> types = new ArrayList<>();
+        types.add(DocumentType.LOCAL);
+        types.add(DocumentType.PROTECTED);
+
 
         given(documentQueryStudentPort.queryStudentById(studentId))
                 .willReturn(
@@ -39,20 +45,18 @@ class QueryStayAndPublicDocumentPreviewUseCaseTest {
                                 .userId(studentId)
                                 .build()
                 );
-        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY))
+        given(queryDocumentPort.queryDocumentAllByUserIdAndTypeNotIn(studentId, types))
                 .willReturn(
-                        Document.builder()
-                                .type(DocumentType.STAY)
-                                .previewImagePath(stayPreviewImagePath)
-                                .build()
-                );
-        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.PUBLIC))
-                .willReturn(
-                        Document.builder()
-                                .type(DocumentType.PUBLIC)
-                                .previewImagePath(publicPreviewImagePath)
-                                .build()
-                );
+                        List.of(
+                                Document.builder()
+                                        .type(DocumentType.STAY)
+                                        .previewImagePath(previewImagePath)
+                                        .build(),
+                                Document.builder()
+                                        .type(DocumentType.PUBLIC)
+                                        .previewImagePath(previewImagePath)
+                                        .build()
+                        ));
 
         queryPublicAndStayDocumentPreviewUseCase.execute(studentId);
     }
