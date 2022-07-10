@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandRefreshTokenPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.dto.SpiTokenResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -103,6 +104,10 @@ class SignInUseCaseTest {
         given(request.getEmail()).willReturn(email);
         given(request.getPassword()).willReturn(password);
         given(request.getUserType()).willReturn(role);
+        given(userJwtPort.getToken(userId, role))
+                .willReturn(
+                        new SpiTokenResponse("testAccessToken", "testRefreshToken", 100L)
+                );
 
         signInUseCase.signIn(request);
     }
