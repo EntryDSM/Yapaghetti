@@ -1,14 +1,15 @@
 package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeLimit;
+import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthSecurityPort;
-import kr.hs.entrydsm.yapaghetti.domain.auth.spi.CommandAuthCodeLimitPort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.CommandAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.GenerateRandomStringPort;
-import kr.hs.entrydsm.yapaghetti.domain.auth.spi.QueryAuthCodeLimitPort;
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.GetAuthPropertiesPort;
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.QueryAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -36,13 +37,13 @@ public class SendEmailAuthCodeUseCaseTest {
 	SendMailPort sendMailPort;
 
 	@Mock
+	QueryAuthCodePort queryAuthCodePort;
+
+	@Mock
 	CommandAuthCodePort commandAuthCodePort;
 
 	@Mock
-	QueryAuthCodeLimitPort queryAuthCodeLimitPort;
-
-	@Mock
-	CommandAuthCodeLimitPort commandAuthCodeLimitPort;
+	GetAuthPropertiesPort getAuthPropertiesPort;
 
 	@InjectMocks
 	SendEmailAuthCodeUseCase sendEmailAuthCodeUseCase;
@@ -52,7 +53,13 @@ public class SendEmailAuthCodeUseCaseTest {
 		UUID uuid = UUID.randomUUID();
 		String value = "value";
 		String authCode = "authCode";
+		Long authTime = 1L;
+		Long limitTime = 2L;
 
+		given(getAuthPropertiesPort.getAuthTime())
+			.willReturn(authTime);
+		given(generateRandomStringPort.getAuthCode())
+			.willReturn(authCode);
 		given(authSecurityPort.getCurrentUserId())
 			.willReturn(uuid);
 		given(authQueryUserPort.queryUserById(uuid))
@@ -61,16 +68,17 @@ public class SendEmailAuthCodeUseCaseTest {
 					.email(value)
 					.build()
 			);
-		given(generateRandomStringPort.getAuthCode())
-			.willReturn(authCode);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodeLimitPort.queryAuthCodeLimitById(value))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
-				AuthCodeLimit.builder()
-					.count(1)
+				AuthCode.builder()
+					.authTime(LocalDateTime.now())
+					.timeToLive(authTime)
 					.build()
 			);
+		given(getAuthPropertiesPort.getLimitTime())
+			.willReturn(limitTime);
 
 		sendEmailAuthCodeUseCase.execute();
 	}
@@ -80,7 +88,12 @@ public class SendEmailAuthCodeUseCaseTest {
 		UUID uuid = UUID.randomUUID();
 		String value = "value";
 		String authCode = "authCode";
+		Long authTime = 1L;
 
+		given(getAuthPropertiesPort.getAuthTime())
+			.willReturn(authTime);
+		given(generateRandomStringPort.getAuthCode())
+			.willReturn(authCode);
 		given(authSecurityPort.getCurrentUserId())
 			.willReturn(uuid);
 		given(authQueryUserPort.queryUserById(uuid))
@@ -89,8 +102,6 @@ public class SendEmailAuthCodeUseCaseTest {
 					.email(value)
 					.build()
 			);
-		given(generateRandomStringPort.getAuthCode())
-			.willReturn(authCode);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(false);
 
@@ -102,7 +113,13 @@ public class SendEmailAuthCodeUseCaseTest {
 		UUID uuid = UUID.randomUUID();
 		String value = "value";
 		String authCode = "authCode";
+		Long authTime = 2L;
+		Long limitTime = 1L;
 
+		given(getAuthPropertiesPort.getAuthTime())
+			.willReturn(authTime);
+		given(generateRandomStringPort.getAuthCode())
+			.willReturn(authCode);
 		given(authSecurityPort.getCurrentUserId())
 			.willReturn(uuid);
 		given(authQueryUserPort.queryUserById(uuid))
@@ -111,16 +128,17 @@ public class SendEmailAuthCodeUseCaseTest {
 					.email(value)
 					.build()
 			);
-		given(generateRandomStringPort.getAuthCode())
-			.willReturn(authCode);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodeLimitPort.queryAuthCodeLimitById(value))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
-				AuthCodeLimit.builder()
-					.count(100)
+				AuthCode.builder()
+					.authTime(LocalDateTime.now())
+					.timeToLive(authTime)
 					.build()
 			);
+		given(getAuthPropertiesPort.getLimitTime())
+			.willReturn(limitTime);
 
 		assertThrows(AuthCodeOverLimitException.class, () -> sendEmailAuthCodeUseCase.execute());
 	}
