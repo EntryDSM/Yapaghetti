@@ -142,19 +142,17 @@ public class DocumentWebAdapter {
                 new DomainUpdateStayDocumentRequest(request.getPreviewImagePath(), request.getContent())
         );
     }
-    
+
     @GetMapping("/list")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
     }
 
     @GetMapping("/preview/{student-id}")
-    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(
-            @PathVariable("student-id") @NotBlank UUID studentId
-    ) {
+    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(@PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStayAndPublicDocumentPreviewPort.execute(studentId);
     }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/stay/approve/{document-id}")
     public void approveStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
