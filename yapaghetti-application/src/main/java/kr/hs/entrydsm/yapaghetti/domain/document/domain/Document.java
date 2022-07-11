@@ -19,7 +19,7 @@ public class Document {
 
     private final DocumentType type;
 
-    private final Boolean isApproved;
+    private final Boolean isRejected;
 
     private final UUID userId;
 
@@ -30,7 +30,7 @@ public class Document {
                 .content(this.content)
                 .type(type)
                 .userId(this.userId)
-                .isApproved(DocumentType.PUBLIC.equals(type))
+                .isRejected(false)
                 .build();
     }
 
@@ -41,7 +41,18 @@ public class Document {
                 .content(content)
                 .type(this.type)
                 .userId(this.userId)
-                .isApproved(false)
+                .isRejected(this.getIsRejected())
+                .build();
+    }
+
+    public Document reject() {
+        return Document.builder()
+                .id(this.id)
+                .previewImagePath(this.previewImagePath)
+                .content(this.content)
+                .type(type)
+                .userId(this.userId)
+                .isRejected(true)
                 .build();
     }
 }
