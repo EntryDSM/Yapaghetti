@@ -1,11 +1,14 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.TeacherQueryStudentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +35,7 @@ public class TeacherWebAdapter {
     private final DeleteStudentPort deleteStudentPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
+    private final TeacherQueryStudentListPort teacherQueryStudentListPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -60,5 +65,14 @@ public class TeacherWebAdapter {
     @PostMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
         deleteCompanyPort.execute(companyId);
+    }
+
+
+    @GetMapping("/student/list")
+    public StudentListResponse queryStudentList(
+            @RequestParam("grade") Integer grade, @RequestParam("classNum") Integer classNum,
+            @RequestParam("docStatus")DocumentType docStatus
+            ) {
+        return teacherQueryStudentListPort.execute(grade, classNum, docStatus);
     }
 }
