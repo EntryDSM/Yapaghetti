@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -31,8 +32,10 @@ public class WebUpdateCompanyRequest {
     @Size(max = 255, message = "255자 이하로 수정 부탁드립니다")
     private String email;
 
+    @NotNull
     private LocalDateTime startAt;
 
+    @NotNull
     private LocalDateTime endAt;
 
 }
