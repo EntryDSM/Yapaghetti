@@ -2,10 +2,12 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,9 @@ class QueryLocalDocumentListUseCaseTest {
     DocumentQueryTagPort documentQueryTagPort;
 
     @Mock
+    DocumentQueryStudentPort documentQueryStudentPort;
+
+    @Mock
     QueryDocumentPort queryDocumentPort;
 
     @InjectMocks
@@ -44,7 +49,6 @@ class QueryLocalDocumentListUseCaseTest {
         UUID tagId = UUID.randomUUID();
         String tagName = "testTagName";
         String profileImagePath = "testProfileImagePath";
-        String content = "testContent";
 
         given(documentSecurityPort.getCurrentUserId())
                 .willReturn(userId);
@@ -55,7 +59,14 @@ class QueryLocalDocumentListUseCaseTest {
                                 .name(userName)
                                 .build()
                 );
-        given(documentQueryTagPort.queryTagById(userId))
+        given(documentQueryStudentPort.queryStudentById(userId))
+                .willReturn(
+                        Student.builder()
+                                .userId(userId)
+                                .tagId(tagId)
+                                .build()
+                );
+        given(documentQueryTagPort.queryTagById(tagId))
                 .willReturn(
                         Tag.builder()
                                 .id(tagId)
