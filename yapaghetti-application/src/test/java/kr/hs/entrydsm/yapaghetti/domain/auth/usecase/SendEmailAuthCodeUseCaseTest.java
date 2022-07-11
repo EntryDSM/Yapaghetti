@@ -3,7 +3,6 @@ package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
@@ -57,7 +56,6 @@ public class SendEmailAuthCodeUseCaseTest {
 		String authCode = "authCode";
 		Long authTime = 1L;
 		Long limitTime = 2L;
-		AuthCodeType type = AuthCodeType.EMAIL;
 
 		given(getAuthPropertiesPort.getAuthTime())
 			.willReturn(authTime);
@@ -73,7 +71,7 @@ public class SendEmailAuthCodeUseCaseTest {
 			);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())
@@ -118,7 +116,6 @@ public class SendEmailAuthCodeUseCaseTest {
 		String authCode = "authCode";
 		Long authTime = 2L;
 		Long limitTime = 1L;
-		AuthCodeType type = AuthCodeType.EMAIL;
 
 		given(getAuthPropertiesPort.getAuthTime())
 			.willReturn(authTime);
@@ -134,7 +131,7 @@ public class SendEmailAuthCodeUseCaseTest {
 			);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())
@@ -153,7 +150,6 @@ public class SendEmailAuthCodeUseCaseTest {
 		String value = "value";
 		String authCode = "authCode";
 		Long authTime = 1L;
-		AuthCodeType type = AuthCodeType.EMAIL;
 
 		given(getAuthPropertiesPort.getAuthTime())
 			.willReturn(authTime);
@@ -169,7 +165,7 @@ public class SendEmailAuthCodeUseCaseTest {
 			);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())

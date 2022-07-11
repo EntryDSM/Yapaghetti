@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.auth.persistence;
 
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.mapper.AuthCodeMapper;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthCodePort;
@@ -28,9 +27,9 @@ public class AuthCodePersistenceAdapter implements AuthCodePort {
 	}
 
 	@Override
-	public AuthCode queryAuthCodeByValueAndType(String value, AuthCodeType authCodeType) {
+	public AuthCode queryAuthCodeById(String id) {
 		return authCodeMapper.entityToDomain(
-			authCodeRepository.findByValueAndType(value, authCodeType)
+			authCodeRepository.findById(id)
 				.orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION)
 		);
 	}

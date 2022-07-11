@@ -6,7 +6,6 @@ import static org.mockito.BDDMockito.given;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyTimeOutException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.InvalidAuthCodeException;
@@ -43,7 +42,6 @@ public class VerifyEmailAuthCodeUseCaseTest {
 	void 인증확인() {
 		UUID uuid = UUID.randomUUID();
 		String email = "email";
-		AuthCodeType type = AuthCodeType.EMAIL;
 		String authCode = "test";
 
 		given(authSecurityPort.getCurrentUserId())
@@ -54,7 +52,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.email(email)
 					.build()
 			);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(email, type))
+		given(queryAuthCodePort.queryAuthCodeById(email))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)
@@ -70,7 +68,6 @@ public class VerifyEmailAuthCodeUseCaseTest {
 	void 이미_인증됨() {
 		UUID uuid = UUID.randomUUID();
 		String email = "email";
-		AuthCodeType type = AuthCodeType.EMAIL;
 		String authCode = "test";
 
 		given(authSecurityPort.getCurrentUserId())
@@ -81,7 +78,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.email(email)
 					.build()
 			);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(email, type))
+		given(queryAuthCodePort.queryAuthCodeById(email))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(true)
@@ -97,7 +94,6 @@ public class VerifyEmailAuthCodeUseCaseTest {
 	void 시간초과() {
 		UUID uuid = UUID.randomUUID();
 		String email = "email";
-		AuthCodeType type = AuthCodeType.EMAIL;
 		String authCode = "test";
 
 		given(authSecurityPort.getCurrentUserId())
@@ -108,7 +104,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.email(email)
 					.build()
 			);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(email, type))
+		given(queryAuthCodePort.queryAuthCodeById(email))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)
@@ -124,7 +120,6 @@ public class VerifyEmailAuthCodeUseCaseTest {
 	void 틀린_인증코드() {
 		UUID uuid = UUID.randomUUID();
 		String email = "email";
-		AuthCodeType type = AuthCodeType.EMAIL;
 		String authCode = "test";
 		String invalidAuthCode = "tset";
 
@@ -136,7 +131,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.email(email)
 					.build()
 			);
-		given(queryAuthCodePort.queryAuthCodeByValueAndType(email, type))
+		given(queryAuthCodePort.queryAuthCodeById(email))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.VerifyEmailAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyTimeOutException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.InvalidAuthCodeException;
@@ -24,8 +23,6 @@ public class VerifyEmailAuthCodeUseCase implements VerifyEmailAuthCodePort {
 	private final QueryAuthCodePort queryAuthCodePort;
 	private final CommandAuthCodePort commandAuthCodePort;
 
-	static AuthCodeType type = AuthCodeType.EMAIL;
-
 	@Override
 	public void execute(String authCode) {
 		User user = authQueryUserPort.queryUserById(
@@ -33,7 +30,7 @@ public class VerifyEmailAuthCodeUseCase implements VerifyEmailAuthCodePort {
 		);
 		String value = user.getEmail();
 
-		AuthCode authCodeDomain = queryAuthCodePort.queryAuthCodeByValueAndType(value, type);
+		AuthCode authCodeDomain = queryAuthCodePort.queryAuthCodeById(value);
 
 		if (authCodeDomain.isVerify()) {
 			throw AuthCodeAlreadyVerifiedException.EXCEPTION;
