@@ -9,6 +9,6 @@ public class GenerateRandomStringUtilsAdapter implements GenerateRandomStringPor
 
 	@Override
 	public String getAuthCode() {
-		return RandomStringUtils.randomNumeric(6);
+		return RandomStringUtils.randomNumeric(5);
 	}
 }

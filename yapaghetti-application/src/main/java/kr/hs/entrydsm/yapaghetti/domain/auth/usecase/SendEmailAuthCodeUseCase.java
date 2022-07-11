@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendEmailAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
+import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.GetAuthPropertiesPort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
@@ -30,7 +30,6 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 
 	@Override
 	public void execute() {
-		AuthCodeType type = AuthCodeType.EMAIL;
 		Long authTime = getAuthPropertiesPort.getAuthTime();
 		String authCode = generateRandomStringPort.getAuthCode();
 		AuthCode emailAuthCode;
@@ -43,6 +42,10 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 		if (commandAuthCodePort.existsAuthCodeById(value)) {
 			emailAuthCode = queryAuthCodePort.queryAuthCodeById(value);
 
+			if (emailAuthCode.isVerify()) {
+				throw AuthCodeAlreadyVerifiedException.EXCEPTION;
+			}
+
 			if (emailAuthCode.getTimeToLive() > getAuthPropertiesPort.getLimitTime()) {
 				throw AuthCodeOverLimitException.EXCEPTION;
 			}
@@ -52,7 +55,6 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 			emailAuthCode = AuthCode.builder()
 				.value(value)
 				.authCode(authCode)
-				.type(type)
 				.isVerify(false)
 				.timeToLive(authTime)
 				.authTime(LocalDateTime.now().plusSeconds(authTime))
