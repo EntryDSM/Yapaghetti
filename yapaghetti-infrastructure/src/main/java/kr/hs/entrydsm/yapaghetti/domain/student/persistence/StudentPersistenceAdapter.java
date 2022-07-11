@@ -35,21 +35,21 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     @Override
     public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum) {
-        QTagEntity majorTag = new QTagEntity("majorTag");
-        QTagEntity skillTag = new QTagEntity("skillTag");
+        QTagEntity QMajorTag = new QTagEntity("majorTag");
+        QTagEntity QSkillTag = new QTagEntity("skillTag");
 
         return jpaQueryFactory
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
-                .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(studentEntity.tagEntity, QMajorTag)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.mySkillList, mySkillEntity)
-                .leftJoin(mySkillEntity.tagEntity, skillTag)
+                .leftJoin(mySkillEntity.tagEntity, QSkillTag)
                 .where(documentEntity.type.eq(DocumentType.PUBLIC))
                 .where(
                         studentEntity.classNum.like(likePreProcessing(classNum))
                                 .and(userEntity.name.like(likePreProcessing(name)))
-                                .and(majorTag.name.like(likePreProcessing(majorTag)))
+                                .and(QMajorTag.name.like(likePreProcessing(majorTag)))
                 )
                 .transform(
                         groupBy(studentEntity.userId)
@@ -57,8 +57,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                                         Projections.constructor(
                                                 StudentElement.class,
                                                 studentEntity.userId,
-                                                majorTag.name,
-                                                list(skillTag.name),
+                                                QMajorTag.name,
+                                                list(QSkillTag.name),
                                                 userEntity.name,
                                                 studentEntity.grade.stringValue(),
                                                 studentEntity.classNum.stringValue(),
