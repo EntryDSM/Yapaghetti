@@ -10,5 +10,7 @@ import java.util.UUID;
 public interface TeacherQueryStudentPort {
     Student queryUserById(UUID studentId);
 
-    List<StudentElementByGradeAndClassNumAndDocStatus> queryStudentListByGradeAndClassNumAndDocStatus(Integer grade, Integer classNum, DocumentType docStatus);
+    List<StudentElementByGradeAndClassNumAndDocStatus> queryStudentListByGradeAndClassNumAndDocStatus(
+            Integer grade, Integer classNum, DocumentType docStatus
+    );
 }
