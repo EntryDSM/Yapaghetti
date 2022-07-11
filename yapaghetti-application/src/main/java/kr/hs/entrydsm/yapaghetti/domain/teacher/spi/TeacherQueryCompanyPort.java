@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TeacherQueryCompanyPort {
-    Company queryCompanyByUserId(UUID companyId);
+    Company queryCompanyById(UUID companyId);
     List<CompanyElement> queryCompanyDetailList(String name);
 }

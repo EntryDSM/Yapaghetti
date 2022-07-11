@@ -40,14 +40,19 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
 
+                // auth
+                .antMatchers(HttpMethod.POST, "/auth/email").hasAnyRole(STUDENT, TEACHER, MOU)
+
                 // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
+                .antMatchers(HttpMethod.PUT, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.PATCH, "/users/information").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 // teachers
                 .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/company/{company-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.DELETE, "/teachers/company/{company-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/teachers/company/search").hasRole(TEACHER)
 
@@ -72,9 +77,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/documents/public/{document-id}").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.DELETE, "/documents/public/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/documents/protected-url").hasRole(STUDENT)
+                .antMatchers(HttpMethod.PATCH, "/documents/stay/reject/{document-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.GET, "/documents/stay/{document-id}").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/documents/stay").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/list").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents/preview/{student-id}").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/documents/stay/approve/{document-id}").hasRole(TEACHER)
 
                 // students
