@@ -42,6 +42,7 @@ public class SecurityConfig {
 
                 // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
+                .antMatchers(HttpMethod.PUT, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/users/first-password").hasAnyRole(STUDENT, TEACHER, MOU)
                 .antMatchers(HttpMethod.PATCH, "/users/information").hasAnyRole(STUDENT, TEACHER, MOU)
 
