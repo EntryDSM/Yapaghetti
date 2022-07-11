@@ -6,6 +6,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetPasswordRe
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
@@ -18,19 +19,25 @@ public class ResetPasswordUseCase implements ResetPasswordPort {
     private final TeacherQueryUserPort teacherQueryUserPort;
     private final TeacherCommandUserPort teacherCommandUserPort;
     private final TeacherRandomStringPort teacherRandomStringPort;
+    private final TeacherSecurityPort teacherSecurityPort;
 
     @Override
     public ResetPasswordResponse execute(UUID companyId) {
         User user = teacherQueryUserPort.queryUserById(companyId);
         String password = teacherRandomStringPort.getRandomPassword();
 
-        teacherCommandUserPort.saveUser(
-                user.updatePassword(password)
-        );
+        savePassword(user, password);
 
         return ResetPasswordResponse.builder()
                 .password(password)
                 .build();
+    }
+
+    private void savePassword(User user, String password) {
+        String encodePassword = teacherSecurityPort.encodePassword(password);
+        teacherCommandUserPort.saveUser(
+                user.updatePassword(encodePassword)
+        );
     }
 
 }
