@@ -40,6 +40,9 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
 
+                // auth
+                .antMatchers(HttpMethod.POST, "/auth/email").hasAnyRole(STUDENT, TEACHER, MOU)
+
                 // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/auth").permitAll()

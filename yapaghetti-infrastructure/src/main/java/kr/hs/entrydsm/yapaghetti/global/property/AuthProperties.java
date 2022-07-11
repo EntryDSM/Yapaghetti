@@ -1,22 +1,18 @@
 package kr.hs.entrydsm.yapaghetti.global.property;
 
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.GetAuthPropertiesPort;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConstructorBinding
-@ConfigurationProperties("aws.ses")
+@ConfigurationProperties("auth")
 @Getter
 @RequiredArgsConstructor
-public class AwsSesProperties {
+public class AuthProperties implements GetAuthPropertiesPort {
 
-    private final String accessKey;
+	private final Long authTime;
 
-    private final String secretKey;
-
-    private final String sesSource;
-
-    private final String region;
-
+	private final Long limitTime;
 }

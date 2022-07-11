@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.global.security;
 
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.spi.CompanySecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
@@ -15,7 +16,8 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class SecurityFacadeAdapter implements CompanySecurityPort, UserSecurityPort, DocumentSecurityPort, StudentSecurityPort, TagSecurityPort, TeacherSecurityPort {
+public class SecurityFacadeAdapter implements CompanySecurityPort, UserSecurityPort, DocumentSecurityPort,
+    StudentSecurityPort, TagSecurityPort, TeacherSecurityPort, AuthSecurityPort {
 
     private final PasswordEncoder passwordEncoder;
 
