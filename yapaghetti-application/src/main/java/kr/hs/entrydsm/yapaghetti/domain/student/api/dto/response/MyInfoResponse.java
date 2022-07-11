@@ -24,7 +24,7 @@ public class MyInfoResponse {
 
 	private final String profileImagePath;
 
-	private final List<String> tagList;
+	private final List<String> skillTagList;
 
-	private final String major;
+	private final String majorTag;
 }
