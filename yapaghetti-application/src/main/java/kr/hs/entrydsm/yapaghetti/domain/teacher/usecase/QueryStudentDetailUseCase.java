@@ -19,19 +19,18 @@ public class QueryStudentDetailUseCase implements QueryStudentDetailPort {
     public StudentDetailResponse execute(UUID studentId) {
         StudentDetailInformation studentInformation = teacherQueryStudentPort.queryStudentDetail(studentId);
 
-        return new StudentDetailResponse(
-            studentInformation.getName(),
-            makeGcn(
-                  studentInformation.getGrade(),
-                  studentInformation.getClassNum(),
-                  studentInformation.getNumber()
-            ),
-                studentInformation.getEmail(),
-                studentInformation.getPhoneNumber(),
-                studentInformation.getMajorTagName(),
-                studentInformation.getMySkillNameList()
-        );
-
+        return StudentDetailResponse.builder()
+                .name(studentInformation.getName())
+                .gcn(makeGcn(
+                        studentInformation.getGrade(),
+                        studentInformation.getClassNum(),
+                        studentInformation.getNumber()
+                ))
+                .email(studentInformation.getEmail())
+                .phoneNumber(studentInformation.getPhoneNumber())
+                .majorTagName(studentInformation.getMajorTagName())
+                .mySkillNameList(studentInformation.getMySkillNameList())
+                .build();
     }
 
     private Integer makeGcn(String grade, String classNum, Integer number) {

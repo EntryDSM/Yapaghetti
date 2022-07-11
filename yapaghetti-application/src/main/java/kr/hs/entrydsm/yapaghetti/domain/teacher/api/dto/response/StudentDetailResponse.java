@@ -1,12 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class StudentDetailResponse {
     private final String name;
     private final Integer gcn;
