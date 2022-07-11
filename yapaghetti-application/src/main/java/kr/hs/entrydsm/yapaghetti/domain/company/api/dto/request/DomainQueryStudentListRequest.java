@@ -11,7 +11,7 @@ public class DomainQueryStudentListRequest {
 
     public DomainQueryStudentListRequest(String name, String majorTag, String classNum) {
         this.name = nullCheck(name);
-        this.majorTag = nullCheck(major);
+        this.majorTag = nullCheck(majorTag);
         this.classNum = nullCheck(classNum);
     }
 
