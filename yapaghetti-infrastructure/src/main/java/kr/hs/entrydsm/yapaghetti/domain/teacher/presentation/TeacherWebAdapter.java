@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ResetPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetPasswordResponse;
@@ -33,6 +34,7 @@ public class TeacherWebAdapter {
     private final DeleteStudentPort deleteStudentPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
+    private final ResetPasswordPort resetPasswordPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -60,7 +62,7 @@ public class TeacherWebAdapter {
 
     @PatchMapping("/company/reset/{company-id}")
     public ResetPasswordResponse resetPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
-        return null;
+        return resetPasswordPort.execute(companyId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
