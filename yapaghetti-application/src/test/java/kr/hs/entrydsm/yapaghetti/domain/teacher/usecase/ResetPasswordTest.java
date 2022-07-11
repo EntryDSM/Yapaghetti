@@ -3,6 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,9 @@ public class ResetPasswordTest {
 
     @Mock
     TeacherRandomStringPort teacherRandomStringPort;
+
+    @Mock
+    TeacherSecurityPort teacherSecurityPort;
 
     @InjectMocks
     ResetPasswordUseCase resetPasswordUseCase;
