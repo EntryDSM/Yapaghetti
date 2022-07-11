@@ -34,9 +34,7 @@ class QueryStayAndPublicDocumentPreviewUseCaseTest {
     void QueryPublicAndStayDocumentPreview() {
         UUID studentId = UUID.randomUUID();
         String previewImagePath = "testPreviewImagePath";
-        List<DocumentType> types = new ArrayList<>();
-        types.add(DocumentType.LOCAL);
-        types.add(DocumentType.PROTECTED);
+        List<DocumentType> types = List.of(DocumentType.LOCAL, DocumentType.PROTECTED);
 
 
         given(documentQueryStudentPort.queryStudentById(studentId))

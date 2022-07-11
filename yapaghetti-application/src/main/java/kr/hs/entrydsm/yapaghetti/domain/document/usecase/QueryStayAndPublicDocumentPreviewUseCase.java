@@ -10,7 +10,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,9 +25,7 @@ public class QueryStayAndPublicDocumentPreviewUseCase implements QueryStayAndPub
     public QueryStayAndPublicDocumentPreviewResponse execute(UUID studentId) {
         Student student = documentQueryStudentPort.queryStudentById(studentId);
 
-        List<DocumentType> types = new ArrayList<>();
-        types.add(DocumentType.LOCAL);
-        types.add(DocumentType.PROTECTED);
+        List<DocumentType> types = List.of(DocumentType.LOCAL, DocumentType.PROTECTED);
 
         List<StayAndPublicDocumentElement> documentElements =
                 queryDocumentPort.queryDocumentAllByUserIdAndTypeNotIn(student.getUserId(), types)
