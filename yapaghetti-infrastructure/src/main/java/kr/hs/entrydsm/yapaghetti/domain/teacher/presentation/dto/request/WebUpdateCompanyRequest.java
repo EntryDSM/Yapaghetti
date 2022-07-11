@@ -31,10 +31,8 @@ public class WebUpdateCompanyRequest {
     @Size(max = 255, message = "255자 이하로 수정 부탁드립니다")
     private String email;
 
-    @NotBlank
     private LocalDateTime startAt;
 
-    @NotBlank
     private LocalDateTime endAt;
 
 }
