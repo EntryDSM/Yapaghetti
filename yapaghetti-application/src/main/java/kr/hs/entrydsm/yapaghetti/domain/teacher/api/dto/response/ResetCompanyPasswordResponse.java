@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ResetPasswordResponse {
+public class ResetCompanyPasswordResponse {
     private final String password;
 }

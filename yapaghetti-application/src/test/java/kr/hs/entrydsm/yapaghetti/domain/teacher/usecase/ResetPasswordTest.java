@@ -31,7 +31,7 @@ public class ResetPasswordTest {
     TeacherSecurityPort teacherSecurityPort;
 
     @InjectMocks
-    ResetPasswordUseCase resetPasswordUseCase;
+    ResetCompanyPasswordUseCase resetCompanyPasswordUseCase;
 
     @Test
     public void execute() {
@@ -45,7 +45,7 @@ public class ResetPasswordTest {
                                 .build()
                 );
 
-        resetPasswordUseCase.execute(companyId);
+        resetCompanyPasswordUseCase.execute(companyId);
 
     }
 

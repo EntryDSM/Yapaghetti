@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ResetPasswordPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetPasswordResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetCompanyPasswordResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @UseCase
-public class ResetPasswordUseCase implements ResetPasswordPort {
+public class ResetCompanyPasswordUseCase implements ResetPasswordPort {
 
     private final TeacherQueryUserPort teacherQueryUserPort;
     private final TeacherCommandUserPort teacherCommandUserPort;
@@ -22,13 +22,13 @@ public class ResetPasswordUseCase implements ResetPasswordPort {
     private final TeacherSecurityPort teacherSecurityPort;
 
     @Override
-    public ResetPasswordResponse execute(UUID companyId) {
+    public ResetCompanyPasswordResponse execute(UUID companyId) {
         User user = teacherQueryUserPort.queryUserById(companyId);
         String password = teacherRandomStringPort.getRandomPassword();
 
         savePassword(user, password);
 
-        return new ResetPasswordResponse(password);
+        return new ResetCompanyPasswordResponse(password);
     }
 
     private void savePassword(User user, String password) {

@@ -7,7 +7,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ResetPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetPasswordResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetCompanyPasswordResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class TeacherWebAdapter {
     }
 
     @PatchMapping("/company/reset/{company-id}")
-    public ResetPasswordResponse resetPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
+    public ResetCompanyPasswordResponse resetPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
         return resetPasswordPort.execute(companyId);
     }
 
