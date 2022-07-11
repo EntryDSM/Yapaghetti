@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
-import kr.hs.entrydsm.yapaghetti.domain.company.spi.CommandCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
@@ -19,7 +18,7 @@ public class DeleteCompanyUseCase implements DeleteCompanyPort {
 
     @Override
     public void execute(UUID companyId) {
-        Company company = teacherQueryCompanyPort.queryCompanyByUserId(companyId);
+        Company company = teacherQueryCompanyPort.queryCompanyById(companyId);
 
         teacherCommandCompanyPort.deleteCompany(company);
     }

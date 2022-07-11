@@ -19,7 +19,7 @@ public class GetCompanyDetailUseCase implements GetCompanyDetailPort {
     private final TeacherQueryUserPort teacherQueryUserPort;
 
     public CompanyDetailResponse execute(UUID companyId) {
-        Company company = teacherQueryCompanyPort.queryCompanyByUserId(companyId);
+        Company company = teacherQueryCompanyPort.queryCompanyById(companyId);
         User user = teacherQueryUserPort.queryUserById(company.getUserId());
 
         return CompanyDetailResponse.builder()

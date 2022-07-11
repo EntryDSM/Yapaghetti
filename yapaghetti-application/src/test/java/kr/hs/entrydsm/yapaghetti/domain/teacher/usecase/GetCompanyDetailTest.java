@@ -1,9 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
-import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,7 @@ public class GetCompanyDetailTest {
                         .build()
                 );
 
-        given(teacherQueryCompanyPort.queryCompanyByUserId(companyId))
+        given(teacherQueryCompanyPort.queryCompanyById(companyId))
                 .willReturn(
                         Company.builder()
                                 .userId(companyId)

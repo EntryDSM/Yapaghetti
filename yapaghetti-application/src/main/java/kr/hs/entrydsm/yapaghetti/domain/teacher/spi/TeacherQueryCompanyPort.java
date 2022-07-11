@@ -5,5 +5,5 @@ import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import java.util.UUID;
 
 public interface TeacherQueryCompanyPort {
-    Company queryCompanyByUserId(UUID companyId);
+    Company queryCompanyById(UUID companyId);
 }
