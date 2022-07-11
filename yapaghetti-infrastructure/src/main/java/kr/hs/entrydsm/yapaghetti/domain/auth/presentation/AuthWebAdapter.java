@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class AuthWebAdapter {
 	}
 
 	@RequestMapping(value = "/email", method = RequestMethod.HEAD)
-	public void verifyEmailAuthCode(@NotBlank String authCode) {
+	public void verifyEmailAuthCode(@RequestParam @NotBlank String authCode) {
 		verifyEmailAuthCodePort.execute(authCode);
 	}
 }
