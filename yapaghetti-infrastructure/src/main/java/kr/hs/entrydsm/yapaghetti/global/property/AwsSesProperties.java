@@ -15,6 +15,8 @@ public class AwsSesProperties {
 
     private final String secretKey;
 
+    private final String sesSource;
+
     private final String region;
 
 }

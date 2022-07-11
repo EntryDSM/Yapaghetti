@@ -50,3 +50,7 @@ aws:
     access-key: ${AWS_SES_ACCESS:ses_access}
     secret-key: ${AWS_SES_SECRET:ses_secret}
     region: ${AWS_SES_REGION:ap-northeast-2}
+
+  auth:
+    auth-time: ${AUTH_TIME}
+    limit-time: ${LIMIT_TIME}

@@ -10,6 +10,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.UserJwtPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.spi.dto.SpiTokenResponse;
 import kr.hs.entrydsm.yapaghetti.global.exception.InternalServerErrorException;
 import kr.hs.entrydsm.yapaghetti.global.property.JwtProperties;
 import kr.hs.entrydsm.yapaghetti.global.security.exception.InvalidTokenException;
@@ -33,6 +34,7 @@ public class JwtTokenProvider implements UserJwtPort {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final String JWT_ACCESS_TOKEN_TYPE = "access_token";
+    private static final String JWT_REFRESH_TOKEN_TYPE = "refresh_token";
 
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
@@ -65,15 +67,23 @@ public class JwtTokenProvider implements UserJwtPort {
     }
 
     @Override
-    public String generateAccessToken(UUID id, UserRole role) {
+    public SpiTokenResponse getToken(UUID userId, UserRole userRole) {
+        return new SpiTokenResponse(
+                generateToken(userId, userRole, JWT_ACCESS_TOKEN_TYPE, getAccessExpiration()),
+                generateToken(userId, userRole, JWT_REFRESH_TOKEN_TYPE, getRefreshExpiration()),
+                jwtProperties.getRefreshExp()
+        );
+    }
+
+
+    private String generateToken(UUID userId, UserRole role, String type, Date expiration) {
         try {
-            Date expiration = getAccessExpiration();
             JWSSigner signer = new MACSigner(jwtProperties.getSecret());
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(id.toString())
+                    .subject(userId.toString())
                     .claim("role", role.name())
-                    .claim("type", JWT_ACCESS_TOKEN_TYPE)
+                    .claim("type", type)
                     .expirationTime(expiration)
                     .build();
 
@@ -92,6 +102,10 @@ public class JwtTokenProvider implements UserJwtPort {
 
     private Date getAccessExpiration() {
         return new Date(System.currentTimeMillis() + jwtProperties.getAccessExp());
+    }
+
+    private Date getRefreshExpiration() {
+        return new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp());
     }
 
 }

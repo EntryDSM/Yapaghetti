@@ -29,7 +29,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
                         .content(request.getContent())
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
-                        .isApproved(false)
+                        .isRejected(false)
                         .build()
         );
     }

@@ -38,7 +38,7 @@ public class DocumentEntity extends BaseUUIDEntity {
     private DocumentType type;
 
     @Column(columnDefinition = "BIT(1)", nullable = false)
-    private Boolean isApproved;
+    private Boolean isRejected;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -46,9 +46,5 @@ public class DocumentEntity extends BaseUUIDEntity {
 
     public UUID getUserId() {
         return userEntity.getId();
-    }
-
-    public void changeDocumentType(DocumentType type) {
-        this.type = type;
     }
 }

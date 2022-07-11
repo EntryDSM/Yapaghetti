@@ -7,10 +7,11 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
+import kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.StudentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -71,20 +72,19 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     }
 
-	@Override
-	public void saveStudent(Student student) {
-		if (!tagRepository.existsById(student.getTagId())) {
-			throw TagNotFoundException.EXCEPTION;
-		}
+    @Override
+    public void saveStudent(Student student) {
+        if (!tagRepository.existsById(student.getTagId())) {
+            throw TagNotFoundException.EXCEPTION;
+        }
 
-		studentRepository.save(studentMapper.domainToEntity(student));
-	}
+        studentRepository.save(studentMapper.domainToEntity(student));
+    }
 
     @Override
     public Student queryUserById(UUID id) {
         return studentMapper.entityToDomain(
-                studentRepository.findById(id)
-                        .orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+                getStudentById(id)
         );
     }
 
@@ -96,12 +96,24 @@ public class StudentPersistenceAdapter implements StudentPort {
         );
     }
 
+    @Override
+    public Student queryStudentById(UUID studentId) {
+        return studentMapper.entityToDomain(
+                getStudentById(studentId)
+        );
+    }
+
     public boolean existsByTagId(UUID tagId) {
         return studentRepository.existsByTagEntityId(tagId);
     }
 
     private String likePreProcessing(String value) {
         return "%" + value + "%";
+    }
+
+    private StudentEntity getStudentById(UUID studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
     }
 
 }

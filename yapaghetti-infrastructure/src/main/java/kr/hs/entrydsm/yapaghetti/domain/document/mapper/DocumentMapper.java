@@ -21,7 +21,7 @@ public class DocumentMapper {
                 .content(documentEntity.getContent())
                 .type(documentEntity.getType())
                 .userId(documentEntity.getUserId())
-                .isApproved(documentEntity.getIsApproved())
+                .isRejected(documentEntity.getIsRejected())
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class DocumentMapper {
                 .content(document.getContent())
                 .type(document.getType())
                 .userEntity(userEntity)
-                .isApproved(document.getIsApproved())
+                .isRejected(document.getIsRejected())
                 .build();
     }
 }
