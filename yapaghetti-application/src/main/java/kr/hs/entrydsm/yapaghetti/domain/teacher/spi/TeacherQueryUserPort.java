@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface TeacherQueryUserPort {
 
-    User queryUserById(UUID userID);
+    User queryUserById(UUID userId);
 
 }
