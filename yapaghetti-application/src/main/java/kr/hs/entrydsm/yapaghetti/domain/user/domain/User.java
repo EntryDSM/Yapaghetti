@@ -69,7 +69,6 @@ public class User {
                 .isVisited(this.isVisited)
                 .role(this.role)
                 .build();
-
     }
 
 }
