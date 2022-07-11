@@ -34,7 +34,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String major, String classNum) {
+    public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum) {
         QTagEntity majorTag = new QTagEntity("majorTag");
         QTagEntity skillTag = new QTagEntity("skillTag");
 
@@ -49,7 +49,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .where(
                         studentEntity.classNum.like(likePreProcessing(classNum))
                                 .and(userEntity.name.like(likePreProcessing(name)))
-                                .and(majorTag.name.like(likePreProcessing(major)))
+                                .and(majorTag.name.like(likePreProcessing(majorTag)))
                 )
                 .transform(
                         groupBy(studentEntity.userId)

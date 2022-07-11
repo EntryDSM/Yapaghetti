@@ -10,9 +10,9 @@ public class StudentElement {
 
     private final UUID studentId;
 
-    private final String major;
+    private final String majorTag;
 
-    private final List<String> tagList;
+    private final List<String> skillTagList;
 
     private final String name;
 
@@ -22,10 +22,10 @@ public class StudentElement {
 
     private final String profileImagePath;
 
-    public StudentElement(UUID studentId, String major, List<String> tagList, String name, String grade, String classNum, Integer number, String previewImagePath, String profileImagePath) {
+    public StudentElement(UUID studentId, String majorTag, List<String> skillTagList, String name, String grade, String classNum, Integer number, String previewImagePath, String profileImagePath) {
         this.studentId = studentId;
-        this.major = major;
-        this.tagList = tagList;
+        this.majorTag = majorTag;
+        this.skillTagList = skillTagList;
         this.name = name;
         this.gcn = grade + classNum + String.format("%02d", number);
         this.previewImagePath = previewImagePath;
