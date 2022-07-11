@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,11 +37,11 @@ public class QueryStudentDetailTest {
 
     }
 
-    private StudentDetailInformation creatStudentDetailInformation(UUID studentId) {
+    private StudentDetailResponse creatStudentDetailInformation(UUID studentId) {
         List<String> tagList = new ArrayList<>();
         tagList.add("SpringBoot");
         tagList.add("FastAPI");
-        return new StudentDetailInformation(
+        return new StudentDetailResponse(
                 "엔트리",
                 "2",
                 "2",

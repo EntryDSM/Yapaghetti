@@ -11,7 +11,7 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailInformation;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -91,14 +91,14 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    public StudentDetailInformation queryStudentDetail(UUID studentId) {
+    public StudentDetailResponse queryStudentDetail(UUID studentId) {
         QTagEntity majorTag = new QTagEntity("majorTag");
         QTagEntity skillTag = new QTagEntity("skillTag");
 
         return jpaQueryFactory
                 .select(
                         constructor(
-                                StudentDetailInformation.class,
+                                StudentDetailResponse.class,
                                 userEntity.name,
                                 studentEntity.grade,
                                 studentEntity.classNum,
