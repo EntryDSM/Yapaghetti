@@ -68,7 +68,7 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/company/search")
-    public CompanyListResponse queryCompanyList(@RequestParam @NotBlank String name) {
+    public CompanyListResponse queryCompanyList(@RequestParam("name") @NotBlank String name) {
         return queryCompanyListPort.execute(name);
     }
 }
