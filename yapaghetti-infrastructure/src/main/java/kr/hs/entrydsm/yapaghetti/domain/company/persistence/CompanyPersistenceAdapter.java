@@ -3,9 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.company.persistence;
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import kr.hs.entrydsm.yapaghetti.domain.company.exception.CompanyNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.company.mapper.CompanyMapper;
-import kr.hs.entrydsm.yapaghetti.domain.company.spi.CommandCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.spi.CompanyPort;
-import kr.hs.entrydsm.yapaghetti.domain.company.spi.QueryCompanyPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +17,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     private final CompanyMapper companyMapper;
 
     @Override
-    public Company queryCompanyByUserId(UUID userId) {
+    public Company queryCompanyById(UUID userId) {
         return companyMapper.entityToDomain(
                 companyRepository.findByUserEntityId(userId)
                         .orElseThrow(() -> CompanyNotFoundException.EXCEPTION)

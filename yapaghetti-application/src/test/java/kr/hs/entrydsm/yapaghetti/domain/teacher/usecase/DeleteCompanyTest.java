@@ -1,7 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class DeleteCompanyTest {
     public void deleteCompany() {
         UUID companyId = UUID.randomUUID();
 
-        given(teacherQueryCompanyPort.queryCompanyByUserId(companyId))
+        given(teacherQueryCompanyPort.queryCompanyById(companyId))
                 .willReturn(Company.builder()
                         .userId(companyId)
                         .build()

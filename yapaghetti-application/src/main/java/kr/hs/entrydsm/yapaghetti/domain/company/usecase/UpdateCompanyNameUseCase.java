@@ -23,7 +23,7 @@ public class UpdateCompanyNameUseCase implements UpdateCompanyNamePort {
     public void execute(DomainUpdateCompanyNameRequest request) {
         UUID userId = companySecurityPort.getCurrentUserId();
 
-        Company company = companyPersistencePort.queryCompanyByUserId(userId)
+        Company company = companyPersistencePort.queryCompanyById(userId)
                 .updateCompanyName(request.getCompanyName());
 
         commandCompanyPort.updateCompany(company);
