@@ -49,7 +49,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
                         )
                 )
                 .from(companyEntity)
-                .where(companyEntity.companyName.like("%"+name+"%"))
+                .where(companyEntity.companyName.contains(name))
                 .join(companyEntity.userEntity, userEntity)
                 .fetch();
     }
