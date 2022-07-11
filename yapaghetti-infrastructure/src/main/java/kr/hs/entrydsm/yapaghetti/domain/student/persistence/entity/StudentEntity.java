@@ -50,7 +50,7 @@ public class StudentEntity {
     private Integer number;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "major_tag_id")
     private TagEntity tagEntity;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity")
