@@ -38,7 +38,7 @@ public class TeacherWebAdapter {
     private final DeleteCompanyPort deleteCompanyPort;
 
     // feedback
-    
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
     public void createFeedback(@PathVariable("student-id") @NotBlank UUID studentId,
@@ -59,9 +59,9 @@ public class TeacherWebAdapter {
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
     }
-    
+
     // company
-    
+
     @GetMapping("/company/{company-id}")
     public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
@@ -80,9 +80,10 @@ public class TeacherWebAdapter {
                         .location(request.getLocation())
                         .startAt(request.getStartAt())
                         .endAt(request.getEndAt())
-                    .build()
+                        .build()
         );
-    
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
