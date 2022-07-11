@@ -22,7 +22,7 @@ public class AwsSESConfig {
 
         return AmazonSimpleEmailServiceAsyncClient.asyncBuilder()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(Regions.fromName(awsSesProperties.getRegion()))
+                .withRegion(awsSesProperties.getRegion())
                 .build();
     }
 
