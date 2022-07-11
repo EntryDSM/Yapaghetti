@@ -25,17 +25,13 @@ public class ResetCompanyPasswordUseCase implements ResetPasswordPort {
     public ResetCompanyPasswordResponse execute(UUID companyId) {
         User user = teacherQueryUserPort.queryUserById(companyId);
         String password = teacherRandomStringPort.getRandomPassword();
-
-        savePassword(user, password);
-
-        return new ResetCompanyPasswordResponse(password);
-    }
-
-    private void savePassword(User user, String password) {
         String encodePassword = teacherSecurityPort.encodePassword(password);
+
         teacherCommandUserPort.saveUser(
                 user.updatePassword(encodePassword)
         );
+
+        return new ResetCompanyPasswordResponse(password);
     }
 
 }
