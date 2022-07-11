@@ -13,12 +13,12 @@ public class StudentElementByGradeAndClassNumAndDocStatus {
     private final boolean isApproved;
 
     public StudentElementByGradeAndClassNumAndDocStatus(
-            String studentId, String name,   String profileImageName,
+            String studentId, String name, String profileImageName,
             String grade, String classNum, Integer number,
             boolean feedbackStatus, boolean publicStatus, boolean isApproved) {
         this.studentId = studentId;
         this.name = name;
-        this.gcn = Integer.parseInt(grade + classNum + String.format("%02d",number));
+        this.gcn = Integer.parseInt(grade + classNum + String.format("%02d", number));
         this.profileImageName = profileImageName;
         this.feedbackStatus = feedbackStatus;
         this.publicStatus = publicStatus;
