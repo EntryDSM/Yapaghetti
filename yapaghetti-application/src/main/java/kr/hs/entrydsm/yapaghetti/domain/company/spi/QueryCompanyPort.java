@@ -5,5 +5,5 @@ import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import java.util.UUID;
 
 public interface QueryCompanyPort {
-    Company queryCompanyByUserId(UUID id);
+    Company queryCompanyById(UUID id);
 }
