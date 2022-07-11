@@ -12,6 +12,7 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeAndClassNumAndDocStatus;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +21,9 @@ import java.util.UUID;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.core.types.Projections.constructor;
 import static kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity.documentEntity;
+import static kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.QFeedbackEntity.feedbackEntity;
 import static kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.QMySkillEntity.mySkillEntity;
 import static kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.QStudentEntity.studentEntity;
 import static kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.QUserEntity.userEntity;
@@ -86,6 +89,38 @@ public class StudentPersistenceAdapter implements StudentPort {
         return studentMapper.entityToDomain(
                 getStudentById(id)
         );
+    }
+
+    @Override
+    public List<StudentElementByGradeAndClassNumAndDocStatus> queryStudentListByGradeAndClassNumAndDocStatus(Integer grade, Integer classNum, DocumentType docStatus) {
+        return jpaQueryFactory
+                .select(
+                        constructor(
+                                StudentElementByGradeAndClassNumAndDocStatus.class,
+                                studentEntity.userId,
+                                userEntity.name,
+                                userEntity.profileImagePath,
+                                studentEntity.grade.stringValue(),
+                                studentEntity.classNum.stringValue(),
+                                studentEntity.number,
+                                feedbackEntity.isNotNull(),
+                                documentEntity.type.eq(DocumentType.PUBLIC).isNotNull(),
+                                documentEntity.isRejected.isFalse().and(
+                                        documentEntity.type.eq(DocumentType.STAY).isNull()
+                                )
+                        )
+                )
+                .from(studentEntity)
+                .where(
+                        studentEntity.grade.eq(grade)
+                                .and(studentEntity.classNum.eq(classNum))
+                )
+                .where(documentEntity.type.eq(docStatus))
+                .leftJoin(studentEntity.userEntity, userEntity)
+                .leftJoin(studentEntity.documentList, documentEntity)
+                .leftJoin(feedbackEntity.documentEntity, documentEntity)
+                .fetch();
+
     }
 
 
