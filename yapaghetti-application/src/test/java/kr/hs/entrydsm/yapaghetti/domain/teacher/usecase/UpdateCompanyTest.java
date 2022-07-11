@@ -13,10 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.BDDMockito.given;
-
-import java.time.LocalDate;
 import java.util.UUID;
+
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateCompanyTest {
@@ -51,7 +50,7 @@ public class UpdateCompanyTest {
                                 .build()
                 );
 
-        given(teacherQueryCompanyPort.queryCompanyByUserId(userId))
+        given(teacherQueryCompanyPort.queryCompanyById(userId))
                 .willReturn(
                         Company.builder()
                                 .userId(userId)

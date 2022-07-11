@@ -26,7 +26,7 @@ public class UpdateCompanyUseCase implements UpdateCompanyPort {
     public void execute(DomainUpdateCompanyRequest request) {
         updateUser(request.getCompanyId(), request.getName(), request.getPhoneNumber(), request.getEmail(), request.getLocation());
 
-        Company company = teacherQueryCompanyPort.queryCompanyByUserId(request.getCompanyId());
+        Company company = teacherQueryCompanyPort.queryCompanyById(request.getCompanyId());
 
         teacherCommandCompanyPort.updateCompany(
                 company.updateCompanyNameAndDates(
