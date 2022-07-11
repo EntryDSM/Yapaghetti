@@ -28,9 +28,7 @@ public class ResetPasswordUseCase implements ResetPasswordPort {
 
         savePassword(user, password);
 
-        return ResetPasswordResponse.builder()
-                .password(password)
-                .build();
+        return new ResetPasswordResponse(password);
     }
 
     private void savePassword(User user, String password) {
