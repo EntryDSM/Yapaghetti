@@ -3,6 +3,8 @@ package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
+import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
+import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthSecurityPort;
@@ -55,6 +57,7 @@ public class SendEmailAuthCodeUseCaseTest {
 		String authCode = "authCode";
 		Long authTime = 1L;
 		Long limitTime = 2L;
+		AuthCodeType type = AuthCodeType.EMAIL;
 
 		given(getAuthPropertiesPort.getAuthTime())
 			.willReturn(authTime);
@@ -70,7 +73,7 @@ public class SendEmailAuthCodeUseCaseTest {
 			);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodePort.queryAuthCodeById(value))
+		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
 			.willReturn(
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())
@@ -115,6 +118,7 @@ public class SendEmailAuthCodeUseCaseTest {
 		String authCode = "authCode";
 		Long authTime = 2L;
 		Long limitTime = 1L;
+		AuthCodeType type = AuthCodeType.EMAIL;
 
 		given(getAuthPropertiesPort.getAuthTime())
 			.willReturn(authTime);
@@ -130,7 +134,7 @@ public class SendEmailAuthCodeUseCaseTest {
 			);
 		given(commandAuthCodePort.existsAuthCodeById(value))
 			.willReturn(true);
-		given(queryAuthCodePort.queryAuthCodeById(value))
+		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
 			.willReturn(
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())
@@ -141,5 +145,37 @@ public class SendEmailAuthCodeUseCaseTest {
 			.willReturn(limitTime);
 
 		assertThrows(AuthCodeOverLimitException.class, () -> sendEmailAuthCodeUseCase.execute());
+	}
+
+	@Test
+	void 이미_인증됨() {
+		UUID uuid = UUID.randomUUID();
+		String value = "value";
+		String authCode = "authCode";
+		Long authTime = 1L;
+		AuthCodeType type = AuthCodeType.EMAIL;
+
+		given(getAuthPropertiesPort.getAuthTime())
+			.willReturn(authTime);
+		given(generateRandomStringPort.getAuthCode())
+			.willReturn(authCode);
+		given(authSecurityPort.getCurrentUserId())
+			.willReturn(uuid);
+		given(authQueryUserPort.queryUserById(uuid))
+			.willReturn(
+				User.builder()
+					.email(value)
+					.build()
+			);
+		given(commandAuthCodePort.existsAuthCodeById(value))
+			.willReturn(true);
+		given(queryAuthCodePort.queryAuthCodeByValueAndType(value, type))
+			.willReturn(
+				AuthCode.builder()
+					.authTime(LocalDateTime.now())
+					.isVerify(true)
+					.build()
+			);
+		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> sendEmailAuthCodeUseCase.execute());
 	}
 }
