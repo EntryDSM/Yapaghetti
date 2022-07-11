@@ -28,7 +28,7 @@ public class AuthCode {
 			.authCode(authCode)
 			.type(this.getType())
 			.timeToLive(timeToLive + authTime)
-			.authTime(this.authTime.plusSeconds(authTime))
+			.authTime(LocalDateTime.now().plusSeconds(authTime))
 			.isVerify(this.isVerify)
 			.build();
 	}
