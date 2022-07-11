@@ -33,4 +33,14 @@ public class AuthCode {
 			.build();
 	}
 
+	public AuthCode verify() {
+		return AuthCode.builder()
+			.value(this.getValue())
+			.authCode(this.authCode)
+			.type(this.getType())
+			.timeToLive(this.timeToLive)
+			.authTime(this.getAuthTime())
+			.isVerify(true)
+			.build();
+	}
 }
