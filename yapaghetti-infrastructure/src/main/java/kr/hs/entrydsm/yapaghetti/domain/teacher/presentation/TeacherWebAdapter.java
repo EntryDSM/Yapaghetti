@@ -69,10 +69,9 @@ public class TeacherWebAdapter {
 
 
     @GetMapping("/student/list")
-    public StudentListResponse queryStudentList(
-            @RequestParam("grade") Integer grade, @RequestParam("classNum") Integer classNum,
-            @RequestParam("docStatus")DocumentType docStatus
-            ) {
+    public StudentListResponse queryStudentList(@RequestParam("grade") Integer grade,
+                                                @RequestParam("classNum") Integer classNum,
+                                                @RequestParam("docStatus")DocumentType docStatus) {
         return teacherQueryStudentListPort.execute(grade, classNum, docStatus);
     }
 }
