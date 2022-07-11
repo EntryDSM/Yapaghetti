@@ -53,6 +53,13 @@ public class DocumentPersistenceAdapter implements DocumentPort {
     }
 
     @Override
+    public List<Document> queryDocumentAllByUserIdAndTypeNotIn(UUID userId, List<DocumentType> type) {
+        return documentRepository.findAllByUserEntityIdAndTypeNotIn(userId, type).stream()
+                .map(documentMapper::entityToDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Document queryDocumentByIdAndUserIdAndType(UUID documentId, UUID userId, DocumentType type) {
         return documentMapper.entityToDomain(
                 documentRepository.findByIdAndUserEntityIdAndType(documentId, userId, type)

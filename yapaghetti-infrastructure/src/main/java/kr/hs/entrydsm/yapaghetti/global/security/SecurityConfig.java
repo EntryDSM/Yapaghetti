@@ -79,6 +79,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/documents/stay/{document-id}").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/documents/stay").hasRole(STUDENT)
                 .antMatchers(HttpMethod.GET, "/documents/list").hasRole(STUDENT)
+                .antMatchers(HttpMethod.GET, "/documents/preview/{student-id}").hasAnyRole(STUDENT, TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/documents/stay/approve/{document-id}").hasRole(TEACHER)
 
                 // students
