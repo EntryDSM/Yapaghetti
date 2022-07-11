@@ -55,7 +55,7 @@ class QueryLocalDocumentListUseCaseTest {
                                 .name(userName)
                                 .build()
                 );
-        given(documentQueryTagPort.queryMajorTagByStudentId(userId))
+        given(documentQueryTagPort.queryTagById(userId))
                 .willReturn(
                         Tag.builder()
                                 .id(tagId)
