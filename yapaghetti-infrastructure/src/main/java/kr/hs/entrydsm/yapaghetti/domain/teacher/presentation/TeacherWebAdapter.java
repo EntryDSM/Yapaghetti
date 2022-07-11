@@ -1,11 +1,14 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainNewCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ public class TeacherWebAdapter {
 
     private final CreateFeedbackPort createFeedbackPort;
     private final DeleteStudentPort deleteStudentPort;
+    private final CreateCompanyPort createCompanyPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
 
@@ -49,6 +53,23 @@ public class TeacherWebAdapter {
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/company")
+    public void createCompany(@RequestBody @Valid WebCreateCompanyRequest request) {
+        createCompanyPort.execute(
+                DomainNewCompanyRequest.builder()
+                        .name(request.getName())
+                        .email(request.getEmail())
+                        .phoneNumber(request.getPhoneNumber())
+                        .location(request.getLocation())
+                        .profileImagePath(request.getProfileImagePath())
+                        .companyName(request.getCompanyName())
+                        .startAt(request.getStartAt())
+                        .endAt(request.getEndAt())
+                        .build()
+        );
     }
 
     @GetMapping("/company/{company-id}")
