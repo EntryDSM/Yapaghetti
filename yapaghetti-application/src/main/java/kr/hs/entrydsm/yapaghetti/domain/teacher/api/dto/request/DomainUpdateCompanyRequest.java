@@ -9,12 +9,12 @@ import java.util.UUID;
 @Getter
 @Builder
 public class DomainUpdateCompanyRequest {
-    private UUID companyId;
-    private String companyName;
-    private String location;
-    private String phoneNumber;
-    private String name;
-    private String email;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private final UUID companyId;
+    private final String companyName;
+    private final String location;
+    private final String phoneNumber;
+    private final String name;
+    private final String email;
+    private final LocalDateTime startAt;
+    private final LocalDateTime endAt;
 }
