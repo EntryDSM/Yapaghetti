@@ -28,9 +28,9 @@ public class AuthCodePersistenceAdapter implements AuthCodePort {
 	}
 
 	@Override
-	public AuthCode queryAuthCodeByValueAndType(String value, AuthCodeType type) {
+	public AuthCode queryAuthCodeByValueAndType(String value, AuthCodeType authCodeType) {
 		return authCodeMapper.entityToDomain(
-			authCodeRepository.findByValueAndType(value, type)
+			authCodeRepository.findByValueAndType(value, authCodeType)
 				.orElseThrow(() -> AuthCodeNotFoundException.EXCEPTION)
 		);
 	}

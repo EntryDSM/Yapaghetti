@@ -29,9 +29,10 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 	private final CommandAuthCodePort commandAuthCodePort;
 	private final GetAuthPropertiesPort getAuthPropertiesPort;
 
+	static AuthCodeType type = AuthCodeType.EMAIL;
+
 	@Override
 	public void execute() {
-		AuthCodeType type = AuthCodeType.EMAIL;
 		Long authTime = getAuthPropertiesPort.getAuthTime();
 		String authCode = generateRandomStringPort.getAuthCode();
 		AuthCode emailAuthCode;

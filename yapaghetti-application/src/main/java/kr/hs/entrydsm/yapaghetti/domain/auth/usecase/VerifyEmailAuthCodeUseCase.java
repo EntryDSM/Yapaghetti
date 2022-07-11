@@ -24,13 +24,14 @@ public class VerifyEmailAuthCodeUseCase implements VerifyEmailAuthCodePort {
 	private final QueryAuthCodePort queryAuthCodePort;
 	private final CommandAuthCodePort commandAuthCodePort;
 
+	static AuthCodeType type = AuthCodeType.EMAIL;
+
 	@Override
 	public void execute(String authCode) {
 		User user = authQueryUserPort.queryUserById(
 			authSecurityPort.getCurrentUserId()
 		);
 		String value = user.getEmail();
-		AuthCodeType type = AuthCodeType.EMAIL;
 
 		AuthCode authCodeDomain = queryAuthCodePort.queryAuthCodeByValueAndType(value, type);
 
