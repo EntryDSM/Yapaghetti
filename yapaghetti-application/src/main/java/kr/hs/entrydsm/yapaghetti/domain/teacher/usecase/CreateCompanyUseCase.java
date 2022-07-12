@@ -10,7 +10,6 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
-import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -45,7 +44,7 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
                 .email(request.getEmail())
                 .phoneNumber(request.getPhoneNumber())
                 .location(request.getLocation())
-                .role(UserRole.MOU)
+                .role(request.getCompanyType())
                 .isVisited(false)
                 .profileImagePath(request.getProfileImagePath())
                 .build();

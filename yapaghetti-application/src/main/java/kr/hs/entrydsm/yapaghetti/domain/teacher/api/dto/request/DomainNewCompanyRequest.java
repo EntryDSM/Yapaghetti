@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request;
 
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,4 +17,5 @@ public class DomainNewCompanyRequest {
     private final String companyName;
     private final LocalDateTime startAt;
     private final LocalDateTime endAt;
+    private final UserRole companyType;
 }
