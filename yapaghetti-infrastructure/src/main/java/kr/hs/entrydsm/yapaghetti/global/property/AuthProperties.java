@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConstructorBinding
-@ConfigurationProperties("auth")
 @Getter
 @RequiredArgsConstructor
+@ConstructorBinding
+@ConfigurationProperties("auth")
 public class AuthProperties implements GetAuthPropertiesPort {
 
 	private final Long authTime;
