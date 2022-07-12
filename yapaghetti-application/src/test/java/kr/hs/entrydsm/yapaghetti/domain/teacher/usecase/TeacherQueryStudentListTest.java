@@ -1,7 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeAndClassNumAndDocStatus;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeClassNum;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class TeacherQueryStudentListTest {
     @Test
     public void test() {
 
-        List<StudentElementByGradeAndClassNumAndDocStatus> studentElementList = new ArrayList<>();
+        List<StudentElementByGradeClassNum> studentElementList = new ArrayList<>();
 
         given(teacherQueryStudentPort.queryStudentListByGradeAndClassNumAndDocStatus(2,1, DocumentType.PUBLIC))
                 .willReturn(studentElementList);

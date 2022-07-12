@@ -8,5 +8,5 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class StudentListResponse {
-    private final List<StudentElementByGradeAndClassNumAndDocStatus> studentList;
+    private final List<StudentElementByGradeClassNum> studentList;
 }

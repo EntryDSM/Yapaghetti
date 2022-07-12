@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response;
 import lombok.Getter;
 
 @Getter
-public class StudentElementByGradeAndClassNumAndDocStatus {
+public class StudentElementByGradeClassNum {
     private final String studentId;
     private final String name;
     private final Integer gcn;
@@ -12,7 +12,7 @@ public class StudentElementByGradeAndClassNumAndDocStatus {
     private final boolean publicStatus;
     private final boolean isApproved;
 
-    public StudentElementByGradeAndClassNumAndDocStatus(
+    public StudentElementByGradeClassNum(
             String studentId, String name, String profileImageName,
             String grade, String classNum, Integer number,
             boolean feedbackStatus, boolean publicStatus, boolean isApproved) {
