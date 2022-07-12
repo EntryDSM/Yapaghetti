@@ -89,6 +89,7 @@ public class SecurityConfig {
                 // students
                 .antMatchers(HttpMethod.GET, "/students").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/students/feedback/{sequence}").hasRole(STUDENT)
+                .antMatchers(HttpMethod.PATCH, "/students/phone-number").hasRole(STUDENT)
 
                 // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
