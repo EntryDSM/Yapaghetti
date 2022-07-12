@@ -2,8 +2,9 @@ package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 
 import java.time.LocalDateTime;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
-import kr.hs.entrydsm.yapaghetti.domain.auth.api.VerifyEmailAuthCodePort;
+import kr.hs.entrydsm.yapaghetti.domain.auth.api.VerifyAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
+import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyTimeOutException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.InvalidAuthCodeException;
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class VerifyEmailAuthCodeUseCase implements VerifyEmailAuthCodePort {
+public class VerifyAuthCodeUseCase implements VerifyAuthCodePort {
 
 	private final AuthSecurityPort authSecurityPort;
 	private final AuthQueryUserPort authQueryUserPort;
@@ -24,11 +25,17 @@ public class VerifyEmailAuthCodeUseCase implements VerifyEmailAuthCodePort {
 	private final CommandAuthCodePort commandAuthCodePort;
 
 	@Override
-	public void execute(String authCode) {
+	public void execute(String authCode, AuthCodeType type) {
 		User user = authQueryUserPort.queryUserById(
 			authSecurityPort.getCurrentUserId()
 		);
-		String value = user.getEmail();
+
+		String value;
+		if (type.equals(AuthCodeType.EMAIL)) {
+			value = user.getEmail();
+		} else if (type.equals(AuthCodeType.PHONE)){
+			value = user.getPhoneNumber();
+		}
 
 		AuthCode authCodeDomain = queryAuthCodePort.queryAuthCodeById(value);
 

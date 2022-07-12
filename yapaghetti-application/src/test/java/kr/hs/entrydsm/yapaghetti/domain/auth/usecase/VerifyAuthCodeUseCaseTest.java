@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
+import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyTimeOutException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.InvalidAuthCodeException;
@@ -21,7 +22,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class VerifyEmailAuthCodeUseCaseTest {
+public class VerifyAuthCodeUseCaseTest {
 
 	@Mock
 	AuthSecurityPort authSecurityPort;
@@ -36,7 +37,9 @@ public class VerifyEmailAuthCodeUseCaseTest {
 	CommandAuthCodePort commandAuthCodePort;
 
 	@InjectMocks
-	VerifyEmailAuthCodeUseCase verifyEmailAuthCodeUseCase;
+	VerifyAuthCodeUseCase verifyAuthCodeUseCase;
+
+	static AuthCodeType type = AuthCodeType.EMAIL;
 
 	@Test
 	void 인증확인() {
@@ -61,7 +64,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.build()
 			);
 
-		verifyEmailAuthCodeUseCase.execute(authCode);
+		verifyAuthCodeUseCase.execute(authCode, type);
 	}
 
 	@Test
@@ -87,7 +90,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> verifyEmailAuthCodeUseCase.execute(authCode));
+		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> verifyAuthCodeUseCase.execute(authCode, type));
 	}
 
 	@Test
@@ -113,7 +116,7 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeAlreadyTimeOutException.class, () -> verifyEmailAuthCodeUseCase.execute(authCode));
+		assertThrows(AuthCodeAlreadyTimeOutException.class, () -> verifyAuthCodeUseCase.execute(authCode, type));
 	}
 
 	@Test
@@ -140,6 +143,6 @@ public class VerifyEmailAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(InvalidAuthCodeException.class, () -> verifyEmailAuthCodeUseCase.execute(invalidAuthCode));
+		assertThrows(InvalidAuthCodeException.class, () -> verifyAuthCodeUseCase.execute(invalidAuthCode, type));
 	}
 }
