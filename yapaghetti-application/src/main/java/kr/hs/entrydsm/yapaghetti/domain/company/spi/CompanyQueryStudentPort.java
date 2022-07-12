@@ -5,5 +5,5 @@ import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import java.util.List;
 
 public interface CompanyQueryStudentPort {
-    List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String major, String classNum);
+    List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum);
 }
