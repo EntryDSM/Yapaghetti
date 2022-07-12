@@ -4,10 +4,10 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ResetPasswordPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ChangeCompanyPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ResetCompanyPasswordResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ChangeCompanyPasswordResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class TeacherWebAdapter {
     private final DeleteStudentPort deleteStudentPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
-    private final ResetPasswordPort resetPasswordPort;
+    private final ChangeCompanyPasswordPort changeCompanyPasswordPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -61,8 +61,8 @@ public class TeacherWebAdapter {
     }
 
     @PatchMapping("/company/reset/{company-id}")
-    public ResetCompanyPasswordResponse resetPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
-        return resetPasswordPort.execute(companyId);
+    public ChangeCompanyPasswordResponse changeCompanyPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
+        return changeCompanyPasswordPort.execute(companyId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

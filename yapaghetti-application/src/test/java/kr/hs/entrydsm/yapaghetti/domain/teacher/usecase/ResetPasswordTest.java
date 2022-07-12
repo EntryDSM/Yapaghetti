@@ -31,7 +31,7 @@ public class ResetPasswordTest {
     TeacherSecurityPort teacherSecurityPort;
 
     @InjectMocks
-    ResetCompanyPasswordUseCase resetCompanyPasswordUseCase;
+    ChangeCompanyPasswordUseCase resetCompanyPasswordUseCase;
 
     @Test
     public void execute() {
