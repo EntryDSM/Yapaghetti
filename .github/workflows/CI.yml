@@ -42,3 +42,4 @@ jobs:
         with:
           email: sdpthf@dsm.hs.kr
           username: softpeanut
+          title: "## Project Structure"
