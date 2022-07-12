@@ -3,7 +3,8 @@ package kr.hs.entrydsm.yapaghetti.domain.student.usecase;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeNotVerifiedException;
-import kr.hs.entrydsm.yapaghetti.domain.student.api.SetPhoneNumberPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.UpdateMyInfoPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.domain.UpdateType;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class SetPhoneNumberUseCase implements SetPhoneNumberPort {
+public class UpdateMyInfoUseCase implements UpdateMyInfoPort {
 
 	private final StudentQueryAuthCodePort studentQueryAuthCodePort;
 	private final StudentQueryUserPort studentQueryUserPort;
@@ -21,8 +22,8 @@ public class SetPhoneNumberUseCase implements SetPhoneNumberPort {
 	private final StudentCommandUserPort studentCommandUserPort;
 
 	@Override
-	public void execute(String phoneNumber) {
-		AuthCode authCode = studentQueryAuthCodePort.queryAuthCodeById(phoneNumber);
+	public void execute(String value, UpdateType type) {
+		AuthCode authCode = studentQueryAuthCodePort.queryAuthCodeById(value);
 
 		if (!authCode.isVerify()) {
 			throw AuthCodeNotVerifiedException.EXCEPTION;
@@ -32,6 +33,11 @@ public class SetPhoneNumberUseCase implements SetPhoneNumberPort {
 			studentSecurityPort.getCurrentUserId()
 		);
 
-		studentCommandUserPort.saveUser(user.SetPhoneNumber(phoneNumber));
+		switch (type) {
+			case PHONE -> user = user.SetPhoneNumber(value);
+			case PASSWORD -> user = user.SetPassword(value);
+		}
+
+		studentCommandUserPort.saveUser(user);
 	}
 }

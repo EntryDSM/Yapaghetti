@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeNotVerifiedException;
+import kr.hs.entrydsm.yapaghetti.domain.student.domain.UpdateType;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
@@ -33,7 +34,9 @@ public class SetPhoneNumberUseCaseTest {
 	StudentCommandUserPort studentCommandUserPort;
 
 	@InjectMocks
-	SetPhoneNumberUseCase setPhoneNumberUseCase;
+	UpdateMyInfoUseCase setPhoneNumberUseCase;
+
+	static UpdateType type = UpdateType.PHONE;
 
 	@Test
 	void 번호_설정() {
@@ -55,7 +58,7 @@ public class SetPhoneNumberUseCaseTest {
 					.build()
 			);
 
-		setPhoneNumberUseCase.execute(phoneNumber);
+		setPhoneNumberUseCase.execute(phoneNumber, type);
 	}
 
 	@Test
@@ -69,6 +72,6 @@ public class SetPhoneNumberUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeNotVerifiedException.class, () -> setPhoneNumberUseCase.execute(phoneNumber));
+		assertThrows(AuthCodeNotVerifiedException.class, () -> setPhoneNumberUseCase.execute(phoneNumber, type));
 	}
 }
