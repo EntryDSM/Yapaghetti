@@ -45,5 +45,5 @@ jobs:
         uses: smoothbear/project-tree-action@main
         with:
           email: sdpthf@dsm.hs.kr
-          username: Yapaghetti
+          username: EntryDSM
           title: "## Project Structure"
