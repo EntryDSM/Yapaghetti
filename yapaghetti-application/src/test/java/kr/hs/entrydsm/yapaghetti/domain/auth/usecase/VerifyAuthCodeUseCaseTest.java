@@ -4,17 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
-import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCodeType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyTimeOutException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.InvalidAuthCodeException;
-import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
-import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.CommandAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.QueryAuthCodePort;
-import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,12 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class VerifyAuthCodeUseCaseTest {
 
 	@Mock
-	AuthSecurityPort authSecurityPort;
-
-	@Mock
-	AuthQueryUserPort authQueryUserPort;
-
-	@Mock
 	QueryAuthCodePort queryAuthCodePort;
 
 	@Mock
@@ -39,23 +28,12 @@ public class VerifyAuthCodeUseCaseTest {
 	@InjectMocks
 	VerifyAuthCodeUseCase verifyAuthCodeUseCase;
 
-	static AuthCodeType type = AuthCodeType.EMAIL;
-
 	@Test
 	void 인증확인() {
-		UUID uuid = UUID.randomUUID();
-		String email = "email";
+		String value = "test";
 		String authCode = "test";
 
-		given(authSecurityPort.getCurrentUserId())
-			.willReturn(uuid);
-		given(authQueryUserPort.queryUserById(uuid))
-			.willReturn(
-				User.builder()
-					.email(email)
-					.build()
-			);
-		given(queryAuthCodePort.queryAuthCodeById(email))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)
@@ -64,24 +42,15 @@ public class VerifyAuthCodeUseCaseTest {
 					.build()
 			);
 
-		verifyAuthCodeUseCase.execute(authCode, type);
+		verifyAuthCodeUseCase.execute(authCode, value);
 	}
 
 	@Test
 	void 이미_인증됨() {
-		UUID uuid = UUID.randomUUID();
-		String email = "email";
+		String value = "value";
 		String authCode = "test";
 
-		given(authSecurityPort.getCurrentUserId())
-			.willReturn(uuid);
-		given(authQueryUserPort.queryUserById(uuid))
-			.willReturn(
-				User.builder()
-					.email(email)
-					.build()
-			);
-		given(queryAuthCodePort.queryAuthCodeById(email))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(true)
@@ -90,24 +59,15 @@ public class VerifyAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> verifyAuthCodeUseCase.execute(authCode, type));
+		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> verifyAuthCodeUseCase.execute(authCode, value));
 	}
 
 	@Test
 	void 시간초과() {
-		UUID uuid = UUID.randomUUID();
-		String email = "email";
+		String value = "value";
 		String authCode = "test";
 
-		given(authSecurityPort.getCurrentUserId())
-			.willReturn(uuid);
-		given(authQueryUserPort.queryUserById(uuid))
-			.willReturn(
-				User.builder()
-					.email(email)
-					.build()
-			);
-		given(queryAuthCodePort.queryAuthCodeById(email))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)
@@ -116,25 +76,16 @@ public class VerifyAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeAlreadyTimeOutException.class, () -> verifyAuthCodeUseCase.execute(authCode, type));
+		assertThrows(AuthCodeAlreadyTimeOutException.class, () -> verifyAuthCodeUseCase.execute(authCode, value));
 	}
 
 	@Test
 	void 틀린_인증코드() {
-		UUID uuid = UUID.randomUUID();
-		String email = "email";
+		String value = "value";
 		String authCode = "test";
 		String invalidAuthCode = "tset";
 
-		given(authSecurityPort.getCurrentUserId())
-			.willReturn(uuid);
-		given(authQueryUserPort.queryUserById(uuid))
-			.willReturn(
-				User.builder()
-					.email(email)
-					.build()
-			);
-		given(queryAuthCodePort.queryAuthCodeById(email))
+		given(queryAuthCodePort.queryAuthCodeById(value))
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(false)
@@ -143,6 +94,6 @@ public class VerifyAuthCodeUseCaseTest {
 					.build()
 			);
 
-		assertThrows(InvalidAuthCodeException.class, () -> verifyAuthCodeUseCase.execute(invalidAuthCode, type));
+		assertThrows(InvalidAuthCodeException.class, () -> verifyAuthCodeUseCase.execute(invalidAuthCode, value));
 	}
 }
