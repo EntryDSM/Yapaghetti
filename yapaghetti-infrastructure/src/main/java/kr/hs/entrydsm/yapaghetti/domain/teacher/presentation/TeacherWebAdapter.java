@@ -4,9 +4,11 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryStudentDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryCompanyListPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
@@ -35,6 +37,7 @@ public class TeacherWebAdapter {
     private final DeleteStudentPort deleteStudentPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
+    private final QueryStudentDetailPort queryStudentDetailPort;
     private final QueryCompanyListPort queryCompanyListPort;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,18 +52,17 @@ public class TeacherWebAdapter {
                         .build()
         );
     }
+    
+    @GetMapping("/student/{student-id}")
+    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
+        return queryStudentDetailPort.execute(studentId);
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
     }
-
-    @GetMapping("/company/{company-id}")
-    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
-        return getCompanyDetailPort.execute(companyId);
-    }
-
+    
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
@@ -71,4 +73,9 @@ public class TeacherWebAdapter {
     public CompanyListResponse queryCompanyList(@RequestParam("name") String name) {
         return queryCompanyListPort.execute(name);
     }
-}
+
+    @GetMapping("/company/{company-id}")
+    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
+        return getCompanyDetailPort.execute(companyId);
+    }
+
