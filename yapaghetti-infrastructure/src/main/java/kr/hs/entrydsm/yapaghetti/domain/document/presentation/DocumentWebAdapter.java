@@ -150,7 +150,7 @@ public class DocumentWebAdapter {
         );
     }
 
-    @GetMapping("/list")
+    @GetMapping("/lists")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
     }
