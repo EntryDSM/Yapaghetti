@@ -10,7 +10,9 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryProtectedDocumentUrlPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryPublicDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayAndPublicDocumentPreviewPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.RejectStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
@@ -20,6 +22,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateSta
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateLocalDocumentRequest;
@@ -56,8 +59,10 @@ public class DocumentWebAdapter {
     private final QueryStayDocumentPort queryStayDocumentPort;
     private final CancelStayDocumentPort cancelStayDocumentPort;
     private final RequestLocalDocumentToPublicPort requestLocalDocumentToPublicPort;
+    private final RejectStayDocumentPort rejectStayDocumentPort;
     private final UpdateStayDocumentPort updateStayDocumentPort;
     private final QueryLocalDocumentListPort queryLocalDocumentListPort;
+    private final QueryStayAndPublicDocumentPreviewPort queryStayAndPublicDocumentPreviewPort;
     private final ApproveStayDocumentPort approveStayDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -133,16 +138,26 @@ public class DocumentWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/stay/reject/{document-id}")
+    public void rejectStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+        rejectStayDocumentPort.execute(documentId);    
+    }
+    
     @PatchMapping("/stay")
     public void updateStayDocument(@RequestBody @Valid WebUpdateStayDocumentRequest request) {
         updateStayDocumentPort.execute(
                 new DomainUpdateStayDocumentRequest(request.getPreviewImagePath(), request.getContent())
         );
     }
-    
+
     @GetMapping("/list")
     public QueryLocalDocumentListResponse getLocalDocumentList() {
         return queryLocalDocumentListPort.execute();
+    }
+
+    @GetMapping("/preview/{student-id}")
+    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(@PathVariable("student-id") @NotBlank UUID studentId) {
+        return queryStayAndPublicDocumentPreviewPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

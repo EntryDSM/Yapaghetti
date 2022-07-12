@@ -7,6 +7,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.student.mapper.StudentMapper;
+import kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.StudentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
@@ -36,22 +37,22 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String major, String classNum) {
-        QTagEntity majorTag = new QTagEntity("majorTag");
-        QTagEntity skillTag = new QTagEntity("skillTag");
+    public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum) {
+        QTagEntity QMajorTag = new QTagEntity("majorTag");
+        QTagEntity QSkillTag = new QTagEntity("skillTag");
 
         return jpaQueryFactory
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
-                .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(studentEntity.tagEntity, QMajorTag)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.mySkillList, mySkillEntity)
-                .leftJoin(mySkillEntity.tagEntity, skillTag)
+                .leftJoin(mySkillEntity.tagEntity, QSkillTag)
                 .where(documentEntity.type.eq(DocumentType.PUBLIC))
                 .where(
                         studentEntity.classNum.like(likePreProcessing(classNum))
                                 .and(userEntity.name.like(likePreProcessing(name)))
-                                .and(majorTag.name.like(likePreProcessing(major)))
+                                .and(QMajorTag.name.like(likePreProcessing(majorTag)))
                 )
                 .transform(
                         groupBy(studentEntity.userId)
@@ -59,8 +60,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                                         Projections.constructor(
                                                 StudentElement.class,
                                                 studentEntity.userId,
-                                                majorTag.name,
-                                                list(skillTag.name),
+                                                QMajorTag.name,
+                                                list(QSkillTag.name),
                                                 userEntity.name,
                                                 studentEntity.grade.stringValue(),
                                                 studentEntity.classNum.stringValue(),
@@ -73,20 +74,19 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     }
 
-	@Override
-	public void saveStudent(Student student) {
-		if (!tagRepository.existsById(student.getTagId())) {
-			throw TagNotFoundException.EXCEPTION;
-		}
+    @Override
+    public void saveStudent(Student student) {
+        if (!tagRepository.existsById(student.getTagId())) {
+            throw TagNotFoundException.EXCEPTION;
+        }
 
-		studentRepository.save(studentMapper.domainToEntity(student));
-	}
+        studentRepository.save(studentMapper.domainToEntity(student));
+    }
 
     @Override
     public Student queryUserById(UUID id) {
         return studentMapper.entityToDomain(
-                studentRepository.findById(id)
-                        .orElseThrow(() -> StudentNotFoundException.EXCEPTION)
+                getStudentById(id)
         );
     }
 
@@ -128,12 +128,24 @@ public class StudentPersistenceAdapter implements StudentPort {
         );
     }
 
+    @Override
+    public Student queryStudentById(UUID studentId) {
+        return studentMapper.entityToDomain(
+                getStudentById(studentId)
+        );
+    }
+
     public boolean existsByTagId(UUID tagId) {
         return studentRepository.existsByTagEntityId(tagId);
     }
 
     private String likePreProcessing(String value) {
         return "%" + value + "%";
+    }
+
+    private StudentEntity getStudentById(UUID studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> StudentNotFoundException.EXCEPTION);
     }
 
 }
