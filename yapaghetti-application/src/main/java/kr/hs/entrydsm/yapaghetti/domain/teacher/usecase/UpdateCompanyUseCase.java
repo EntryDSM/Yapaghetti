@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @UseCase
 public class UpdateCompanyUseCase implements UpdateCompanyPort {
+
     private final TeacherCommandCompanyPort teacherCommandCompanyPort;
     private final TeacherQueryCompanyPort teacherQueryCompanyPort;
 
