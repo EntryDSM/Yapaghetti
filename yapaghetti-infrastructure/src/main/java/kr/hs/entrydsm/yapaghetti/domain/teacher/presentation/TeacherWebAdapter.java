@@ -60,7 +60,7 @@ public class TeacherWebAdapter {
         return getCompanyDetailPort.execute(companyId);
     }
 
-    @PatchMapping("/company/reset/{company-id}")
+    @PatchMapping("/company/change/{company-id}")
     public ChangeCompanyPasswordResponse changeCompanyPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
         return changeCompanyPasswordPort.execute(companyId);
     }
