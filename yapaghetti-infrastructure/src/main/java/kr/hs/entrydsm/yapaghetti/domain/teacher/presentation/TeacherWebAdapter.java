@@ -79,6 +79,4 @@ public class TeacherWebAdapter {
     public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
-
-
 }
