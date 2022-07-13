@@ -1,0 +1,17 @@
+name: Update to README
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  change-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Insert project tree
+        uses: smoothbear/project-tree-action@main
+        with:
+          email: eogus_2513@dsm.hs.kr
+          username: eogus2513
+          token: ${{ secrets.TOKEN }}
