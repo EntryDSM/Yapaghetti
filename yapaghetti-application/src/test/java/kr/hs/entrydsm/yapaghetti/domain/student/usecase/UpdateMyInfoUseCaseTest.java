@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class SetPhoneNumberUseCaseTest {
+public class UpdateMyInfoUseCaseTest {
 
 	@Mock
 	StudentQueryAuthCodePort studentQueryAuthCodePort;
@@ -34,7 +34,7 @@ public class SetPhoneNumberUseCaseTest {
 	StudentCommandUserPort studentCommandUserPort;
 
 	@InjectMocks
-	UpdateMyInfoUseCase setPhoneNumberUseCase;
+	UpdateMyInfoUseCase updateMyInfoUseCase;
 
 	static UpdateType type = UpdateType.PHONE;
 
@@ -58,7 +58,7 @@ public class SetPhoneNumberUseCaseTest {
 					.build()
 			);
 
-		setPhoneNumberUseCase.execute(phoneNumber, type);
+		updateMyInfoUseCase.execute(phoneNumber, type);
 	}
 
 	@Test
@@ -72,6 +72,6 @@ public class SetPhoneNumberUseCaseTest {
 					.build()
 			);
 
-		assertThrows(AuthCodeNotVerifiedException.class, () -> setPhoneNumberUseCase.execute(phoneNumber, type));
+		assertThrows(AuthCodeNotVerifiedException.class, () -> updateMyInfoUseCase.execute(phoneNumber, type));
 	}
 }
