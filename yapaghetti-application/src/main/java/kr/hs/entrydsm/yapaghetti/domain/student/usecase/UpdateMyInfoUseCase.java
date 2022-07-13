@@ -33,10 +33,10 @@ public class UpdateMyInfoUseCase implements UpdateMyInfoPort {
 			studentSecurityPort.getCurrentUserId()
 		);
 
-		switch (type) {
-			case PHONE -> user = user.SetPhoneNumber(value);
-			case PASSWORD -> user = user.SetPassword(value);
-		}
+		user = switch (type) {
+			case PHONE -> user.SetPhoneNumber(value);
+			case PASSWORD -> user.SetPassword(value);
+		};
 
 		studentCommandUserPort.saveUser(user);
 	}
