@@ -17,7 +17,7 @@ public class QueryStudentListUseCase implements QueryStudentListPort {
     public QueryStudentListResponse execute(DomainQueryStudentListRequest request) {
         return new QueryStudentListResponse(companyQueryStudentPort.findStudentByNameAndMajorAndClassNum(
                 request.getName(),
-                request.getMajor(),
+                request.getMajorTag(),
                 request.getClassNum()
         ));
     }
