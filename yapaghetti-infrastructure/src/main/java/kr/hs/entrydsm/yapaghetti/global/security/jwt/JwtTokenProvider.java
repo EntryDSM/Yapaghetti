@@ -52,7 +52,7 @@ public class JwtTokenProvider implements UserJwtPort {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
             String type = claimsSet.getStringClaim("type");
-            if (!type.equals(JWT_ACCESS_TOKEN_TYPE)) {
+            if (!JWT_ACCESS_TOKEN_TYPE.equals(type)) {
                 throw InvalidTokenTypeException.EXCEPTION;
             }
             String subject = claimsSet.getSubject();
