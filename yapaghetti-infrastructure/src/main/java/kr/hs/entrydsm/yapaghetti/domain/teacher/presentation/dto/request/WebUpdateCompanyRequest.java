@@ -16,22 +16,6 @@ public class WebUpdateCompanyRequest {
     @Max(40)
     private String companyName;
 
-    @NotBlank
-    @Max(255)
-    private String location;
-
-    @NotBlank
-    @Max(11)
-    private String phoneNumber;
-
-    @NotBlank
-    @Max(10)
-    private String name;
-
-    @NotBlank
-    @Max(255)
-    private String email;
-
     @NotNull
     private LocalDateTime startAt;
 

@@ -11,10 +11,6 @@ import java.util.UUID;
 public class DomainUpdateCompanyRequest {
     private final UUID companyId;
     private final String companyName;
-    private final String location;
-    private final String phoneNumber;
-    private final String name;
-    private final String email;
     private final LocalDateTime startAt;
     private final LocalDateTime endAt;
 }
