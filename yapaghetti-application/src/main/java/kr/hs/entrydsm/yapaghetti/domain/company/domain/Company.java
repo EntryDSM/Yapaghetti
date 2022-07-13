@@ -27,4 +27,13 @@ public class Company {
                 .build();
     }
 
+    public Company updateCompanyNameAndDates(String companyName, LocalDateTime startAt, LocalDateTime endAt) {
+        return Company.builder()
+                .userId(this.userId)
+                .companyName(companyName)
+                .startAt(startAt)
+                .endAt(endAt)
+                .build();
+    }
+
 }
