@@ -82,4 +82,3 @@ public class TeacherWebAdapter {
         return getCompanyDetailPort.execute(companyId);
     }
 }
-
