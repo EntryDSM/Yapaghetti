@@ -19,7 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.HashSet;
 import java.util.UUID;
 
 @Getter
@@ -49,7 +49,7 @@ public class DocumentEntity extends BaseUUIDEntity {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "feedback_id", nullable = false)
-    private Set<FeedbackEntity> feedbackEntitySet;
+    private HashSet<FeedbackEntity> feedbackEntitySet;
 
     public UUID getUserId() {
         return userEntity.getId();
