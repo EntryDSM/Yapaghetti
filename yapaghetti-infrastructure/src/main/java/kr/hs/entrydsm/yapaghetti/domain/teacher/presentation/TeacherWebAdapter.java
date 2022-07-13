@@ -8,6 +8,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainNewCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.NewCompanyResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import lombok.RequiredArgsConstructor;
@@ -57,8 +58,8 @@ public class TeacherWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/company")
-    public void createCompany(@RequestBody @Valid WebCreateCompanyRequest request) {
-        createCompanyPort.execute(
+    public NewCompanyResponse createCompany(@RequestBody @Valid WebCreateCompanyRequest request) {
+        return createCompanyPort.execute(
                 DomainNewCompanyRequest.builder()
                         .name(request.getName())
                         .email(request.getEmail())
