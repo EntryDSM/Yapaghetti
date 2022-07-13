@@ -52,17 +52,18 @@ public class TeacherWebAdapter {
                         .build()
         );
     }
-    
+
     @GetMapping("/student/{student-id}")
     public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
     }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
@@ -78,4 +79,4 @@ public class TeacherWebAdapter {
     public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
-
+}
