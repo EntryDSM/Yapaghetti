@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                 // auth
                 .antMatchers(HttpMethod.POST, "/auth/email").hasAnyRole(STUDENT, TEACHER, MOU)
-                .antMatchers(HttpMethod.HEAD, "/auth/email").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.HEAD, "/auth/verify").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()

@@ -56,10 +56,22 @@ public class TeacherWebAdapter {
                         .build()
         );
     }
-    
+
     @GetMapping("/student/{student-id}")
     public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/student/{student-id}")
+    public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
+        deleteStudentPort.execute(studentId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/company/{company-id}")
+    public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
+        deleteCompanyPort.execute(companyId);
     }
 
     @GetMapping("/company/search")
@@ -71,8 +83,7 @@ public class TeacherWebAdapter {
     public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
-
-
+    
     @PatchMapping("/company/{company-id}")
     public void updateCompany(@PathVariable("company-id") @NotBlank UUID companyId,
                               @RequestBody @Valid WebUpdateCompanyRequest request) {
@@ -85,17 +96,4 @@ public class TeacherWebAdapter {
                         .build()
         );
     }
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/company/{company-id}")
-    public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
-        deleteCompanyPort.execute(companyId);
-    }
-    
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/student/{student-id}")
-    public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
-        deleteStudentPort.execute(studentId);
-    }
-    
 }
