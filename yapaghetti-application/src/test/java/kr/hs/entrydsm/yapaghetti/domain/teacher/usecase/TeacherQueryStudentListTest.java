@@ -23,7 +23,6 @@ public class TeacherQueryStudentListTest {
     @InjectMocks
     TeacherQueryStudentListUseCase teacherQueryStudentListUseCase;
 
-
     @Test
     public void test() {
 
