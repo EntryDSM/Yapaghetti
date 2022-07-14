@@ -17,4 +17,4 @@ jobs:
           username: to be committed username
           token: ${{ secrets.TOKEN }}
           pr: true
-          branches: "docs/project-tree
+          branches: "docs/project-tree"
