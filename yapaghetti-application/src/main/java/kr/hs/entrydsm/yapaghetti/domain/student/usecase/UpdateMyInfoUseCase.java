@@ -16,28 +16,32 @@ import lombok.RequiredArgsConstructor;
 @UseCase
 public class UpdateMyInfoUseCase implements UpdateMyInfoPort {
 
-	private final StudentQueryAuthCodePort studentQueryAuthCodePort;
-	private final StudentQueryUserPort studentQueryUserPort;
-	private final StudentSecurityPort studentSecurityPort;
-	private final StudentCommandUserPort studentCommandUserPort;
+    private final StudentQueryAuthCodePort studentQueryAuthCodePort;
+    private final StudentQueryUserPort studentQueryUserPort;
+    private final StudentSecurityPort studentSecurityPort;
+    private final StudentCommandUserPort studentCommandUserPort;
 
-	@Override
-	public void execute(String value, UpdateType type) {
-		AuthCode authCode = studentQueryAuthCodePort.queryAuthCodeById(value);
+    @Override
+    public void execute(String value, UpdateType type) {
+        AuthCode authCode = studentQueryAuthCodePort.queryAuthCodeById(value);
 
-		if (!authCode.isVerify()) {
-			throw AuthCodeNotVerifiedException.EXCEPTION;
-		}
+        if (!authCode.isVerify()) {
+            throw AuthCodeNotVerifiedException.EXCEPTION;
+        }
 
-		User user = studentQueryUserPort.queryUserById(
-			studentSecurityPort.getCurrentUserId()
-		);
+        User user = studentQueryUserPort.queryUserById(
+                studentSecurityPort.getCurrentUserId()
+        );
 
-		switch (type) {
-			case PHONE -> user = user.SetPhoneNumber(value);
-			case PASSWORD -> user = user.SetPassword(value);
-		}
+        switch (type) {
+            case PHONE:
+                user = user.setPhoneNumber(value);
+                break;
+            case PASSWORD:
+                user = user.setPassword(value);
+                break;
+        }
 
-		studentCommandUserPort.saveUser(user);
-	}
+        studentCommandUserPort.saveUser(user);
+    }
 }

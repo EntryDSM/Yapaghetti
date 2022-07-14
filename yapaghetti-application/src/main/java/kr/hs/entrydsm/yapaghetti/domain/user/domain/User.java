@@ -57,7 +57,7 @@ public class User {
                 .build();
     }
 
-    public User SetPhoneNumber(String phoneNumber) {
+    public User setPhoneNumber(String phoneNumber) {
         return User.builder()
             .id(this.id)
             .email(this.email)
@@ -71,7 +71,7 @@ public class User {
             .build();
     }
 
-    public User SetPassword(String password) {
+    public User setPassword(String password) {
         return User.builder()
             .id(this.id)
             .email(this.email)
