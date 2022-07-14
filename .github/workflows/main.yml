@@ -14,7 +14,7 @@ jobs:
         with:
           message: "♻️ :: Update README.md"
           email: eogus_2513@dsm.hs.kr
-          username: eogus2513
+          username: EntryDSM
           token: ${{ secrets.TOKEN }}
           pr: true
           branches: "docs/project-tree"
