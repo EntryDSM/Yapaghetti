@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @UseCase
-public class TeacherQueryStudentListUseCase implements TeacherQueryStudentListPort{
+public class TeacherQueryStudentListUseCase implements TeacherQueryStudentListPort {
 
     private final TeacherQueryStudentPort teacherQueryStudentPort;
 

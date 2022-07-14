@@ -28,10 +28,10 @@ public class TeacherQueryStudentListTest {
 
         List<StudentElementByGradeClassNum> studentElementList = new ArrayList<>();
 
-        given(teacherQueryStudentPort.queryStudentListByGradeAndClassNumAndDocStatus(2,1, DocumentType.PUBLIC))
+        given(teacherQueryStudentPort.queryStudentListByGradeAndClassNumAndDocStatus(2, 1, DocumentType.PUBLIC))
                 .willReturn(studentElementList);
 
-        teacherQueryStudentListUseCase.execute(2,1,DocumentType.PUBLIC);
+        teacherQueryStudentListUseCase.execute(2, 1, DocumentType.PUBLIC);
 
     }
 
