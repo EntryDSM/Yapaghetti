@@ -56,6 +56,4 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
                 .endAt(request.getEndAt())
                 .build();
     }
-
-
 }
