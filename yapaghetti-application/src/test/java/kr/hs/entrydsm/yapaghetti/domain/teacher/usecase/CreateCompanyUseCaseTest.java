@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateCompanyTest {
+public class CreateCompanyUseCaseTest {
 
     @Mock
     TeacherCommandUserPort teacherCommandUserPort;

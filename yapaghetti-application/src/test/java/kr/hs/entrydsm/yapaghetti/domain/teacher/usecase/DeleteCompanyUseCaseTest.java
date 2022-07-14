@@ -9,12 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.BDDMockito.given;
-
 import java.util.UUID;
 
+import static org.mockito.BDDMockito.given;
+
 @ExtendWith(MockitoExtension.class)
-public class DeleteCompanyTest {
+public class DeleteCompanyUseCaseTest {
     @Mock
     TeacherCommandCompanyPort teacherCommandCompanyPort;
 
