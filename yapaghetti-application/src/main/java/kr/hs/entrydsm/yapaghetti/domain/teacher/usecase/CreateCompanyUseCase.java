@@ -12,8 +12,6 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @UseCase
 public class CreateCompanyUseCase implements CreateCompanyPort {
@@ -38,7 +36,6 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
 
     private User createUser(DomainNewCompanyRequest request, String password) {
         return User.builder()
-                .id(UUID.randomUUID())
                 .name(request.getName())
                 .password(teacherSecurityPort.encodePassword(password))
                 .email(request.getEmail())
