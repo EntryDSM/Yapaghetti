@@ -35,12 +35,12 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
 
 		User user = studentQueryUserPort.queryUserById(userId);
 
-		List<String> tagList = studentQueryMySkillPort.queryMySkillByUserId(userId).stream()
+		List<String> skillTagList = studentQueryMySkillPort.queryMySkillByUserId(userId).stream()
 			.map(mySkill -> studentQueryTagPort.queryTagById(mySkill.getTagId()))
 			.map(Tag::getName)
 			.collect(Collectors.toList());
 
-		String major = studentQueryTagPort.queryTagById(student.getTagId()).getName();
+		String majorTag = studentQueryTagPort.queryTagById(student.getTagId()).getName();
 
 		return MyInfoResponse.builder()
 			.grade(student.getGrade())
@@ -51,8 +51,8 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
 			.email(user.getEmail())
 			.location(user.getLocation())
 			.profileImagePath(user.getProfileImagePath())
-			.tagList(tagList)
-			.major(major)
+			.skillTagList(skillTagList)
+			.majorTag(majorTag)
 			.build();
 	}
 }

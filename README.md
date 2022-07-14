@@ -1,6 +1,6 @@
 # yapaghetti
 
-## Project Structure
+### Project Structure
 ```
 📦 yapaghetti
 ├─ .codecov.yml
