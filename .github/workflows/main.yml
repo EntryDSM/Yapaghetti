@@ -1,0 +1,20 @@
+name: Update to README
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  change-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Insert project tree
+        uses: smoothbear/project-tree-action@main
+        with:
+          message: "♻️ :: Update README.md"
+          email: to be committed email
+          username: to be committed username
+          token: ${{ secrets.TOKEN }}
+          pr: true
+          branches: "docs/project-tree
