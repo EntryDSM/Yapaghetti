@@ -24,6 +24,8 @@ public class Company {
         return Company.builder()
                 .userId(this.userId)
                 .companyName(companyName)
+                .startAt(this.startAt)
+                .endAt(this.endAt)
                 .build();
     }
 
