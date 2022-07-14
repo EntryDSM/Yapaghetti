@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConstructorBinding
-@ConfigurationProperties("aws.ses")
 @Getter
 @RequiredArgsConstructor
+@ConstructorBinding
+@ConfigurationProperties("aws.ses")
 public class AwsSesProperties {
 
     private final String accessKey;
