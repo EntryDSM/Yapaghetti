@@ -52,7 +52,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .leftJoin(studentEntity.tagEntity, QMajorTag)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.mySkillList, mySkillEntity)
-                .leftJoin(mySkillEntity.tagEntity, skillTag)
+                .leftJoin(mySkillEntity.tagEntity, QSkillTag)
                 .where(documentEntity.type.eq(PUBLIC))
                 .leftJoin(mySkillEntity.tagEntity, QSkillTag)
                 .where(documentEntity.type.eq(DocumentType.PUBLIC))
