@@ -40,8 +40,7 @@ public class StudentWebAdapter {
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PatchMapping()
-	public void setPhoneNumber(@RequestBody @NotBlank String value, @RequestParam @NotBlank
-		UpdateType type) {
+	public void setPhoneNumber(@RequestBody @NotBlank String value, @RequestParam @NotBlank UpdateType type) {
 		updateMyInfoPort.execute(value, type);
 	}
 }

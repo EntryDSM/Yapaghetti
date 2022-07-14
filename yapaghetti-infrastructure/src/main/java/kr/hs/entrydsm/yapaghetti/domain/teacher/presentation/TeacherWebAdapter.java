@@ -43,26 +43,28 @@ public class TeacherWebAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
     public void createFeedback(@PathVariable("student-id") @NotBlank UUID studentId,
-                               @RequestBody @Valid WebCreateFeedbackRequest request) {
+        @RequestBody @Valid WebCreateFeedbackRequest request) {
         createFeedbackPort.execute(
-                DomainCreateFeedbackRequest.builder()
-                        .studentId(studentId)
-                        .sequence(request.getSequence())
-                        .comment(request.getComment())
-                        .build()
+            DomainCreateFeedbackRequest.builder()
+                .studentId(studentId)
+                .sequence(request.getSequence())
+                .comment(request.getComment())
+                .build()
         );
     }
-    
+
     @GetMapping("/student/{student-id}")
-    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
+    public StudentDetailResponse queryStudentDetail(
+        @PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
     }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/company/{company-id}")
     public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
@@ -75,7 +77,8 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/company/{company-id}")
-    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
+    public CompanyDetailResponse getCompanyDetail(
+        @PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
-
+}
