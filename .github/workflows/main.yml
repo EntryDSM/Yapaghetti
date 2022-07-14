@@ -13,8 +13,8 @@ jobs:
         uses: smoothbear/project-tree-action@1.1.0
         with:
           message: "♻️ :: Update README.md"
-          email: to be committed email
-          username: to be committed username
+          email: eogus_2513@dsm.hs.kr
+          username: eogus2513
           token: ${{ secrets.TOKEN }}
           pr: true
           branches: "docs/project-tree"
