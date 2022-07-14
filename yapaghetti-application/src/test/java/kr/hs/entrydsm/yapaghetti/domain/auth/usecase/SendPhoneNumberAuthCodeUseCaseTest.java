@@ -80,6 +80,7 @@ public class SendPhoneNumberAuthCodeUseCaseTest {
 			.willReturn(
 				AuthCode.builder()
 					.isVerify(true)
+					.timeToLive(authTime)
 					.build()
 			);
 
