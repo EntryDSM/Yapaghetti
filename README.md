@@ -38,6 +38,7 @@
 │       │                       │   │   │   ├── AuthCodeAlreadyTimeOutException.java
 │       │                       │   │   │   ├── AuthCodeAlreadyVerifiedException.java
 │       │                       │   │   │   ├── AuthCodeNotFoundException.java
+│       │                       │   │   │   ├── AuthCodeNotVerifiedException.java
 │       │                       │   │   │   ├── AuthCodeOverLimitException.java
 │       │                       │   │   │   └── InvalidAuthCodeException.java
 │       │                       │   │   ├── spi
@@ -180,11 +181,13 @@
 │       │                       │   │   ├── api
 │       │                       │   │   │   ├── QueryMyInfoPort.java
 │       │                       │   │   │   ├── ReflectFeedbackPort.java
+│       │                       │   │   │   ├── UpdateMyInfoPort.java
 │       │                       │   │   │   └── dto
 │       │                       │   │   │       └── response
 │       │                       │   │   │           └── MyInfoResponse.java
 │       │                       │   │   ├── domain
-│       │                       │   │   │   └── Student.java
+│       │                       │   │   │   ├── Student.java
+│       │                       │   │   │   └── UpdateType.java
 │       │                       │   │   ├── error
 │       │                       │   │   │   └── StudentErrorCode.java
 │       │                       │   │   ├── exception
@@ -192,7 +195,9 @@
 │       │                       │   │   ├── spi
 │       │                       │   │   │   ├── CommandStudentPort.java
 │       │                       │   │   │   ├── QueryStudentPort.java
+│       │                       │   │   │   ├── StudentCommandUserPort.java
 │       │                       │   │   │   ├── StudentPort.java
+│       │                       │   │   │   ├── StudentQueryAuthCodePort.java
 │       │                       │   │   │   ├── StudentQueryDocumentPort.java
 │       │                       │   │   │   ├── StudentQueryFeedbackPort.java
 │       │                       │   │   │   ├── StudentQueryMySkillPort.java
@@ -201,7 +206,8 @@
 │       │                       │   │   │   └── StudentSecurityPort.java
 │       │                       │   │   └── usecase
 │       │                       │   │       ├── QueryMyInfoUseCase.java
-│       │                       │   │       └── ReflectFeedbackUseCase.java
+│       │                       │   │       ├── ReflectFeedbackUseCase.java
+│       │                       │   │       └── UpdateMyInfoUseCase.java
 │       │                       │   ├── tag
 │       │                       │   │   ├── api
 │       │                       │   │   │   ├── AddMySkillPort.java
@@ -248,6 +254,7 @@
 │       │                       │   │   │   ├── GetCompanyDetailPort.java
 │       │                       │   │   │   ├── QueryCompanyListPort.java
 │       │                       │   │   │   ├── QueryStudentDetailPort.java
+│       │                       │   │   │   ├── TeacherQueryStudentListPort.java
 │       │                       │   │   │   ├── UpdateCompanyPort.java
 │       │                       │   │   │   └── dto
 │       │                       │   │   │       ├── request
@@ -258,7 +265,9 @@
 │       │                       │   │   │           ├── CompanyDetailResponse.java
 │       │                       │   │   │           ├── CompanyElement.java
 │       │                       │   │   │           ├── CompanyListResponse.java
-│       │                       │   │   │           └── StudentDetailResponse.java
+│       │                       │   │   │           ├── StudentDetailResponse.java
+│       │                       │   │   │           ├── StudentElementByGradeClassNum.java
+│       │                       │   │   │           └── StudentListResponse.java
 │       │                       │   │   ├── spi
 │       │                       │   │   │   ├── CommandTeacherPort.java
 │       │                       │   │   │   ├── QueryTeacherPort.java
@@ -279,6 +288,7 @@
 │       │                       │   │       ├── GetCompanyDetailUseCase.java
 │       │                       │   │       ├── QueryCompanyListUseCase.java
 │       │                       │   │       ├── QueryStudentDetailUseCase.java
+│       │                       │   │       ├── TeacherQueryStudentListUseCase.java
 │       │                       │   │       └── UpdateCompanyUseCase.java
 │       │                       │   └── user
 │       │                       │       ├── api
@@ -363,7 +373,8 @@
 │                                   ├── student
 │                                   │   └── usecase
 │                                   │       ├── GetMyInfoUseCaseTest.java
-│                                   │       └── ReflectFeedbackUseCaseTest.java
+│                                   │       ├── ReflectFeedbackUseCaseTest.java
+│                                   │       └── UpdateMyInfoUseCaseTest.java
 │                                   ├── tag
 │                                   │   └── usecase
 │                                   │       ├── AddMySkillUseCaseTest.java
@@ -380,6 +391,7 @@
 │                                   │       ├── QueryCompanyListTest.java
 │                                   │       ├── QueryStudentDetailTest.java
 │                                   │       ├── ResetPasswordTest.java
+│                                   │       ├── TeacherQueryStudentListTest.java
 │                                   │       └── UpdateCompanyTest.java
 │                                   └── user
 │                                       └── usecase
@@ -566,6 +578,6 @@
             └── resources
                 └── application.yml
 
-201 directories, 362 files
+201 directories, 374 files
 ```
 ©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
