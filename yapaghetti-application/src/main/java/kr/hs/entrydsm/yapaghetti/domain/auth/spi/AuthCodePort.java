@@ -1,4 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.auth.spi;
 
-public interface AuthCodePort extends QueryAuthCodePort, CommandAuthCodePort {
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryAuthCodePort;
+
+public interface AuthCodePort extends QueryAuthCodePort, CommandAuthCodePort,
+	StudentQueryAuthCodePort {
 }
