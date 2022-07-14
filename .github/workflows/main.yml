@@ -1,7 +1,7 @@
 name: Update to README
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -16,5 +16,3 @@ jobs:
           email: eogus_2513@dsm.hs.kr
           username: EntryDSM
           token: ${{ secrets.TOKEN }}
-          pr: true
-          branches: docs/project-tree
