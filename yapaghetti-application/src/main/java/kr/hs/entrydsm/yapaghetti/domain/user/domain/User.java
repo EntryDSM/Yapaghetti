@@ -57,6 +57,34 @@ public class User {
                 .build();
     }
 
+    public User setPhoneNumber(String phoneNumber) {
+        return User.builder()
+            .id(this.id)
+            .email(this.email)
+            .password(this.password)
+            .name(this.name)
+            .profileImagePath(this.profileImagePath)
+            .phoneNumber(phoneNumber)
+            .location(this.location)
+            .isVisited(this.isVisited)
+            .role(this.role)
+            .build();
+    }
+
+    public User setPassword(String password) {
+        return User.builder()
+            .id(this.id)
+            .email(this.email)
+            .password(password)
+            .name(this.name)
+            .profileImagePath(this.profileImagePath)
+            .phoneNumber(this.phoneNumber)
+            .location(this.location)
+            .isVisited(this.isVisited)
+            .role(this.role)
+            .build();
+    }
+  
     public User updatePassword(String password) {
         return User.builder()
                 .id(this.id)
