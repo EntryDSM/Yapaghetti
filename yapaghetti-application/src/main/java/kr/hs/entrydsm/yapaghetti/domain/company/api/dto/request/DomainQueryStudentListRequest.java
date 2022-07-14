@@ -6,12 +6,12 @@ import lombok.Getter;
 public class DomainQueryStudentListRequest {
 
     private final String name;
-    private final String major;
+    private final String majorTag;
     private final String classNum;
 
-    public DomainQueryStudentListRequest(String name, String major, String classNum) {
+    public DomainQueryStudentListRequest(String name, String majorTag, String classNum) {
         this.name = nullCheck(name);
-        this.major = nullCheck(major);
+        this.majorTag = nullCheck(majorTag);
         this.classNum = nullCheck(classNum);
     }
 

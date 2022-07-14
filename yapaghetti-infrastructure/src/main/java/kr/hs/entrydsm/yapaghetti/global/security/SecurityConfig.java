@@ -42,6 +42,7 @@ public class SecurityConfig {
 
                 // auth
                 .antMatchers(HttpMethod.POST, "/auth/email").hasAnyRole(STUDENT, TEACHER, MOU)
+                .antMatchers(HttpMethod.HEAD, "/auth/verify").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 // users
                 .antMatchers(HttpMethod.POST, "/users/auth").permitAll()
@@ -50,11 +51,15 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/users/information").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 // teachers
-                .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
-                .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
-                .antMatchers(HttpMethod.GET, "/company/{company-id}").hasRole(TEACHER)
-                .antMatchers(HttpMethod.DELETE, "/teachers/company/{company-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "teachers/company").hasRole(TEACHER)
+                .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.PATCH, "/teachers/company/reset/{company-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.PATCH, "/teachers/company/{company-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/teachers/student/{student-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/teachers/company/search").hasRole(TEACHER)
+                .antMatchers(HttpMethod.GET, "/teachers/company/{company-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.DELETE, "/teachers/company/{company-id}").hasRole(TEACHER)
+                .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
 
                 // tags
                 .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)

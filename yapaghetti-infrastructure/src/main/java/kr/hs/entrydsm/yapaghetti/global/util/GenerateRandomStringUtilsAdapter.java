@@ -9,7 +9,12 @@ public class GenerateRandomStringUtilsAdapter implements RandomStringPort {
 
 	@Override
 	public String getAuthCode() {
-		return RandomStringUtils.randomNumeric(6);
+		return RandomStringUtils.randomNumeric(5);
+	}
+
+	@Override
+	public String getRandomPassword() {
+		return RandomStringUtils.randomNumeric(10);
 	}
 
 	@Override

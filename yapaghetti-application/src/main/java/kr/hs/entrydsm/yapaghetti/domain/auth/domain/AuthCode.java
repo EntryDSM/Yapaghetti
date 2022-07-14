@@ -14,8 +14,6 @@ public class AuthCode {
 
 	private final String authCode;
 
-	private final AuthCodeType type;
-
 	private final Long timeToLive;
 
 	private final LocalDateTime authTime;
@@ -26,11 +24,19 @@ public class AuthCode {
 		return AuthCode.builder()
 			.value(this.getValue())
 			.authCode(authCode)
-			.type(this.getType())
 			.timeToLive(timeToLive + authTime)
 			.authTime(LocalDateTime.now().plusSeconds(authTime))
 			.isVerify(this.isVerify)
 			.build();
 	}
 
+	public AuthCode verify() {
+		return AuthCode.builder()
+			.value(this.getValue())
+			.authCode(this.authCode)
+			.timeToLive(this.timeToLive)
+			.authTime(this.getAuthTime())
+			.isVerify(true)
+			.build();
+	}
 }

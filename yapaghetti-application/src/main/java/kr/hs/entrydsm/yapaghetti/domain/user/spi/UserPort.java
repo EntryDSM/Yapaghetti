@@ -6,7 +6,6 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 
-
-public interface UserPort extends CommandUserPort, QueryUserPort, DocumentQueryUserPort, StudentQueryUserPort, TeacherQueryUserPort, TeacherCommandUserPort, AuthQueryUserPort {
+public interface UserPort extends CommandUserPort, QueryUserPort, DocumentQueryUserPort, StudentQueryUserPort, TeacherQueryUserPort, TeacherCommandUserPort, AuthQueryUserPort  {
 
 }

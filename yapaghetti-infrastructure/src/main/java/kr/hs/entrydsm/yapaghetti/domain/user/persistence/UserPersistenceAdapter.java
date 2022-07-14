@@ -23,9 +23,9 @@ public class UserPersistenceAdapter implements UserPort {
     }
 
     @Override
-    public User queryUserById(UUID id) {
+    public User queryUserById(UUID userId) {
         return userMapper.entityToDomain(
-                userRepository.findById(id)
+                userRepository.findById(userId)
                         .orElseThrow(() -> UserNotFoundException.EXCEPTION)
         );
     }
