@@ -15,7 +15,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class ApproveStayDocumentTest {
+class RejectStayDocumentUseCaseTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
@@ -24,24 +24,17 @@ class ApproveStayDocumentTest {
     CommandDocumentPort commandDocumentPort;
 
     @InjectMocks
-    ApproveStayDocumentUseCase approveStayDocumentUseCase;
+    RejectStayDocumentUseCase rejectStayDocumentUseCase;
 
     @Test
-    void approveDocument() {
+    void rejectDocument() {
         UUID documentId = UUID.randomUUID();
-        UUID userId = UUID.randomUUID();
 
         given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
                 Document.builder()
-                        .id(documentId)
-                        .previewImagePath("testPreviewImagePath")
-                        .content("testContent")
-                        .type(DocumentType.STAY)
-                        .userId(userId)
-                        .isRejected(false)
                         .build()
         );
 
-        approveStayDocumentUseCase.execute(documentId);
+        rejectStayDocumentUseCase.execute(documentId);
     }
 }

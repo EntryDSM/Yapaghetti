@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
-import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,26 +15,29 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class DeletePublicDocumentTest {
+public class QueryProtectedDocumentUrlUseCaseTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;
 
     @Mock
-    CommandDocumentPort commandDocumentPort;
+    DocumentSecurityPort documentSecurityPort;
 
     @InjectMocks
-    DeletePublicDocumentUseCase deletePublicDocumentUseCase;
+    QueryProtectedDocumentUrlUseCase queryProtectedDocumentUrlUseCase;
 
     @Test
-    void deletePublicDocument() {
+    void getUrl() {
         UUID userId = UUID.randomUUID();
+        UUID documentId = UUID.randomUUID();
 
-        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PUBLIC)).willReturn(
+        given(documentSecurityPort.getCurrentUserId()).willReturn(userId);
+        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.PROTECTED)).willReturn(
                 Document.builder()
+                        .id(documentId)
                         .build()
         );
 
-        deletePublicDocumentUseCase.execute(userId);
+        queryProtectedDocumentUrlUseCase.execute();
     }
 }
