@@ -54,14 +54,32 @@ public class TeacherWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
-    public void createFeedback(@PathVariable("student-id") @NotBlank UUID studentId, @RequestBody @Valid WebCreateFeedbackRequest request) {
-        createFeedbackPort.execute(DomainCreateFeedbackRequest.builder().studentId(studentId).sequence(request.getSequence()).comment(request.getComment()).build());
+    public void createFeedback(@PathVariable("student-id") @NotBlank UUID studentId,
+                               @RequestBody @Valid WebCreateFeedbackRequest request) {
+        createFeedbackPort.execute(
+                DomainCreateFeedbackRequest.builder()
+                        .studentId(studentId)
+                        .sequence(request.getSequence())
+                        .comment(request.getComment())
+                        .build()
+        );
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/company")
     public NewCompanyResponse createCompany(@RequestBody @Valid WebCreateCompanyRequest request) {
-        return createCompanyPort.execute(DomainNewCompanyRequest.builder().name(request.getName()).email(request.getEmail()).phoneNumber(request.getPhoneNumber()).location(request.getLocation()).profileImagePath(request.getProfileImagePath()).companyName(request.getCompanyName()).startAt(request.getStartAt()).endAt(request.getEndAt()).build());
+        return createCompanyPort.execute(
+                DomainNewCompanyRequest.builder()
+                        .name(request.getName())
+                        .email(request.getEmail())
+                        .phoneNumber(request.getPhoneNumber())
+                        .location(request.getLocation())
+                        .profileImagePath(request.getProfileImagePath())
+                        .companyName(request.getCompanyName())
+                        .startAt(request.getStartAt())
+                        .endAt(request.getEndAt())
+                        .build()
+        );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -71,17 +89,20 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/student/{student-id}")
-    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
+    public StudentDetailResponse queryStudentDetail(
+            @PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
     }
-    
+
+
     @GetMapping("/company/search")
     public CompanyListResponse queryCompanyList(@RequestParam("name") String name) {
         return queryCompanyListPort.execute(name);
     }
 
     @GetMapping("/company/{company-id}")
-    public CompanyDetailResponse getCompanyDetail(@PathVariable("company-id") @NotBlank UUID companyId) {
+    public CompanyDetailResponse getCompanyDetail(
+            @PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
 
@@ -91,8 +112,16 @@ public class TeacherWebAdapter {
     }
 
     @PatchMapping("/company/{company-id}")
-    public void updateCompany(@PathVariable("company-id") @NotBlank UUID companyId, @RequestBody @Valid WebUpdateCompanyRequest request) {
-        updateCompanyPort.execute(DomainUpdateCompanyRequest.builder().companyId(companyId).companyName(request.getCompanyName()).startAt(request.getStartAt()).endAt(request.getEndAt()).build());
+    public void updateCompany(@PathVariable("company-id") @NotBlank UUID companyId,
+                              @RequestBody @Valid WebUpdateCompanyRequest request) {
+        updateCompanyPort.execute(
+                DomainUpdateCompanyRequest.builder()
+                        .companyId(companyId)
+                        .companyName(request.getCompanyName())
+                        .startAt(request.getStartAt())
+                        .endAt(request.getEndAt())
+                        .build()
+        );
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
