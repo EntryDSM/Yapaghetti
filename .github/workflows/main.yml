@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Insert project tree
-        uses: smoothbear/project-tree-action@main
+        uses: smoothbear/project-tree-action@1.1.0
         with:
           message: "♻️ :: Update README.md"
           email: to be committed email
