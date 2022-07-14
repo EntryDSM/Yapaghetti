@@ -25,13 +25,13 @@ public class SendPhoneNumberAuthCodeUseCase implements SendPhoneNumberAuthCodePo
 
 	@Override
 	public void execute(String phoneNumber) {
-
 		String authCode = generateRandomStringPort.getAuthCode();
 		Long authTime = getAuthPropertiesPort.getAuthTime();
 		AuthCode authCodeDomain;
 
 		if (commandAuthCodePort.existsAuthCodeById(phoneNumber)) {
-			authCodeDomain = queryAuthCodePort.queryAuthCodeById(phoneNumber);
+			authCodeDomain = queryAuthCodePort.queryAuthCodeById(phoneNumber)
+				.refresh(authCode, authTime);
 
 			if (authCodeDomain.isVerify()) {
 				throw AuthCodeAlreadyVerifiedException.EXCEPTION;
@@ -40,8 +40,6 @@ public class SendPhoneNumberAuthCodeUseCase implements SendPhoneNumberAuthCodePo
 			if (authCodeDomain.getTimeToLive() > getAuthPropertiesPort.getLimitTime()) {
 				throw AuthCodeAlreadyTimeOutException.EXCEPTION;
 			}
-
-			authCodeDomain = authCodeDomain.refresh(authCode, authTime);
 		} else {
 			authCodeDomain = AuthCode.builder()
 				.value(phoneNumber)
