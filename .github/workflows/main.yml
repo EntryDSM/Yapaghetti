@@ -17,4 +17,3 @@ jobs:
           username: EntryDSM
           token: ${{ secrets.TOKEN }}
           pr: true
-          branches: "docs/project-tree"
