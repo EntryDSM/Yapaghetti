@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity;
 
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedbackEntity;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import kr.hs.entrydsm.yapaghetti.global.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
@@ -16,7 +17,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -43,6 +47,10 @@ public class DocumentEntity extends BaseUUIDEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feedback_id", nullable = false)
+    private Set<FeedbackEntity> feedbackEntitySet = new HashSet<>();
 
     public UUID getUserId() {
         return userEntity.getId();

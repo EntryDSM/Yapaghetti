@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ChangeCompanyPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateCompanyPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
@@ -11,6 +12,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryStudentDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.UpdateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainNewCompanyRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.TeacherQueryStudentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainUpdateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.ChangeCompanyPasswordResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
@@ -18,6 +20,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyListResp
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.NewCompanyResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateCompanyRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebUpdateCompanyRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
@@ -48,6 +50,7 @@ public class TeacherWebAdapter {
     private final UpdateCompanyPort updateCompanyPort;
     private final GetCompanyDetailPort getCompanyDetailPort;
     private final DeleteCompanyPort deleteCompanyPort;
+    private final TeacherQueryStudentListPort teacherQueryStudentListPort;
     private final ChangeCompanyPasswordPort changeCompanyPasswordPort;
     private final QueryStudentDetailPort queryStudentDetailPort;
     private final QueryCompanyListPort queryCompanyListPort;
@@ -82,15 +85,15 @@ public class TeacherWebAdapter {
         );
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/company/{company-id}")
-    public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
-        deleteCompanyPort.execute(companyId);
+    @GetMapping("/student/list")
+    public StudentListResponse queryStudentList(@RequestParam("grade") Integer grade,
+                                                @RequestParam("classNum") Integer classNum,
+                                                @RequestParam("docStatus") DocumentType docStatus) {
+        return teacherQueryStudentListPort.execute(grade, classNum, docStatus);
     }
 
     @GetMapping("/student/{student-id}")
-    public StudentDetailResponse queryStudentDetail(
-            @PathVariable("student-id") @NotBlank UUID studentId) {
+    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
     }
 
@@ -105,6 +108,7 @@ public class TeacherWebAdapter {
             @PathVariable("company-id") @NotBlank UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
+
 
     @PatchMapping("/company/change/{company-id}")
     public ChangeCompanyPasswordResponse changeCompanyPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
@@ -128,5 +132,11 @@ public class TeacherWebAdapter {
     @DeleteMapping("/student/{student-id}")
     public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
         deleteStudentPort.execute(studentId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/company/{company-id}")
+    public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
+        deleteCompanyPort.execute(companyId);
     }
 }
