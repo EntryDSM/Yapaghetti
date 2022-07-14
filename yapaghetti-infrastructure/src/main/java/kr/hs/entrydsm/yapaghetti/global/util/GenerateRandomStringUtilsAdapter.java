@@ -16,9 +16,4 @@ public class GenerateRandomStringUtilsAdapter implements RandomStringPort {
 	public String getRandomPassword() {
 		return RandomStringUtils.randomNumeric(10);
 	}
-
-	@Override
-	public String getRandomPassword() {
-		return RandomStringUtils.randomNumeric(10);
-	}
 }
