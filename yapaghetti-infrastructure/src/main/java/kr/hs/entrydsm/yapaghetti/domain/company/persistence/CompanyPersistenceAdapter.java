@@ -55,7 +55,7 @@ public class CompanyPersistenceAdapter implements CompanyPort {
     }
 
     @Override
-    public void updateCompany(Company company) {
+    public void saveCompany(Company company) {
         companyRepository.save(companyMapper.domainToEntity(company));
     }
 

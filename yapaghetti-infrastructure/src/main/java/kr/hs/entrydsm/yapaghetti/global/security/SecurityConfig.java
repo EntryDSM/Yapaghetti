@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PATCH, "/users/information").hasAnyRole(STUDENT, TEACHER, MOU)
 
                 // teachers
+                .antMatchers(HttpMethod.POST, "/teachers/company").hasRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "/teachers/feedback/{student-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/teachers/company/change/{company-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.PATCH, "/teachers/company/{company-id}").hasRole(TEACHER)

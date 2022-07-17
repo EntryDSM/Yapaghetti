@@ -17,7 +17,7 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class QueryStayDocumentTest {
+class QueryStayDocumentUseCaseTest {
 
     @Mock
     QueryDocumentPort queryDocumentPort;

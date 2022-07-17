@@ -26,7 +26,7 @@ public class UpdateCompanyNameUseCase implements UpdateCompanyNamePort {
         Company company = companyPersistencePort.queryCompanyById(userId)
                 .updateCompanyName(request.getCompanyName());
 
-        commandCompanyPort.updateCompany(company);
+        commandCompanyPort.saveCompany(company);
     }
 
 }

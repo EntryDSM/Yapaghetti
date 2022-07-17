@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CreateFeedbackTest {
+public class CreateFeedbackUseCaseTest {
 
     @Mock
     CommandFeedbackPort commandFeedbackPort;
