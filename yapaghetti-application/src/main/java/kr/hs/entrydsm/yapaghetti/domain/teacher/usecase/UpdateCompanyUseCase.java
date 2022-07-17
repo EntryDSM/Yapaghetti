@@ -20,7 +20,7 @@ public class UpdateCompanyUseCase implements UpdateCompanyPort {
 
         Company company = teacherQueryCompanyPort.queryCompanyById(request.getCompanyId());
 
-        teacherCommandCompanyPort.updateCompany(
+        teacherCommandCompanyPort.saveCompany(
                 company.updateCompanyNameAndDates(
                         request.getCompanyName(),
                         request.getStartAt(),
