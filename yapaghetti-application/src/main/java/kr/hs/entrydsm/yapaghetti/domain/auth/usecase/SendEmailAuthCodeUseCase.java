@@ -40,7 +40,8 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 		String value = user.getEmail();
 
 		if (commandAuthCodePort.existsAuthCodeById(value)) {
-			emailAuthCode = queryAuthCodePort.queryAuthCodeById(value);
+			emailAuthCode = queryAuthCodePort.queryAuthCodeById(value)
+				.refresh(authCode, authTime);
 
 			if (emailAuthCode.isVerify()) {
 				throw AuthCodeAlreadyVerifiedException.EXCEPTION;
@@ -49,8 +50,6 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 			if (emailAuthCode.getTimeToLive() > getAuthPropertiesPort.getLimitTime()) {
 				throw AuthCodeOverLimitException.EXCEPTION;
 			}
-
-			emailAuthCode = emailAuthCode.refresh(authCode, authTime);
 		} else {
 			emailAuthCode = AuthCode.builder()
 				.value(value)

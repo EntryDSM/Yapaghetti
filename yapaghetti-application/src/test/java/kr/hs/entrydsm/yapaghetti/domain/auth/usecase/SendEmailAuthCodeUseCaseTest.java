@@ -170,6 +170,7 @@ public class SendEmailAuthCodeUseCaseTest {
 				AuthCode.builder()
 					.authTime(LocalDateTime.now())
 					.isVerify(true)
+					.timeToLive(authTime)
 					.build()
 			);
 		assertThrows(AuthCodeAlreadyVerifiedException.class, () -> sendEmailAuthCodeUseCase.execute());

@@ -66,6 +66,9 @@ dependencies {
 
     // random string
     implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    //cool sms
+    implementation 'net.nurigo:javaSDK:2.2'
 }
 
 test {
