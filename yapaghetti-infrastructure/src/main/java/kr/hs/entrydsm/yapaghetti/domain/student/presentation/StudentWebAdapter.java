@@ -41,6 +41,7 @@ public class StudentWebAdapter {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PatchMapping()
 	public void setPhoneNumber(@RequestBody @NotBlank String value, @RequestParam @NotBlank UpdateType type) {
+		//TODO Check NotBlank able to UpdateType
 		updateMyInfoPort.execute(value, type);
 	}
 }
