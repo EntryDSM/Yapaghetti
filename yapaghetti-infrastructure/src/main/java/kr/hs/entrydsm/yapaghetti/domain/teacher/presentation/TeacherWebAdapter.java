@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -57,7 +58,7 @@ public class TeacherWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
-    public void createFeedback(@PathVariable("student-id") @NotBlank UUID studentId,
+    public void createFeedback(@PathVariable("student-id") @NotNull UUID studentId,
                                @RequestBody @Valid WebCreateFeedbackRequest request) {
         createFeedbackPort.execute(
                 DomainCreateFeedbackRequest.builder()
@@ -93,7 +94,7 @@ public class TeacherWebAdapter {
     }
 
     @GetMapping("/student/{student-id}")
-    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotBlank UUID studentId) {
+    public StudentDetailResponse queryStudentDetail(@PathVariable("student-id") @NotNull UUID studentId) {
         return queryStudentDetailPort.execute(studentId);
     }
 
@@ -105,18 +106,18 @@ public class TeacherWebAdapter {
 
     @GetMapping("/company/{company-id}")
     public CompanyDetailResponse getCompanyDetail(
-            @PathVariable("company-id") @NotBlank UUID companyId) {
+            @PathVariable("company-id") @NotNull UUID companyId) {
         return getCompanyDetailPort.execute(companyId);
     }
 
 
     @PatchMapping("/company/change/{company-id}")
-    public ChangeCompanyPasswordResponse changeCompanyPassword(@PathVariable("company-id") @NotBlank UUID companyId) {
+    public ChangeCompanyPasswordResponse changeCompanyPassword(@PathVariable("company-id") @NotNull UUID companyId) {
         return changeCompanyPasswordPort.execute(companyId);
     }
 
     @PatchMapping("/company/{company-id}")
-    public void updateCompany(@PathVariable("company-id") @NotBlank UUID companyId,
+    public void updateCompany(@PathVariable("company-id") @NotNull UUID companyId,
                               @RequestBody @Valid WebUpdateCompanyRequest request) {
         updateCompanyPort.execute(
                 DomainUpdateCompanyRequest.builder()
@@ -130,13 +131,13 @@ public class TeacherWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/student/{student-id}")
-    public void deleteStudent(@PathVariable("student-id") @NotBlank UUID studentId) {
+    public void deleteStudent(@PathVariable("student-id") @NotNull UUID studentId) {
         deleteStudentPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/company/{company-id}")
-    public void deleteCompany(@PathVariable("company-id") @NotBlank UUID companyId) {
+    public void deleteCompany(@PathVariable("company-id") @NotNull UUID companyId) {
         deleteCompanyPort.execute(companyId);
     }
 }

@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 public class WebSetMajorTagRequest {
 
-    @NotBlank
+    @NotNull
     private UUID tagId;
 
 }
