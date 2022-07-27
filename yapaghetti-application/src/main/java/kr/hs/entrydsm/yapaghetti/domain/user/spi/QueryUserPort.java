@@ -6,5 +6,6 @@ import java.util.UUID;
 
 public interface QueryUserPort {
     User queryUserById(UUID id);
+
     User queryUserByEmail(String email);
 }

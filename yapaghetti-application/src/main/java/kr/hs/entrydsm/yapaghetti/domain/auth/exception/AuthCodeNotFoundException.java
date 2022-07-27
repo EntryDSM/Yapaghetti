@@ -5,10 +5,10 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class AuthCodeNotFoundException extends YapaghettiException {
 
-	private AuthCodeNotFoundException() {
-		super(AuthCodeErrorCode.AUTH_CODE_NOT_FOUND);
-	}
+    private AuthCodeNotFoundException() {
+        super(AuthCodeErrorCode.AUTH_CODE_NOT_FOUND);
+    }
 
-	public static final YapaghettiException EXCEPTION = new AuthCodeNotFoundException();
+    public static final YapaghettiException EXCEPTION = new AuthCodeNotFoundException();
 
 }

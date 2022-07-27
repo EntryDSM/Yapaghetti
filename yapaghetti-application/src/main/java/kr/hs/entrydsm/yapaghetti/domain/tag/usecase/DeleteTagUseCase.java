@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import lombok.RequiredArgsConstructor;

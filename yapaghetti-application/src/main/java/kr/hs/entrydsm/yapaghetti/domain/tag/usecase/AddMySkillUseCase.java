@@ -28,9 +28,9 @@ public class AddMySkillUseCase implements AddMySkillPort {
 
         List<MySkill> mySkills = request.getTagList().stream()
                 .map(tagId -> MySkill.builder()
-                                .tagId(tagId)
-                                .userId(userId)
-                                .build()
+                        .tagId(tagId)
+                        .userId(userId)
+                        .build()
                 ).collect(Collectors.toList());
 
         tagCommandMySkillPort.saveAllMySkill(mySkills);

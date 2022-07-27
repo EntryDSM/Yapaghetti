@@ -5,9 +5,9 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class InvalidAuthCodeException extends YapaghettiException {
 
-	private InvalidAuthCodeException() {
-		super(AuthCodeErrorCode.INVALID_AUTH_CODE);
-	}
+    private InvalidAuthCodeException() {
+        super(AuthCodeErrorCode.INVALID_AUTH_CODE);
+    }
 
-	public static final YapaghettiException EXCEPTION = new InvalidAuthCodeException();
+    public static final YapaghettiException EXCEPTION = new InvalidAuthCodeException();
 }

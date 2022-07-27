@@ -9,17 +9,17 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AuthCodeErrorCode implements ErrorProperty {
 
-	INVALID_AUTH_CODE(401, "잘못된 인증코드 입니다."),
-	AUTH_CODE_NOT_VERIFIED(401, "인증코드가 인증되지 않았습니다."),
+    INVALID_AUTH_CODE(401, "잘못된 인증코드 입니다."),
+    AUTH_CODE_NOT_VERIFIED(401, "인증코드가 인증되지 않았습니다."),
 
-	AUTH_CODE_NOT_FOUND(404, "인증코드를 찾을 수 없습니다."),
+    AUTH_CODE_NOT_FOUND(404, "인증코드를 찾을 수 없습니다."),
 
-	AUTH_CODE_ALREADY_TIMEOUT(408, "인증시간이 초과된 인증코드 입니다."),
+    AUTH_CODE_ALREADY_TIMEOUT(408, "인증시간이 초과된 인증코드 입니다."),
 
-	AUTH_CODE_ALREADY_VERIFIED(409, "이미 인증된 인증코드 입니다."),
+    AUTH_CODE_ALREADY_VERIFIED(409, "이미 인증된 인증코드 입니다."),
 
-	AUTH_CODE_OVER_LIMIT(429, "인증 제한 횟수를 초과했습니다.");
+    AUTH_CODE_OVER_LIMIT(429, "인증 제한 횟수를 초과했습니다.");
 
-	private final int status;
-	private final String message;
+    private final int status;
+    private final String message;
 }
