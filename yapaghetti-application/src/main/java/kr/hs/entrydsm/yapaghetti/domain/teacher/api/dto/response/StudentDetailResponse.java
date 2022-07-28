@@ -14,9 +14,9 @@ public class StudentDetailResponse {
     private final List<String> mySkillNameList;
 
     public StudentDetailResponse(String name, String grade, String classNum, Integer number, String email,
-                                    String phoneNumber, String majorTagName, List<String> mySkillNameList) {
+                                 String phoneNumber, String majorTagName, List<String> mySkillNameList) {
         this.name = name;
-        this.gcn = Integer.parseInt(grade + classNum + String.format("%2d",number));
+        this.gcn = Integer.parseInt(grade + classNum + String.format("%2d", number));
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.majorTagName = majorTagName;

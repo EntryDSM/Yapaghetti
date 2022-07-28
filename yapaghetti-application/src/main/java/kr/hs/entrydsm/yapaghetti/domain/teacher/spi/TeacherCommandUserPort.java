@@ -6,5 +6,6 @@ import java.util.UUID;
 
 public interface TeacherCommandUserPort {
     UUID saveUserAndUserGetId(User user);
+
     void saveUser(User user);
 }

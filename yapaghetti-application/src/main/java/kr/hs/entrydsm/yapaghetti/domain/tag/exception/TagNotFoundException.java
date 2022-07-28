@@ -5,9 +5,9 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class TagNotFoundException extends YapaghettiException {
 
-	private TagNotFoundException() {
-		super(TagErrorCode.TAG_NOT_FOUND);
-	}
+    private TagNotFoundException() {
+        super(TagErrorCode.TAG_NOT_FOUND);
+    }
 
-	public static final YapaghettiException EXCEPTION = new TagNotFoundException();
+    public static final YapaghettiException EXCEPTION = new TagNotFoundException();
 }

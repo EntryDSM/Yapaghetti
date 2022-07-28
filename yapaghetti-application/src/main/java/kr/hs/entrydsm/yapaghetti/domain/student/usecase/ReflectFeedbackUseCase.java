@@ -17,22 +17,22 @@ import java.util.UUID;
 @UseCase
 public class ReflectFeedbackUseCase implements ReflectFeedbackPort {
 
-	private final StudentSecurityPort studentSecurityPort;
-	private final StudentQueryDocumentPort studentQueryDocumentPort;
-	private final StudentQueryFeedbackPort studentQueryFeedbackPort;
-	private final CommandFeedbackPort commandFeedbackPort;
+    private final StudentSecurityPort studentSecurityPort;
+    private final StudentQueryDocumentPort studentQueryDocumentPort;
+    private final StudentQueryFeedbackPort studentQueryFeedbackPort;
+    private final CommandFeedbackPort commandFeedbackPort;
 
-	@Override
-	public void execute(Integer sequence) {
-		UUID userId = studentSecurityPort.getCurrentUserId();
+    @Override
+    public void execute(Integer sequence) {
+        UUID userId = studentSecurityPort.getCurrentUserId();
 
-		Document document = studentQueryDocumentPort
-			.queryDocumentByUserIdAndType(userId, DocumentType.STAY);
+        Document document = studentQueryDocumentPort
+                .queryDocumentByUserIdAndType(userId, DocumentType.STAY);
 
-		Feedback feedback = studentQueryFeedbackPort
-			.queryFeedbackByDocumentIdAndSequence(document.getId(), sequence)
-			.reflectFeedback();
+        Feedback feedback = studentQueryFeedbackPort
+                .queryFeedbackByDocumentIdAndSequence(document.getId(), sequence)
+                .reflectFeedback();
 
-		commandFeedbackPort.saveFeedback(feedback);
-	}
+        commandFeedbackPort.saveFeedback(feedback);
+    }
 }

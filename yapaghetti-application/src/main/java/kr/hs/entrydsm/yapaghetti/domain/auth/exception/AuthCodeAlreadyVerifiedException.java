@@ -5,9 +5,9 @@ import kr.hs.entrydsm.yapaghetti.error.YapaghettiException;
 
 public class AuthCodeAlreadyVerifiedException extends YapaghettiException {
 
-	private AuthCodeAlreadyVerifiedException() {
-		super(AuthCodeErrorCode.AUTH_CODE_ALREADY_VERIFIED);
-	}
+    private AuthCodeAlreadyVerifiedException() {
+        super(AuthCodeErrorCode.AUTH_CODE_ALREADY_VERIFIED);
+    }
 
-	public static final YapaghettiException EXCEPTION = new AuthCodeAlreadyVerifiedException();
+    public static final YapaghettiException EXCEPTION = new AuthCodeAlreadyVerifiedException();
 }

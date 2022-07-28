@@ -21,38 +21,38 @@ import java.util.stream.Collectors;
 @UseCase
 public class QueryMyInfoUseCase implements QueryMyInfoPort {
 
-	private final QueryStudentPort queryStudentPort;
-	private final StudentQueryUserPort studentQueryUserPort;
-	private final StudentSecurityPort studentSecurityPort;
-	private final StudentQueryMySkillPort studentQueryMySkillPort;
-	private final StudentQueryTagPort studentQueryTagPort;
+    private final QueryStudentPort queryStudentPort;
+    private final StudentQueryUserPort studentQueryUserPort;
+    private final StudentSecurityPort studentSecurityPort;
+    private final StudentQueryMySkillPort studentQueryMySkillPort;
+    private final StudentQueryTagPort studentQueryTagPort;
 
-	@Override
-	public MyInfoResponse execute() {
-		UUID userId = studentSecurityPort.getCurrentUserId();
+    @Override
+    public MyInfoResponse execute() {
+        UUID userId = studentSecurityPort.getCurrentUserId();
 
-		Student student = queryStudentPort.queryUserById(userId);
+        Student student = queryStudentPort.queryUserById(userId);
 
-		User user = studentQueryUserPort.queryUserById(userId);
+        User user = studentQueryUserPort.queryUserById(userId);
 
-		List<String> skillTagList = studentQueryMySkillPort.queryMySkillByUserId(userId).stream()
-			.map(mySkill -> studentQueryTagPort.queryTagById(mySkill.getTagId()))
-			.map(Tag::getName)
-			.collect(Collectors.toList());
+        List<String> skillTagList = studentQueryMySkillPort.queryMySkillByUserId(userId).stream()
+                .map(mySkill -> studentQueryTagPort.queryTagById(mySkill.getTagId()))
+                .map(Tag::getName)
+                .collect(Collectors.toList());
 
-		String majorTag = studentQueryTagPort.queryTagById(student.getTagId()).getName();
+        String majorTag = studentQueryTagPort.queryTagById(student.getTagId()).getName();
 
-		return MyInfoResponse.builder()
-			.grade(student.getGrade())
-			.classNum(student.getClassNum())
-			.number(student.getNumber())
-			.name(user.getName())
-			.phoneNumber(user.getPhoneNumber())
-			.email(user.getEmail())
-			.location(user.getLocation())
-			.profileImagePath(user.getProfileImagePath())
-			.skillTagList(skillTagList)
-			.majorTag(majorTag)
-			.build();
-	}
+        return MyInfoResponse.builder()
+                .grade(student.getGrade())
+                .classNum(student.getClassNum())
+                .number(student.getNumber())
+                .name(user.getName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .location(user.getLocation())
+                .profileImagePath(user.getProfileImagePath())
+                .skillTagList(skillTagList)
+                .majorTag(majorTag)
+                .build();
+    }
 }

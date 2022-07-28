@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface QueryTagPort {
     void existsByName(String name);
+
     void existsById(UUID tagId);
+
     List<Tag> queryAllTagByNameContainingAndIsMajor(String name, boolean isMajor);
 }

@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -74,7 +75,7 @@ public class DocumentWebAdapter {
     }
 
     @GetMapping("/public/{document-id}")
-    public QueryDocumentResponse getPublicDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public QueryDocumentResponse getPublicDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         return queryPublicDocumentPort.execute(documentId);
     }
 
@@ -86,7 +87,7 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{document-id}")
-    public void updateLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId,
+    public void updateLocalDocument(@PathVariable("document-id") @NotNull UUID documentId,
                                     @RequestBody @Valid WebUpdateLocalDocumentRequest request) {
 
         updateLocalDocumentPort.execute(
@@ -105,41 +106,41 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/public/{student-id}")
-    public void deletePublicDocument(@PathVariable("student-id") @NotBlank UUID userId) {
+    public void deletePublicDocument(@PathVariable("student-id") @NotNull UUID userId) {
         deletePublicDocumentPort.execute(userId);
     }
 
     @GetMapping("/{document-id}")
-    public QueryDocumentResponse getLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public QueryDocumentResponse getLocalDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         return queryLocalDocumentPort.execute(documentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{document-id}")
-    public void deleteLocalDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public void deleteLocalDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         deleteLocalDocumentPort.execute(documentId);
     }
 
     @GetMapping("/stay/{document-id}")
-    public QueryStayDocumentResponse getStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public QueryStayDocumentResponse getStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         return queryStayDocumentPort.execute(documentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/cancel/{document-id}")
-    public void cancelStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public void cancelStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         cancelStayDocumentPort.execute(documentId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{document-id}")
-    public void requestLocalDocumentToPublic(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public void requestLocalDocumentToPublic(@PathVariable("document-id") @NotNull UUID documentId) {
         requestLocalDocumentToPublicPort.execute(documentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/stay/reject/{document-id}")
-    public void rejectStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public void rejectStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         rejectStayDocumentPort.execute(documentId);    
     }
     
@@ -156,13 +157,13 @@ public class DocumentWebAdapter {
     }
 
     @GetMapping("/preview/{student-id}")
-    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(@PathVariable("student-id") @NotBlank UUID studentId) {
+    public QueryStayAndPublicDocumentPreviewResponse getStayAndPublicDocumentList(@PathVariable("student-id") @NotNull UUID studentId) {
         return queryStayAndPublicDocumentPreviewPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/stay/approve/{document-id}")
-    public void approveStayDocument(@PathVariable("document-id") @NotBlank UUID documentId) {
+    public void approveStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
         approveStayDocumentPort.execute(documentId);
     }
 }
