@@ -1,7 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.infrastructure.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.internal.Mimetypes;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.util.IOUtils;
 import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageExtensionInvalidException;
 import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.image.spi.UploadS3Port;
@@ -10,6 +14,7 @@ import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import kr.hs.entrydsm.yapaghetti.global.property.AwsS3Properties;
 import lombok.RequiredArgsConstructor;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +35,7 @@ public class AwsS3Adapter implements UploadS3Port {
 
         String folder = ImageType.PROFILE.equals(imageType) ? awsS3Properties.getProfileFolder() : awsS3Properties.getPreviewFolder();
 
-        String filePath = folder + UUID.randomUUID() + extension;
+        String filePath = folder + UUID.randomUUID() + "." + extension;
         uploadImage(file, filePath);
 
         return awsS3Properties.getUrl() + filePath;
@@ -58,9 +63,15 @@ public class AwsS3Adapter implements UploadS3Port {
     }
 
     private void uploadImage(File file, String filePath) {
-        InputStream inputStream;
+        byte[] bytes;
+        ObjectMetadata objectMetadata;
+        ByteArrayInputStream byteArrayInputStream;
+
         try {
-            inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(file);
+            bytes = IOUtils.toByteArray(inputStream);
+            objectMetadata = objectMetadata(file, bytes);
+            byteArrayInputStream = new ByteArrayInputStream(bytes);
         } catch (IOException e) {
             throw ImageNotFoundException.EXCEPTION;
         }
@@ -69,10 +80,17 @@ public class AwsS3Adapter implements UploadS3Port {
                 new PutObjectRequest(
                         awsS3Properties.getBucket(),
                         filePath,
-                        inputStream,
-                        null
-                )
+                        byteArrayInputStream,
+                        objectMetadata
+                ).withCannedAcl(CannedAccessControlList.AuthenticatedRead)
         );
+    }
+
+    private ObjectMetadata objectMetadata(File file, byte[] bytes) {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(Mimetypes.getInstance().getMimetype(file));
+        objectMetadata.setContentLength(bytes.length);
+        return objectMetadata;
     }
 
 }
