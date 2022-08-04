@@ -54,9 +54,9 @@ public class AwsS3Adapter implements UploadS3Port {
         }
 
         String originalFilename = file.getName();
-        String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
 
-        if (!(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("heic"))) {
+        if (!(extension.equals(".jpg") || extension.equals(".jpeg") || extension.equals(".png") || extension.equals(".heic"))) {
             throw ImageExtensionInvalidException.EXCEPTION;
         }
         return extension;
