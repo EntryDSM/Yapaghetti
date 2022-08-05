@@ -35,7 +35,7 @@ public class AwsS3Adapter implements UploadS3Port {
 
         String folder = ImageType.PROFILE.equals(imageType) ? awsS3Properties.getProfileFolder() : awsS3Properties.getPreviewFolder();
 
-        String filePath = folder + UUID.randomUUID() + "." + extension;
+        String filePath = folder + UUID.randomUUID() + extension;
         uploadImage(file, filePath);
 
         return awsS3Properties.getUrl() + filePath;
