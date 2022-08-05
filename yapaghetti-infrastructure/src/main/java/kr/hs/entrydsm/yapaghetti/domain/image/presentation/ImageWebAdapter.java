@@ -2,8 +2,8 @@ package kr.hs.entrydsm.yapaghetti.domain.image.presentation;
 
 import kr.hs.entrydsm.yapaghetti.domain.image.api.UploadImagePort;
 import kr.hs.entrydsm.yapaghetti.domain.image.api.dto.response.ImageUrlResponse;
-import kr.hs.entrydsm.yapaghetti.domain.image.spi.type.ImageType;
 import kr.hs.entrydsm.yapaghetti.domain.image.exception.ImageNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.image.spi.type.ImageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @RequestMapping("/images")
@@ -30,19 +33,20 @@ public class ImageWebAdapter {
         return uploadImagePort.uploadImage(MultipartFileToFIle(file), imageType);
     }
 
-    private File MultipartFileToFIle(MultipartFile file) {
-        if (file == null || file.isEmpty() || file.getOriginalFilename() == null) {
+    private File MultipartFileToFIle(MultipartFile multipartFile) {
+        if (multipartFile == null || multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null) {
             throw ImageNotFoundException.EXCEPTION;
         }
 
-        File newFile = new File(file.getOriginalFilename());
-        try {
-            file.transferTo(newFile);
-        } catch(IOException e) {
+        File file = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            outputStream.write(multipartFile.getBytes());
+        } catch (IOException e) {
             throw ImageNotFoundException.EXCEPTION;
         }
 
-        return newFile;
+        return file;
     }
 
 }
