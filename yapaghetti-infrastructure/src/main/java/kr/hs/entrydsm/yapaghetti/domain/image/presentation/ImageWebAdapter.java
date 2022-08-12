@@ -30,10 +30,10 @@ public class ImageWebAdapter {
     @PostMapping
     public ImageUrlResponse uploadImage(@RequestParam MultipartFile file,
                                         @RequestParam("type") ImageType imageType) {
-        return uploadImagePort.uploadImage(MultipartFileToFIle(file), imageType);
+        return uploadImagePort.uploadImage(MultipartFileToFile(file), imageType);
     }
 
-    private File MultipartFileToFIle(MultipartFile multipartFile) {
+    private File MultipartFileToFile(MultipartFile multipartFile) {
         if (multipartFile == null || multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null) {
             throw ImageNotFoundException.EXCEPTION;
         }
