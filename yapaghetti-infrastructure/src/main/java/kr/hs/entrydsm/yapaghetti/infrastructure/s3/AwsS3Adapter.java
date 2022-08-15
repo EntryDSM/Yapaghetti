@@ -84,6 +84,8 @@ public class AwsS3Adapter implements UploadS3Port {
                         objectMetadata
                 ).withCannedAcl(CannedAccessControlList.AuthenticatedRead)
         );
+
+        file.delete();
     }
 
     private ObjectMetadata objectMetadata(File file, byte[] bytes) {
