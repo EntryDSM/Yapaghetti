@@ -17,7 +17,7 @@ public class TransactionAspect {
 
     private final PlatformTransactionManager transactionManager;
 
-    @Pointcut("execution(public * kr.hs.entrydsm.yapaghetti.annotation..*UseCase.*(..))")
+    @Pointcut("@annotation(kr.hs.entrydsm.yapaghetti.annotation.UseCase)")
     public void getUseCases() {
     }
 
