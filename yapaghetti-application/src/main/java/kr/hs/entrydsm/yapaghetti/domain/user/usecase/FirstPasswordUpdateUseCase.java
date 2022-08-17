@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.FirstPasswordUpdatePort;
 import kr.hs.entrydsm.yapaghetti.domain.user.api.dto.request.DomainFirstPasswordUpdateRequest;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.exception.AlreadyVisitException;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserInvalidPasswordException;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.CommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.spi.QueryUserPort;
@@ -24,6 +25,10 @@ public class FirstPasswordUpdateUseCase implements FirstPasswordUpdatePort {
 
         if (!userSecurityPort.matches(request.getPassword(), user.getPassword())) {
             throw UserInvalidPasswordException.EXCEPTION;
+        }
+
+        if(user.isVisited()) {
+            throw AlreadyVisitException.EXCEPTION;
         }
 
         commandUserPort.saveUser(
