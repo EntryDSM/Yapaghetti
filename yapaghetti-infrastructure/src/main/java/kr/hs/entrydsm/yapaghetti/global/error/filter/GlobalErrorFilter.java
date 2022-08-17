@@ -30,6 +30,7 @@ public class GlobalErrorFilter extends OncePerRequestFilter {
             if (e.getCause() instanceof YapaghettiException) {
                 setErrorResponse(((YapaghettiException) e.getCause()).getErrorProperty(), response);
             } else {
+                e.printStackTrace();
                 setErrorResponse(GlobalErrorCode.INTERNAL_SERVER_ERROR, response);
             }
         }
