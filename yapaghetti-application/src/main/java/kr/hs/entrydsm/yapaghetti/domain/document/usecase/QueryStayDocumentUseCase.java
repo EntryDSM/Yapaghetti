@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.FeedbackElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
 
     private final QueryDocumentPort queryDocumentPort;

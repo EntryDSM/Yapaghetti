@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
-import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase;
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailResponse;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class GetCompanyDetailUseCase implements GetCompanyDetailPort {
 
     private final TeacherQueryCompanyPort teacherQueryCompanyPort;
