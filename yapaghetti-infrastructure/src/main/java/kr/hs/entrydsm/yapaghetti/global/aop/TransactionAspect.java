@@ -12,9 +12,9 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Aspect
-@Component
 @RequiredArgsConstructor
+@Component
+@Aspect
 public class TransactionAspect {
 
     private final PlatformTransactionManager transactionManager;
