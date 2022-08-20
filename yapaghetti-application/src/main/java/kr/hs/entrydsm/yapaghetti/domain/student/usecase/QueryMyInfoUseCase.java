@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.usecase;
 
-import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.QueryMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class QueryMyInfoUseCase implements QueryMyInfoPort {
 
     private final QueryStudentPort queryStudentPort;

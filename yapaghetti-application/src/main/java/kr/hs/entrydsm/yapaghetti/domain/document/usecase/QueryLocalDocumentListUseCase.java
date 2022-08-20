@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
-import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryLocalDocumentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.DocumentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@UseCase
+@ReadOnlyUseCase
 public class QueryLocalDocumentListUseCase implements QueryLocalDocumentListPort {
 
     private final DocumentQueryUserPort documentQueryUserPort;

@@ -60,3 +60,10 @@ sms:
   key: ${SMS_KEY}
   secret: ${SMS_SECRET}
   phone-number: ${SENDER_PHONE_NUMBER}
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
