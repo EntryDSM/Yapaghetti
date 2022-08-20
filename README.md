@@ -24,11 +24,13 @@
 │       │                   └── yapaghetti
 │       │                       ├── annotation
 │       │                       │   ├── Aggregate.java
+│       │                       │   ├── ReadOnlyUseCase.java
 │       │                       │   └── UseCase.java
 │       │                       ├── domain
 │       │                       │   ├── auth
 │       │                       │   │   ├── api
 │       │                       │   │   │   ├── SendEmailAuthCodePort.java
+│       │                       │   │   │   ├── SendPhoneNumberAuthCodePort.java
 │       │                       │   │   │   └── VerifyAuthCodePort.java
 │       │                       │   │   ├── domain
 │       │                       │   │   │   └── AuthCode.java
@@ -50,9 +52,11 @@
 │       │                       │   │   │   ├── GetAuthPropertiesPort.java
 │       │                       │   │   │   ├── QueryAuthCodePort.java
 │       │                       │   │   │   ├── RandomStringPort.java
-│       │                       │   │   │   └── SendMailPort.java
+│       │                       │   │   │   ├── SendMailPort.java
+│       │                       │   │   │   └── SendSmsPort.java
 │       │                       │   │   └── usecase
 │       │                       │   │       ├── SendEmailAuthCodeUseCase.java
+│       │                       │   │       ├── SendPhoneNumberAuthCodeUseCase.java
 │       │                       │   │       └── VerifyAuthCodeUseCase.java
 │       │                       │   ├── company
 │       │                       │   │   ├── api
@@ -248,6 +252,7 @@
 │       │                       │   ├── teacher
 │       │                       │   │   ├── api
 │       │                       │   │   │   ├── ChangeCompanyPasswordPort.java
+│       │                       │   │   │   ├── CreateCompanyPort.java
 │       │                       │   │   │   ├── CreateFeedbackPort.java
 │       │                       │   │   │   ├── DeleteCompanyPort.java
 │       │                       │   │   │   ├── DeleteStudentPort.java
@@ -259,12 +264,14 @@
 │       │                       │   │   │   └── dto
 │       │                       │   │   │       ├── request
 │       │                       │   │   │       │   ├── DomainCreateFeedbackRequest.java
+│       │                       │   │   │       │   ├── DomainNewCompanyRequest.java
 │       │                       │   │   │       │   └── DomainUpdateCompanyRequest.java
 │       │                       │   │   │       └── response
 │       │                       │   │   │           ├── ChangeCompanyPasswordResponse.java
 │       │                       │   │   │           ├── CompanyDetailResponse.java
 │       │                       │   │   │           ├── CompanyElement.java
 │       │                       │   │   │           ├── CompanyListResponse.java
+│       │                       │   │   │           ├── NewCompanyResponse.java
 │       │                       │   │   │           ├── StudentDetailResponse.java
 │       │                       │   │   │           ├── StudentElementByGradeClassNum.java
 │       │                       │   │   │           └── StudentListResponse.java
@@ -282,6 +289,7 @@
 │       │                       │   │   │   └── TeacherSecurityPort.java
 │       │                       │   │   └── usecase
 │       │                       │   │       ├── ChangeCompanyPasswordUseCase.java
+│       │                       │   │       ├── CreateCompanyUseCase.java
 │       │                       │   │       ├── CreateFeedbackUseCase.java
 │       │                       │   │       ├── DeleteCompanyUseCase.java
 │       │                       │   │       ├── DeleteStudentUseCase.java
@@ -344,6 +352,7 @@
 │                                   ├── auth
 │                                   │   └── usecase
 │                                   │       ├── SendEmailAuthCodeUseCaseTest.java
+│                                   │       ├── SendPhoneNumberAuthCodeUseCaseTest.java
 │                                   │       └── VerifyAuthCodeUseCaseTest.java
 │                                   ├── company
 │                                   │   └── usecase
@@ -351,22 +360,22 @@
 │                                   │       └── UpdateCompanyNameUseCaseTest.java
 │                                   ├── document
 │                                   │   └── usecase
-│                                   │       ├── ApproveStayDocumentTest.java
+│                                   │       ├── ApproveStayDocumentUseCaseTest.java
 │                                   │       ├── CancelStayDocumentUseCaseTest.java
-│                                   │       ├── CopyPublicDocumentTest.java
-│                                   │       ├── CreateLocalDocumentTest.java
+│                                   │       ├── CopyPublicDocumentUseCaseTest.java
+│                                   │       ├── CreateLocalDocumentUseCaseTest.java
 │                                   │       ├── DeleteLocalDocumentUseCaseTest.java
-│                                   │       ├── DeletePublicDocumentTest.java
+│                                   │       ├── DeletePublicDocumentUseCaseTest.java
 │                                   │       ├── QueryLocalDocumentListUseCaseTest.java
 │                                   │       ├── QueryLocalDocumentUseCaseTest.java
-│                                   │       ├── QueryProtectedDocumentUrlTest.java
-│                                   │       ├── QueryPublicDocumentTest.java
+│                                   │       ├── QueryProtectedDocumentUrlUseCaseTest.java
+│                                   │       ├── QueryPublicDocumentUseCaseTest.java
 │                                   │       ├── QueryStayAndPublicDocumentPreviewUseCaseTest.java
-│                                   │       ├── QueryStayDocumentTest.java
-│                                   │       ├── RejectStayDocumentTest.java
+│                                   │       ├── QueryStayDocumentUseCaseTest.java
+│                                   │       ├── RejectStayDocumentUseCaseTest.java
 │                                   │       ├── RequestLocalDocumentToPublicUseCaseTest.java
-│                                   │       ├── UpdateLocalDocumentTest.java
-│                                   │       └── UpdateStayDocumentTest.java
+│                                   │       ├── UpdateLocalDocumentUseCaseTest.java
+│                                   │       └── UpdateStayDocumentUseCaseTest.java
 │                                   ├── image
 │                                   │   └── usecase
 │                                   │       └── UploadImageUseCaseTest.java
@@ -384,10 +393,11 @@
 │                                   │       └── SetMajorTagUseCaseTest.java
 │                                   ├── teacher
 │                                   │   └── usecase
-│                                   │       ├── CreateFeedbackTest.java
-│                                   │       ├── DeleteCompanyTest.java
-│                                   │       ├── DeleteStudentTest.java
-│                                   │       ├── GetCompanyDetailTest.java
+│                                   │       ├── CreateCompanyUseCaseTest.java
+│                                   │       ├── CreateFeedbackUseCaseTest.java
+│                                   │       ├── DeleteCompanyUseCaseTest.java
+│                                   │       ├── DeleteStudentUseCaseTest.java
+│                                   │       ├── GetCompanyDetailUseCaseTest.java
 │                                   │       ├── QueryCompanyListTest.java
 │                                   │       ├── QueryStudentDetailTest.java
 │                                   │       ├── ResetPasswordTest.java
@@ -504,6 +514,7 @@
             │                   │   │       ├── TeacherWebAdapter.java
             │                   │   │       └── dto
             │                   │   │           └── request
+            │                   │   │               ├── WebCreateCompanyRequest.java
             │                   │   │               ├── WebCreateFeedbackRequest.java
             │                   │   │               └── WebUpdateCompanyRequest.java
             │                   │   └── user
@@ -532,8 +543,11 @@
             │                   │   │   ├── Adapter.java
             │                   │   │   └── config
             │                   │   │       └── GlobalComponentScan.java
+            │                   │   ├── aop
+            │                   │   │   └── TransactionAspect.java
             │                   │   ├── config
-            │                   │   │   └── FilterConfig.java
+            │                   │   │   ├── FilterConfig.java
+            │                   │   │   └── WebConfig.java
             │                   │   ├── entity
             │                   │   │   └── BaseUUIDEntity.java
             │                   │   ├── error
@@ -548,6 +562,7 @@
             │                   │   │   ├── AuthProperties.java
             │                   │   │   ├── AwsS3Properties.java
             │                   │   │   ├── AwsSesProperties.java
+            │                   │   │   ├── CoolSmsProperties.java
             │                   │   │   ├── JwtProperties.java
             │                   │   │   └── config
             │                   │   │       └── ConfigurationPropertiesConfig.java
@@ -575,9 +590,10 @@
             │                       │   ├── AwsSESAdapter.java
             │                       │   └── AwsSESConfig.java
             │                       └── sms
+            │                           └── CoolSmsAdapter.java
             └── resources
                 └── application.yml
 
-201 directories, 374 files
+202 directories, 389 files
 ```
 ©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
