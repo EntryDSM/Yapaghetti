@@ -33,7 +33,7 @@ public class QueryCompanyListTest {
 
         companyElementList.add(
                 new CompanyElement(
-                        UUID.randomUUID().toString(),
+                        UUID.randomUUID(),
                         "https://~~",
                         "엔트리",
                         "entrydsm@dsm.hs.kr"
