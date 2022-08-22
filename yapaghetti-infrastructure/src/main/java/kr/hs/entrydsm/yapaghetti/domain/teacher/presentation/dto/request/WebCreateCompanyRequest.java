@@ -34,7 +34,7 @@ public class WebCreateCompanyRequest {
     private String profileImagePath;
 
     @NotBlank
-    @Size(min = 3, max = 40)
+    @Size(min = 1, max = 40)
     private String companyName;
 
     @NotNull
