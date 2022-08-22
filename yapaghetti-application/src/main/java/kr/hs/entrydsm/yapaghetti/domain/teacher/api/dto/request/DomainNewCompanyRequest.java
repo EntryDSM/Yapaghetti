@@ -15,7 +15,7 @@ public class DomainNewCompanyRequest {
     private final String profileImagePath;
     private final String location;
     private final String companyName;
+    private final Boolean isMou;
     private final LocalDateTime startAt;
     private final LocalDateTime endAt;
-    private final UserRole companyType;
 }

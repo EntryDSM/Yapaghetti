@@ -10,6 +10,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -36,13 +37,14 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
     }
 
     private User createUser(DomainNewCompanyRequest request, String password) {
+        UserRole userRole = request.getIsMou() ? UserRole.MOU : UserRole.NON_MOU;
         return User.builder()
                 .name(request.getName())
                 .password(teacherSecurityPort.encodePassword(password))
                 .email(request.getEmail())
                 .phoneNumber(request.getPhoneNumber())
                 .location(request.getLocation())
-                .role(request.getCompanyType())
+                .role(userRole)
                 .isVisited(false)
                 .profileImagePath(request.getProfileImagePath())
                 .build();

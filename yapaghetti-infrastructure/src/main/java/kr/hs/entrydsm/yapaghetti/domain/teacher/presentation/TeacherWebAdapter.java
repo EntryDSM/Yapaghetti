@@ -82,6 +82,7 @@ public class TeacherWebAdapter {
                         .companyName(request.getCompanyName())
                         .startAt(request.getStartAt())
                         .endAt(request.getEndAt())
+                        .isMou(request.getIsMou())
                         .build()
         );
     }
