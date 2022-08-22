@@ -2,25 +2,30 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response;
 
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 public class StudentElementByGradeClassNum {
-    private final String studentId;
+    private final UUID studentId;
     private final String name;
-    private final Integer gcn;
-    private final String profileImageName;
+    private final String gcn;
+    private final String profileImagePath;
     private final boolean feedbackStatus;
+    private final boolean isRejected;
     private final boolean publicStatus;
-    private final boolean isApproved;
 
-    public StudentElementByGradeClassNum(String studentId, String name, String profileImageName,
+
+    public StudentElementByGradeClassNum(UUID studentId, String name, String profileImagePath,
                                          String grade, String classNum, Integer number,
-                                         boolean feedbackStatus, boolean publicStatus, boolean isApproved) {
+                                         Boolean feedbackStatus,Boolean stayExist, Boolean isRejected,
+                                         Boolean publicExist
+    ) {
         this.studentId = studentId;
         this.name = name;
-        this.gcn = Integer.parseInt(grade + classNum + String.format("%02d", number));
-        this.profileImageName = profileImageName;
+        this.gcn = grade + classNum + String.format("%02d", number);
+        this.profileImagePath = profileImagePath;
         this.feedbackStatus = feedbackStatus;
-        this.publicStatus = publicStatus;
-        this.isApproved = isApproved;
+        this.isRejected = stayExist && isRejected;
+        this.publicStatus = publicExist;
     }
 }

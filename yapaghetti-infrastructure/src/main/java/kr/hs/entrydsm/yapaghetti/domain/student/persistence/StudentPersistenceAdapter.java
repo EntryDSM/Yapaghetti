@@ -104,6 +104,7 @@ public class StudentPersistenceAdapter implements StudentPort {
         QDocumentEntity documentEntity = new QDocumentEntity("documentEntity");
         QDocumentEntity publicDocumentEntity = new QDocumentEntity("publicDocumentEntity");
         QDocumentEntity stayDocumentEntity = new QDocumentEntity("stayDocumentEntity");
+
         return jpaQueryFactory
                 .select(
                         constructor(
@@ -115,29 +116,26 @@ public class StudentPersistenceAdapter implements StudentPort {
                                 studentEntity.classNum.stringValue(),
                                 studentEntity.number,
                                 feedbackEntity.isNotNull(),
-                                publicDocumentEntity.isNotNull(),
-                                documentEntity.isRejected.isFalse(
-                                ).and(
-                                        stayDocumentEntity.isNotNull()
-                                ).or(
-                                        publicDocumentEntity.isNotNull()
-                                )
+                                stayDocumentEntity.isNotNull(),
+                                stayDocumentEntity.isRejected,
+                                publicDocumentEntity.isNotNull()
                         )
                 )
                 .from(studentEntity)
-                .where(
-                        studentEntity.grade.eq(grade)
-                                .and(studentEntity.classNum.eq(classNum))
-                )
-                .where(
-                        documentEntity.type.eq(docStatus)
-                                .and(studentEntity.documentList.contains(documentEntity))
-                )
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(documentEntity.feedbackEntitySet, feedbackEntity)
                 .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
                 .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
+                .where(
+                        documentEntity.type.eq(docStatus)
+                                .and(studentEntity.documentList.contains(documentEntity))
+                )
+                .where(
+                        studentEntity.grade.eq(grade)
+                                .and(studentEntity.classNum.eq(classNum))
+
+                )
                 .fetch();
     }
 
