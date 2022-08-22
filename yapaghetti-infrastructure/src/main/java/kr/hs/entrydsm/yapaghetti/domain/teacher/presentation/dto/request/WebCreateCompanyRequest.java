@@ -1,11 +1,10 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request;
 
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,28 +12,31 @@ import java.time.LocalDateTime;
 public class WebCreateCompanyRequest {
 
     @NotBlank
-    @Max(10)
+    @Size(min = 2, max = 10)
     private String name;
 
     @NotBlank
-    @Max(255)
+    @Size(min = 6, max = 255)
     private String email;
 
     @NotBlank
-    @Max(11)
+    @Size(min = 11, max = 11)
     private String phoneNumber;
 
     @NotBlank
-    @Max(255)
+    @Size(min = 2, max = 255)
     private String location;
 
     @NotBlank
-    @Max(255)
+    @Size(min = 2, max = 255)
     private String profileImagePath;
 
     @NotBlank
-    @Max(40)
+    @Size(min = 2 , max = 40)
     private String companyName;
+
+    @NotNull
+    private Boolean isMou;
 
     @NotNull
     private LocalDateTime startAt;
