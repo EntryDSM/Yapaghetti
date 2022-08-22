@@ -99,4 +99,18 @@ public class User {
                 .build();
     }
 
+    public User updateNameEmailPhoneNumberLocation(String name, String email, String phoneNumber, String location) {
+        return User.builder()
+                .id(this.id)
+                .email(email)
+                .password(this.password)
+                .name(name)
+                .profileImagePath(this.profileImagePath)
+                .phoneNumber(phoneNumber)
+                .location(location)
+                .isVisited(this.isVisited)
+                .role(this.role)
+                .build();
+    }
+
 }

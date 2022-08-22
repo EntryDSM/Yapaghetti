@@ -13,6 +13,22 @@ import java.time.LocalDateTime;
 public class WebUpdateCompanyRequest {
 
     @NotBlank
+    @Size(min = 2, max = 10)
+    private String name;
+
+    @NotBlank
+    @Size(min = 5, max = 255)
+    private String email;
+
+    @NotBlank
+    @Size(min = 11, max = 11)
+    private String phoneNumber;
+
+    @NotBlank
+    @Size(min = 5, max = 255)
+    private String location;
+
+    @NotBlank
     @Size(min = 3, max = 40)
     private String companyName;
 

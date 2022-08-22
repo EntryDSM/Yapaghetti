@@ -122,6 +122,10 @@ public class TeacherWebAdapter {
         updateCompanyPort.execute(
                 DomainUpdateCompanyRequest.builder()
                         .companyId(companyId)
+                        .name(request.getName())
+                        .email(request.getEmail())
+                        .phoneNumber(request.getPhoneNumber())
+                        .location(request.getLocation())
                         .companyName(request.getCompanyName())
                         .startAt(request.getStartAt())
                         .endAt(request.getEndAt())
