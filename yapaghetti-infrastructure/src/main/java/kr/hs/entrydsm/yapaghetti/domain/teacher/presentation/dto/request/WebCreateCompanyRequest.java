@@ -38,6 +38,9 @@ public class WebCreateCompanyRequest {
     private String companyName;
 
     @NotNull
+    private Boolean isMou;
+
+    @NotNull
     private LocalDateTime startAt;
 
     @NotNull

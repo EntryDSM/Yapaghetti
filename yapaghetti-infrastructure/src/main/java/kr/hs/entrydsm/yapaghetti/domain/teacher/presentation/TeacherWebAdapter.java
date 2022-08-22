@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -80,6 +79,7 @@ public class TeacherWebAdapter {
                         .location(request.getLocation())
                         .profileImagePath(request.getProfileImagePath())
                         .companyName(request.getCompanyName())
+                        .isMou(request.getIsMou())
                         .startAt(request.getStartAt())
                         .endAt(request.getEndAt())
                         .build()
