@@ -28,7 +28,7 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
     public NewCompanyResponse execute(DomainNewCompanyRequest request) {
         String password = teacherRandomStringPort.getRandomPassword();
 
-        UUID userId = teacherCommandUserPort.saveUserAndUserGetId(createUser(request, password));
+        UUID userId = teacherCommandUserPort.saveuserandgetUserId(createUser(request, password));
 
         Company company = createCompany(request, userId);
         teacherCommandCompanyPort.saveCompany(company);

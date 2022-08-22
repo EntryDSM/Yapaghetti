@@ -44,7 +44,7 @@ public class UserPersistenceAdapter implements UserPort {
     }
 
     @Override
-    public UUID saveUserAndUserGetId(User user) {
+    public UUID saveuserandgetUserId(User user) {
         return userRepository.save(
                 userMapper.domainToEntity(user)
         ).getId();
