@@ -148,8 +148,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                         constructor(
                                 StudentDetailResponse.class,
                                 userEntity.name,
-                                studentEntity.grade,
-                                studentEntity.classNum,
+                                studentEntity.grade.stringValue(),
+                                studentEntity.classNum.stringValue(),
                                 studentEntity.number,
                                 userEntity.email,
                                 userEntity.phoneNumber,
@@ -160,6 +160,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(studentEntity.mySkillList, mySkillEntity)
                 .leftJoin(mySkillEntity.tagEntity, skillTag)
                 .where(
                         studentEntity.userId.eq(studentId)

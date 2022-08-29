@@ -7,7 +7,7 @@ import java.util.List;
 @Getter
 public class StudentDetailResponse {
     private final String name;
-    private final Integer gcn;
+    private final String gcn;
     private final String email;
     private final String phoneNumber;
     private final String majorTagName;
@@ -16,7 +16,7 @@ public class StudentDetailResponse {
     public StudentDetailResponse(String name, String grade, String classNum, Integer number, String email,
                                  String phoneNumber, String majorTagName, List<String> mySkillNameList) {
         this.name = name;
-        this.gcn = Integer.parseInt(grade + classNum + String.format("%2d", number));
+        this.gcn = grade + classNum + String.format("%02d", number);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.majorTagName = majorTagName;
