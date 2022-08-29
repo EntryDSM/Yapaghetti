@@ -3,7 +3,10 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainUpdateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandCompanyPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +28,12 @@ public class UpdateCompanyTest {
     TeacherCommandCompanyPort teacherCommandCompanyPort;
 
     @Mock
+    TeacherQueryUserPort teacherQueryUserPort;
+
+    @Mock
+    TeacherCommandUserPort teacherCommandUserPort;
+
+    @Mock
     DomainUpdateCompanyRequest request;
 
     @InjectMocks
@@ -39,6 +48,13 @@ public class UpdateCompanyTest {
                 .willReturn(
                         Company.builder()
                                 .userId(userId)
+                                .build()
+                );
+
+        given(teacherQueryUserPort.queryUserById(userId))
+                .willReturn(
+                        User.builder()
+                                .id(userId)
                                 .build()
                 );
 
