@@ -28,7 +28,7 @@ public class UpdateCompanyUseCase implements UpdateCompanyPort {
         User user = teacherQueryUserPort.queryUserById(company.getUserId());
 
         teacherCommandUserPort.saveUser(
-                user.updateNameEmailPhoneNumberLocation(
+                user.updateIdentifyInformation(
                         request.getName(), request.getEmail(), request.getPhoneNumber(), request.getLocation()
                 )
         );
