@@ -99,7 +99,7 @@ public class User {
                 .build();
     }
 
-    public User updateNameEmailPhoneNumberLocation(String name, String email, String phoneNumber, String location) {
+    public User updateIdentifyInformation(String name, String email, String phoneNumber, String location) {
         return User.builder()
                 .id(this.id)
                 .email(email)
