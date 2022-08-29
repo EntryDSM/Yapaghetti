@@ -5,7 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import java.util.UUID;
 
 public interface TeacherCommandUserPort {
-    UUID saveuserandgetUserId(User user);
+    UUID saveUserAndGetUserId(User user);
 
     void saveUser(User user);
 }
