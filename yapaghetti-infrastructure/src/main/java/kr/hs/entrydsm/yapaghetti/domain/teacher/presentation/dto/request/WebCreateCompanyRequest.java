@@ -26,15 +26,15 @@ public class WebCreateCompanyRequest {
     private String phoneNumber;
 
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(max = 255)
     private String location;
 
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(max = 255)
     private String profileImagePath;
 
     @NotBlank
-    @Size(min = 1, max = 40)
+    @Size(max = 40)
     private String companyName;
 
     @NotNull

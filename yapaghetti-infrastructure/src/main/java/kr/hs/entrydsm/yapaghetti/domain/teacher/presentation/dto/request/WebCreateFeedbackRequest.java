@@ -15,6 +15,6 @@ public class WebCreateFeedbackRequest {
     private Integer sequence;
 
     @NotBlank
-    @Size(min = 3, max = 255)
+    @Size(max = 255)
     private String comment;
 }
