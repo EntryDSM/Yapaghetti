@@ -15,28 +15,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
-	private final UserRepository userRepository;
-	private final TagRepository tagRepository;
+    private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
-	public Student entityToDomain(StudentEntity studentEntity) {
-		return Student.builder()
-			.userId(studentEntity.getUserId())
-			.grade(studentEntity.getGrade())
-			.classNum(studentEntity.getClassNum())
-			.number(studentEntity.getNumber())
-			.tagId(studentEntity.getTagId())
-			.build();
-	}
+    public Student entityToDomain(StudentEntity studentEntity) {
+        return Student.builder()
+                .userId(studentEntity.getUserId())
+                .grade(studentEntity.getGrade())
+                .classNum(studentEntity.getClassNum())
+                .number(studentEntity.getNumber())
+                .tagId(studentEntity.getTagId())
+                .build();
+    }
 
-	public StudentEntity domainToEntity(Student student) {
-		UserEntity userEntity = userRepository.findById(student.getUserId())
-			.orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    public StudentEntity domainToEntity(Student student) {
+        UserEntity userEntity = userRepository.findById(student.getUserId())
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-		TagEntity tagEntity = tagRepository.findById(student.getTagId())
-			.orElseThrow(() -> TagNotFoundException.EXCEPTION);
+        TagEntity tagEntity = tagRepository.findById(student.getTagId())
+                .orElseThrow(() -> TagNotFoundException.EXCEPTION);
 
         return StudentEntity.builder()
-				.userId(userEntity.getId())
+                .userId(userEntity.getId())
                 .userEntity(userEntity)
                 .grade(student.getGrade())
                 .classNum(student.getClassNum())
