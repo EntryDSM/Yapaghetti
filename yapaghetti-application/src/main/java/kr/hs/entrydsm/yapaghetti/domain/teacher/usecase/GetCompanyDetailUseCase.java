@@ -30,6 +30,8 @@ public class GetCompanyDetailUseCase implements GetCompanyDetailPort {
                 .phoneNumber(user.getPhoneNumber())
                 .location(user.getLocation())
                 .profileImagePath(user.getProfileImagePath())
+                .startAt(company.getStartAt())
+                .endAt(company.getEndAt())
                 .build();
     }
 

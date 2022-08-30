@@ -10,11 +10,11 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor
 public class WebCreateFeedbackRequest {
-    
+
     @NotNull
     private Integer sequence;
-    
+
     @NotBlank
-    @Size(max = 255, message = "255자 이하로 작성 부탁드립니다.")
+    @Size(max = 255)
     private String comment;
 }

@@ -17,5 +17,5 @@ public class DomainNewCompanyRequest {
     private final String companyName;
     private final LocalDateTime startAt;
     private final LocalDateTime endAt;
-    private final UserRole companyType;
+    private final Boolean isMou;
 }
