@@ -28,6 +28,7 @@ public class CompanyMapper {
         UserEntity user = userRepository.findById(company.getUserId())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
         return CompanyEntity.builder()
+                .userId(user.getId())
                 .userEntity(user)
                 .startAt(company.getStartAt())
                 .endAt(company.getEndAt())
