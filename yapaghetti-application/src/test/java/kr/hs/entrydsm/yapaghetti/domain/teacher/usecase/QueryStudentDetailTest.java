@@ -46,6 +46,7 @@ public class QueryStudentDetailTest {
                 "2",
                 "2",
                 20,
+                "https://entrydsm.hs.kr/~~~",
                 "entrydsm@dsm.hs.kr",
                 "010111111"
                 ,"BackEnd",
