@@ -1,9 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
@@ -128,16 +130,30 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
                 .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
                 .where(
-                        documentEntity.type.eq(docStatus)
-                                .and(studentEntity.documentList.contains(documentEntity))
-                )
-                .where(
-                        studentEntity.grade.eq(grade)
-                                .and(studentEntity.classNum.eq(classNum))
-
+                        docTypeEq(docStatus),
+                        gradeEq(grade),
+                        classNumEq(classNum),
+                        documentContains(documentEntity)
                 )
                 .fetch();
     }
+
+    private BooleanExpression docTypeEq(DocumentType docStatus) {
+        return docStatus != null ? documentEntity.type.eq(docStatus) : null;
+    }
+
+    private BooleanExpression gradeEq(Integer grade) {
+        return grade != null ? studentEntity.grade.eq(grade) : null;
+    }
+
+    private BooleanExpression classNumEq(Integer classNum) {
+        return classNum != null ? studentEntity.classNum.eq(classNum) : null;
+    }
+
+    private BooleanExpression documentContains(QDocumentEntity documentEntity) {
+        return documentEntity != null ? studentEntity.documentList.contains(documentEntity) : null;
+    }
+
 
     public StudentDetailResponse queryStudentDetail(UUID studentId) {
         QTagEntity majorTag = new QTagEntity("majorTag");
@@ -148,8 +164,8 @@ public class StudentPersistenceAdapter implements StudentPort {
                         constructor(
                                 StudentDetailResponse.class,
                                 userEntity.name,
-                                studentEntity.grade,
-                                studentEntity.classNum,
+                                studentEntity.grade.stringValue(),
+                                studentEntity.classNum.stringValue(),
                                 studentEntity.number,
                                 userEntity.email,
                                 userEntity.phoneNumber,
@@ -160,6 +176,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.tagEntity, majorTag)
+                .leftJoin(studentEntity.mySkillList, mySkillEntity)
                 .leftJoin(mySkillEntity.tagEntity, skillTag)
                 .where(
                         studentEntity.userId.eq(studentId)
