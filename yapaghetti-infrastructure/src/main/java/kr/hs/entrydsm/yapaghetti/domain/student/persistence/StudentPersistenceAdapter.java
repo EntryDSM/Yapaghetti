@@ -5,7 +5,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
-import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
@@ -132,8 +131,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .where(
                         docTypeEq(docStatus),
                         gradeEq(grade),
-                        classNumEq(classNum),
-                        documentContains(documentEntity)
+                        classNumEq(classNum)
                 )
                 .fetch();
     }
@@ -148,10 +146,6 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     private BooleanExpression classNumEq(Integer classNum) {
         return classNum != null ? studentEntity.classNum.eq(classNum) : null;
-    }
-
-    private BooleanExpression documentContains(QDocumentEntity documentEntity) {
-        return documentEntity != null ? studentEntity.documentList.contains(documentEntity) : null;
     }
 
 
