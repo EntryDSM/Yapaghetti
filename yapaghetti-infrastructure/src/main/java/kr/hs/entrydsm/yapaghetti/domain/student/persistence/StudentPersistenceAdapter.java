@@ -107,21 +107,6 @@ public class StudentPersistenceAdapter implements StudentPort {
         QDocumentEntity stayDocumentEntity = new QDocumentEntity("stayDocumentEntity");
 
         return jpaQueryFactory
-                .select(
-                        constructor(
-                                StudentElementByGradeClassNum.class,
-                                studentEntity.userId,
-                                userEntity.name,
-                                userEntity.profileImagePath,
-                                studentEntity.grade.stringValue(),
-                                studentEntity.classNum.stringValue(),
-                                studentEntity.number,
-                                feedbackEntity.isNotNull(),
-                                stayDocumentEntity.isNotNull(),
-                                stayDocumentEntity.isRejected,
-                                publicDocumentEntity.isNotNull()
-                        )
-                )
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.documentList, documentEntity)
@@ -133,7 +118,24 @@ public class StudentPersistenceAdapter implements StudentPort {
                         gradeEq(grade),
                         classNumEq(classNum)
                 )
-                .fetch();
+                .transform(
+                        groupBy(studentEntity.userId)
+                                .list(
+                                        Projections.constructor(
+                                                StudentElementByGradeClassNum.class,
+                                                studentEntity.userId,
+                                                userEntity.name,
+                                                userEntity.profileImagePath,
+                                                studentEntity.grade.stringValue(),
+                                                studentEntity.classNum.stringValue(),
+                                                studentEntity.number,
+                                                feedbackEntity.isNotNull(),
+                                                stayDocumentEntity.isNotNull(),
+                                                stayDocumentEntity.isRejected,
+                                                publicDocumentEntity.isNotNull()
+                                        )
+                                )
+                );
     }
 
     private BooleanExpression docTypeEq(DocumentType docStatus) {
