@@ -37,7 +37,8 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
     }
 
     private User createUser(DomainNewCompanyRequest request, String password) {
-        UserRole userRole = request.getIsMou() ? UserRole.MOU : UserRole.NON_MOU;
+        UserRole userRole = Boolean.TRUE.equals(request.getIsMou()) ? UserRole.MOU : UserRole.NON_MOU;
+
         return User.builder()
                 .name(request.getName())
                 .password(teacherSecurityPort.encodePassword(password))
