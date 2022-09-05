@@ -5,6 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendEmailAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendPhoneNumberAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.VerifyAuthCodePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Validated
 @RestController
 public class AuthWebAdapter {
 

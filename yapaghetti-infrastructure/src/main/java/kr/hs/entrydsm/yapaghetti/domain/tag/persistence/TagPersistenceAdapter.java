@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.persistence;
 
+import java.util.Optional;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
@@ -8,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.exception.AlreadyExistsTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,10 @@ public class TagPersistenceAdapter implements TagPort {
 
     private final TagMapper tagMapper;
 
+    public Optional<TagEntity> findByTagId(UUID tagId) {
+        return tagRepository.findById(tagId);
+    }
+
     @Override
     public void saveTag(Tag tag) {
         tagRepository.save(
@@ -39,7 +45,7 @@ public class TagPersistenceAdapter implements TagPort {
         if (!tagRepository.existsById(tagId)) {
             throw TagNotFoundException.EXCEPTION;
         }
-    }
+
 
     @Override
     public List<Tag> queryAllTagByNameContainingAndIsMajor(String name, boolean isMajor) {
