@@ -15,12 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "tbl_my_skill")
+@Table(name = "tbl_my_skill", 
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "tag_id"})
+)
 @Entity
 public class MySkillEntity {
 
