@@ -32,6 +32,7 @@ public class GetCompanyDetailUseCase implements GetCompanyDetailPort {
                 .profileImagePath(user.getProfileImagePath())
                 .startAt(company.getStartAt())
                 .endAt(company.getEndAt())
+                .isMou(user.getRole().toString().equals("MOU"))
                 .build();
     }
 
