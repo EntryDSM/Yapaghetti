@@ -28,7 +28,7 @@ jobs:
             --no-daemon
 
       - name: publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+        uses: elgohr/Publish-Docker-Github-Action@4
         with:
           name: yapaghetti
           dockerfile: ./Dockerfile
