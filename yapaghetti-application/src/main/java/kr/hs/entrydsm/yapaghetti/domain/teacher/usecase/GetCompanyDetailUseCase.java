@@ -7,6 +7,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailRe
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -32,7 +33,7 @@ public class GetCompanyDetailUseCase implements GetCompanyDetailPort {
                 .profileImagePath(user.getProfileImagePath())
                 .startAt(company.getStartAt())
                 .endAt(company.getEndAt())
-                .isMou(user.getRole().toString().equals("MOU"))
+                .isMou(UserRole.MOU.equals(user.getRole()))
                 .build();
     }
 
