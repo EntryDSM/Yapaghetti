@@ -26,8 +26,8 @@ public class QueryLocalDocumentUseCase implements QueryLocalDocumentPort {
         User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         Document document = queryDocumentPort.queryDocumentByIdAndUserIdAndType(
-                user.getId(),
                 documentId,
+                user.getId(),
                 DocumentType.LOCAL
         );
 
