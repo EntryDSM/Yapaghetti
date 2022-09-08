@@ -3,27 +3,27 @@ package kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
 public class WebUpdateUserInformationRequest {
 
     @NotBlank
-    @Max(value = 255)
+    @Size(max = 255)
     private String location;
 
     @NotBlank
-    @Max(value = 10)
+    @Size(max = 10)
     private String name;
 
     @NotBlank
-    @Max(value = 11)
+    @Size(max = 11)
     private String phoneNumber;
 
     @NotBlank
-    @Max(value = 255)
+    @Size(max = 255)
     private String profileImagePath;
 
 }
