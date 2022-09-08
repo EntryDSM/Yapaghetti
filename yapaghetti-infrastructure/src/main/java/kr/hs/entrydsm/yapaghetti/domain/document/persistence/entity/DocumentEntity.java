@@ -17,6 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -48,8 +49,7 @@ public class DocumentEntity extends BaseUUIDEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feedback_id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentEntity")
     private Set<FeedbackEntity> feedbackEntitySet = new HashSet<>();
 
     public UUID getUserId() {
