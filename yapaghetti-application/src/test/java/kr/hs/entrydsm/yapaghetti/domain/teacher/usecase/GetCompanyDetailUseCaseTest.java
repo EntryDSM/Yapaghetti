@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,6 +36,7 @@ public class GetCompanyDetailUseCaseTest {
                 .willReturn(
                         User.builder()
                         .id(companyId)
+                        .role(UserRole.MOU)
                         .build()
                 );
 

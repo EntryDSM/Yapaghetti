@@ -11,6 +11,7 @@ public class CompanyDetailResponse {
     private final String name;
     private final String companyId;
     private final String companyName;
+    private final Boolean isMou;
     private final String phoneNumber;
     private final String email;
     private final String location;
