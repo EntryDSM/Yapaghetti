@@ -5,16 +5,17 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
 public class WebUpdateLocalDocumentRequest {
 
-    @Max(255)
+    @Size(max = 255)
     @NotBlank
     private String previewImagePath;
 
-    @Max(65535)
+    @Size(max = 65535)
     @NotBlank
     private String content;
 }
