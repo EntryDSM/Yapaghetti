@@ -44,8 +44,8 @@ class QueryLocalDocumentUseCaseTest {
                         .id(userId)
                         .build());
         given(queryDocumentPort.queryDocumentByIdAndUserIdAndType(
-                userId,
                 documentId,
+                userId,
                 DocumentType.LOCAL))
                 .willReturn(
                         Document.builder()
