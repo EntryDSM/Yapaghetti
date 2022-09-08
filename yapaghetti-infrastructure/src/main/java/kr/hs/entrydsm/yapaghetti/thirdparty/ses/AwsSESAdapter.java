@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.infrastructure.ses;
+package kr.hs.entrydsm.yapaghetti.thirdparty.ses;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
 import com.amazonaws.services.simpleemail.model.Body;
