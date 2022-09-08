@@ -25,10 +25,8 @@ public class FeedbackMapper {
 				)
 			)
 			.documentEntity(
-					documentMapper.domainToEntity(
-							documentPersistenceAdapter.queryDocumentByIdAndType(
-									feedback.getDocumentId(), DocumentType.STAY
-							)
+					documentPersistenceAdapter.queryDocumentById(
+							feedback.getDocumentId()
 					)
 			)
 			.comment(feedback.getComment())
