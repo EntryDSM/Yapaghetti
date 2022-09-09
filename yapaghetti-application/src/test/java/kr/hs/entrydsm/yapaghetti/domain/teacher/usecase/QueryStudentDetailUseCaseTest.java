@@ -32,6 +32,10 @@ public class QueryStudentDetailUseCaseTest {
 
         UUID studentId = UUID.randomUUID();
 
+        List<String> mySkillList = new ArrayList<>();
+
+        mySkillList.add("Spring boot");
+
         given(teacherQueryStudentPort.queryPersonalAndMajorById(studentId))
                 .willReturn(
                     createStudentPersonalAndMajorResponse(studentId)
@@ -39,7 +43,7 @@ public class QueryStudentDetailUseCaseTest {
 
         given(teacherQueryMySkillPort.queryMySkillNameByStudentId(studentId))
                 .willReturn(
-                        new ArrayList<>()
+                        mySkillList
                 );
 
         queryStudentDetailUseCase.execute(studentId);
