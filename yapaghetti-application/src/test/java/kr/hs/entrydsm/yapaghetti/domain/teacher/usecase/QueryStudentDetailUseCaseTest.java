@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentPersonalAndMajorResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +16,13 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class QueryStudentDetailTest {
+public class QueryStudentDetailUseCaseTest {
 
     @Mock
     TeacherQueryStudentPort teacherQueryStudentPort;
+
+    @Mock
+    TeacherQueryMySkillPort teacherQueryMySkillPort;
 
     @InjectMocks
     QueryStudentDetailUseCase queryStudentDetailUseCase;
@@ -28,20 +32,25 @@ public class QueryStudentDetailTest {
 
         UUID studentId = UUID.randomUUID();
 
-        given(teacherQueryStudentPort.queryStudentDetail(studentId))
+        given(teacherQueryStudentPort.queryPersonalAndMajorById(studentId))
                 .willReturn(
-                    creatStudentDetailInformation(studentId)
+                    createStudentPersonalAndMajorResponse(studentId)
+                );
+
+        given(teacherQueryMySkillPort.queryMySkillNameByStudentId(studentId))
+                .willReturn(
+                        new ArrayList<>()
                 );
 
         queryStudentDetailUseCase.execute(studentId);
 
     }
 
-    private StudentDetailResponse creatStudentDetailInformation(UUID studentId) {
+    private StudentPersonalAndMajorResponse createStudentPersonalAndMajorResponse(UUID studentId) {
         List<String> tagList = new ArrayList<>();
         tagList.add("SpringBoot");
         tagList.add("FastAPI");
-        return new StudentDetailResponse(
+        return new StudentPersonalAndMajorResponse(
                 "엔트리",
                 "2",
                 "2",
@@ -49,7 +58,7 @@ public class QueryStudentDetailTest {
                 "https://entrydsm.hs.kr/~~~",
                 "entrydsm@dsm.hs.kr",
                 "010111111"
-                ,"BackEnd",
-                tagList);
+                ,"BackEnd"
+        );
     }
 }
