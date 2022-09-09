@@ -18,4 +18,6 @@ public interface DocumentRepository extends CrudRepository<DocumentEntity, UUID>
     List<DocumentEntity> findAllByUserEntityIdAndType(UUID userId, DocumentType type);
 
     List<DocumentEntity> findAllByUserEntityIdAndTypeNotIn(UUID userId, List<DocumentType> type);
+
+    Optional<DocumentEntity> findById(UUID documentId);
 }

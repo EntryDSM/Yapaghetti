@@ -31,6 +31,7 @@ public class CreateFeedbackUseCase implements CreateFeedbackPort {
                         .documentId(documentId)
                         .sequence(request.getSequence())
                         .comment(request.getComment())
+                        .isApply(false)
                         .build()
         );
     }
