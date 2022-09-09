@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.infrastructure.s3;
+package kr.hs.entrydsm.yapaghetti.thirdparty.s3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.internal.Mimetypes;

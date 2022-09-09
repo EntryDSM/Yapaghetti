@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.infrastructure.sms;
+package kr.hs.entrydsm.yapaghetti.thirdparty.sms;
 
 import java.util.HashMap;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendSmsPort;
