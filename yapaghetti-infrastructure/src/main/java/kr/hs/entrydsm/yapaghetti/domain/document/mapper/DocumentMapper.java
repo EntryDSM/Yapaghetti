@@ -30,6 +30,7 @@ public class DocumentMapper {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         return DocumentEntity.builder()
+                .id(document.getId())
                 .previewImagePath(document.getPreviewImagePath())
                 .content(document.getContent())
                 .type(document.getType())
