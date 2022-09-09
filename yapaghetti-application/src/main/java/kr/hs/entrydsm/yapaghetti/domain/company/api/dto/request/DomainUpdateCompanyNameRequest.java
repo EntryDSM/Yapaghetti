@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
