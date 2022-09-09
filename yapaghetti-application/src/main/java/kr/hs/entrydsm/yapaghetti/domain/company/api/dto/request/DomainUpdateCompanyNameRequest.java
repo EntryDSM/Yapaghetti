@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class DomainUpdateCompanyNameRequest {
 
     private final String companyName;
