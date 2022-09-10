@@ -14,7 +14,7 @@ public class StudentDetailResponse {
     private final String majorTagName;
     private final List<String> mySkillNameList;
 
-    public StudentDetailResponse(StudentPersonalAndMajorResponse personalAndMajorResponse,
+    public StudentDetailResponse(StudentInformation personalAndMajorResponse,
                                  List<String> mySkillNameList) {
         this.name = personalAndMajorResponse.getName();
         this.gcn = personalAndMajorResponse.getGcn();

@@ -1,6 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentPersonalAndMajorResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class QueryStudentDetailUseCaseTest {
 
         given(teacherQueryStudentPort.queryPersonalAndMajorById(studentId))
                 .willReturn(
-                        new StudentPersonalAndMajorResponse(
+                        new StudentInformation(
                                 "테스트",
                                 "테스트",
                                 "테스트",

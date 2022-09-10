@@ -3,7 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 import kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryStudentDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentPersonalAndMajorResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryStudentPort;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class QueryStudentDetailUseCase implements QueryStudentDetailPort {
     @Override
     public StudentDetailResponse execute(UUID studentId) {
 
-        StudentPersonalAndMajorResponse personalAndMajorResponse =
+        StudentInformation studentInformation =
                 teacherQueryStudentPort.queryPersonalAndMajorById(studentId);
 
         List<String> mySkillNameList = teacherQueryMySkillPort.queryMySkillNameByStudentId(studentId);
@@ -30,7 +30,7 @@ public class QueryStudentDetailUseCase implements QueryStudentDetailPort {
         mySkillNameList = mySkillNameList.get(0) == null ? null : mySkillNameList;
 
         return new StudentDetailResponse(
-                personalAndMajorResponse,
+                studentInformation,
                 mySkillNameList
         );
     }

@@ -15,8 +15,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeClassNum;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentPersonalAndMajorResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -152,13 +151,13 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
 
-    public StudentPersonalAndMajorResponse queryPersonalAndMajorById(UUID studentId) {
+    public StudentInformation queryPersonalAndMajorById(UUID studentId) {
         QTagEntity majorTag = new QTagEntity("majorTag");
 
         return jpaQueryFactory
                 .select(
                         constructor(
-                                StudentPersonalAndMajorResponse.class,
+                                StudentInformation.class,
                                 userEntity.name,
                                 studentEntity.grade.stringValue(),
                                 studentEntity.classNum.stringValue(),
