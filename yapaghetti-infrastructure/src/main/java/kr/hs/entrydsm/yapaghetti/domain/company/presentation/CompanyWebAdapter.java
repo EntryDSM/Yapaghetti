@@ -5,7 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.company.api.UpdateCompanyNamePort;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request.DomainUpdateCompanyNameRequest;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request.DomainQueryStudentListRequest;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.QueryStudentListResponse;
-import kr.hs.entrydsm.yapaghetti.domain.company.presentation.dto.request.WebUpdateCompanyNameRequest;
+import kr.hs.entrydsm.yapaghetti.domain.company.presentation.dto.request.WebUpdateCompanyInformationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +27,16 @@ public class CompanyWebAdapter {
     private final QueryStudentListPort queryStudentListPort;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/name")
-    public void updateCompanyName(@RequestBody @Valid WebUpdateCompanyNameRequest request) {
+    @PatchMapping("/information")
+    public void updateCompanyInformation(@RequestBody @Valid WebUpdateCompanyInformationRequest request) {
         updateCompanyNamePort.execute(
-                new DomainUpdateCompanyNameRequest(request.getCompanyName())
+                DomainUpdateCompanyNameRequest.builder()
+                        .companyName(request.getCompanyName())
+                        .location(request.getLocation())
+                        .profileImagePath(request.getProfileImagePath())
+                        .name(request.getName())
+                        .phoneNumber(request.getPhoneNumber())
+                        .build()
         );
     }
 
