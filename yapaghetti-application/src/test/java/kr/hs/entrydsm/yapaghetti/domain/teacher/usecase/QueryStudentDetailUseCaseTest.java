@@ -32,37 +32,29 @@ public class QueryStudentDetailUseCaseTest {
 
         UUID studentId = UUID.randomUUID();
 
-        List<String> mySkillList = new ArrayList<>();
-
-        mySkillList.add("Spring boot");
-
         given(teacherQueryStudentPort.queryPersonalAndMajorById(studentId))
                 .willReturn(
-                    createStudentPersonalAndMajorResponse(studentId)
+                        new StudentPersonalAndMajorResponse(
+                                "테스트",
+                                "테스트",
+                                "테스트",
+                                13,
+                                "테스트",
+                                "테스트",
+                                "테스트",
+                                "테스트"
+                        )
                 );
+
+        List<String> skillNameList = new ArrayList<>();
+
+        skillNameList.add("Spring Boot");
+
+        skillNameList.add("FastAPI");
 
         given(teacherQueryMySkillPort.queryMySkillNameByStudentId(studentId))
-                .willReturn(
-                        mySkillList
-                );
+                .willReturn(skillNameList);
 
         queryStudentDetailUseCase.execute(studentId);
-
-    }
-
-    private StudentPersonalAndMajorResponse createStudentPersonalAndMajorResponse(UUID studentId) {
-        List<String> tagList = new ArrayList<>();
-        tagList.add("SpringBoot");
-        tagList.add("FastAPI");
-        return new StudentPersonalAndMajorResponse(
-                "엔트리",
-                "2",
-                "2",
-                20,
-                "https://entrydsm.hs.kr/~~~",
-                "entrydsm@dsm.hs.kr",
-                "010111111"
-                ,"BackEnd"
-        );
     }
 }
