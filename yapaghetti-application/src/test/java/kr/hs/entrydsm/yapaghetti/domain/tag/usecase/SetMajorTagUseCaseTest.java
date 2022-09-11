@@ -4,6 +4,8 @@ import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.request.DomainSetMajorTagRequest;
+import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
+import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
@@ -52,6 +54,11 @@ public class SetMajorTagUseCaseTest {
                         .number(13)
                         .tagId(UUID.randomUUID())
                         .build()
+        );
+        given(queryTagPort.queryTagById(tagId)).willReturn(
+            Tag.builder()
+                .type(TagType.MAJOR)
+                .build()
         );
 
         setMajorTagUseCase.execute(new DomainSetMajorTagRequest(tagId));
