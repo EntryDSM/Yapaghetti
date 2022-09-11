@@ -2,10 +2,10 @@ package kr.hs.entrydsm.yapaghetti.domain.student.presentation.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Getter
-@NonNull
+@NoArgsConstructor
 public class WebUpdateMyInfoRequest {
 
 	@NotBlank
