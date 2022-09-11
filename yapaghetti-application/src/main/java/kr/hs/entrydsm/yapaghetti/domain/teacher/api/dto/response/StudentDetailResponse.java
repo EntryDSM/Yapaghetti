@@ -14,14 +14,14 @@ public class StudentDetailResponse {
     private final String majorTagName;
     private final List<String> mySkillNameList;
 
-    public StudentDetailResponse(StudentInformation personalAndMajorResponse,
+    public StudentDetailResponse(StudentInformation studentInformation,
                                  List<String> mySkillNameList) {
-        this.name = personalAndMajorResponse.getName();
-        this.gcn = personalAndMajorResponse.getGcn();
-        this.profileImagePath = personalAndMajorResponse.getProfileImagePath();
-        this.email = personalAndMajorResponse.getProfileImagePath();
-        this.phoneNumber = personalAndMajorResponse.getPhoneNumber();
-        this.majorTagName = personalAndMajorResponse.getMajorTagName();
+        this.name = studentInformation.getName();
+        this.gcn = studentInformation.getGcn();
+        this.profileImagePath = studentInformation.getProfileImagePath();
+        this.email = studentInformation.getProfileImagePath();
+        this.phoneNumber = studentInformation.getPhoneNumber();
+        this.majorTagName = studentInformation.getMajorTagName();
         this.mySkillNameList = mySkillNameList;
     }
 }
