@@ -7,5 +7,7 @@ import java.util.UUID;
 public interface CommandTagPort {
     void saveTag(Tag tag);
 
+    boolean existsTagByName(String name);
+
     void deleteTagById(UUID tagId);
 }

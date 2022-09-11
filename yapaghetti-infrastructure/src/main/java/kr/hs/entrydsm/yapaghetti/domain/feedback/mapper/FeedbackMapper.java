@@ -1,6 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.mapper;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.DocumentPersistenceAdapter;
+import kr.hs.entrydsm.yapaghetti.domain.document.persistence.DocumentRepository;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.persistence.entity.FeedbackEntity;
@@ -12,13 +14,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class FeedbackMapper {
 
-	private final DocumentPersistenceAdapter documentPersistenceAdapter;
+	private final DocumentRepository documentRepository;
 
 	public FeedbackEntity domainToEntity(Feedback feedback) {
 
-		DocumentEntity documentEntity = documentPersistenceAdapter.queryDocumentById(
-				feedback.getDocumentId()
-		);
+		DocumentEntity documentEntity = documentRepository.findById(feedback.getDocumentId())
+			.orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
 
 		return FeedbackEntity.builder()
 			.id(

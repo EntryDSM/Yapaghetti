@@ -1,8 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandStudentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +24,12 @@ public class DeleteTagUseCaseTest {
     @Mock
     QueryTagPort queryTagPort;
 
+    @Mock
+    TagCommandMySkillPort tagCommandMySkillPort;
+
+    @Mock
+    TagCommandStudentPort tagCommandStudentPort;
+
     @InjectMocks
     DeleteTagUseCase deleteTagUseCase;
 
@@ -30,8 +37,6 @@ public class DeleteTagUseCaseTest {
 
     @Test
     void 태그_삭제_성공() {
-        queryTagPort.existsById(tagId);
-
         deleteTagUseCase.execute(tagId);
     }
 

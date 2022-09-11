@@ -54,7 +54,6 @@ public class SetMajorTagUseCaseTest {
                         .build()
         );
 
-        queryTagPort.existsById(tagId);
         setMajorTagUseCase.execute(new DomainSetMajorTagRequest(tagId));
     }
 

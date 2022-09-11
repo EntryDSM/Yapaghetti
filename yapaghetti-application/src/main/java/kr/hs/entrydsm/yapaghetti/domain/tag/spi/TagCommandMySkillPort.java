@@ -8,5 +8,7 @@ import java.util.UUID;
 public interface TagCommandMySkillPort {
     void saveAllMySkill(List<MySkill> mySkills);
 
+    boolean existsMySkillByTagId(UUID tagId);
+
     void deleteAllMySKillByUserId(UUID userId);
 }
