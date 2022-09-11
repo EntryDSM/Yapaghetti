@@ -1,12 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.persistence;
 
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.MySkillPersistenceAdapter;
-import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.TagType;
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.AlreadyExistsTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.mapper.TagMapper;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
@@ -22,9 +18,6 @@ public class TagPersistenceAdapter implements TagPort {
 
     private final TagRepository tagRepository;
 
-    private final MySkillPersistenceAdapter mySkillPersistenceAdapter;
-    private final StudentPersistenceAdapter studentPersistenceAdapter;
-
     private final TagMapper tagMapper;
 
     @Override
@@ -32,13 +25,6 @@ public class TagPersistenceAdapter implements TagPort {
         tagRepository.save(
                 tagMapper.domainToEntity(tag)
         );
-    }
-
-    @Override
-    public void existsById(UUID tagId) {
-        if (!tagRepository.existsById(tagId)) {
-            throw TagNotFoundException.EXCEPTION;
-        }
     }
 
     @Override
@@ -60,20 +46,12 @@ public class TagPersistenceAdapter implements TagPort {
 
     @Override
     public void deleteTagById(UUID tagId) {
-        queryTagById(tagId);
-
-        if (mySkillPersistenceAdapter.existsByTagId(tagId) || studentPersistenceAdapter.existsByTagId(tagId)) {
-            throw UnableDeleteTagException.EXCEPTION;
-        }
-
         tagRepository.deleteById(tagId);
     }
 
     @Override
-    public void existsByName(String name) {
-        if (tagRepository.existsByName(name)) {
-            throw AlreadyExistsTagException.EXCEPTION;
-        }
+    public boolean existsTagByName(String name) {
+        return tagRepository.existsByName(name);
     }
 
 }
