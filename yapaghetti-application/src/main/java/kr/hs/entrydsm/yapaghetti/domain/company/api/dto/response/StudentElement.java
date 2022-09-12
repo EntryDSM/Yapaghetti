@@ -17,6 +17,7 @@ public class StudentElement {
     private final String name;
 
     private final String gcn;
+    
     private final UUID publicDocumentId;
 
     private final String previewImagePath;
