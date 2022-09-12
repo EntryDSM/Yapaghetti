@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class MyInfoResponse {
 
-    private final UUID id;
+    private final UUID studentId;
 
     private final Integer grade;
 
