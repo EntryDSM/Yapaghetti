@@ -5,8 +5,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.api.DeleteTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.UnableDeleteTagException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
 import lombok.RequiredArgsConstructor;
 
@@ -18,14 +17,14 @@ public class DeleteTagUseCase implements DeleteTagPort {
 
     private final CommandTagPort commandTagPort;
     private final QueryTagPort queryTagPort;
-    private final TagCommandStudentPort tagCommandStudentPort;
-    private final TagCommandMySkillPort tagCommandMySkillPort;
+    private final TagQueryStudentPort tagQueryStudentPort;
+    private final TagQueryMySkillPort tagQueryMySkillPort;
 
     @Override
     public void execute(UUID tagId) {
         queryTagPort.queryTagById(tagId);
 
-        if (tagCommandMySkillPort.existsMySkillByTagId(tagId) || tagCommandStudentPort.existsStudentByTagId(tagId)) {
+        if (tagQueryMySkillPort.existsMySkillByTagId(tagId) || tagQueryStudentPort.existsStudentByTagId(tagId)) {
             throw UnableDeleteTagException.EXCEPTION;
         }
         commandTagPort.deleteTagById(tagId);

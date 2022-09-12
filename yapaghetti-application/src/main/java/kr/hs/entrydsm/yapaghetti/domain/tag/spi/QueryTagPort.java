@@ -9,4 +9,6 @@ public interface QueryTagPort {
     Tag queryTagById(UUID tagId);
 
     List<Tag> queryAllTagByNameContainingAndIsMajor(String name, boolean isMajor);
+
+    boolean existsTagByName(String name);
 }

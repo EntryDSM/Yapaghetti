@@ -15,12 +15,13 @@ import lombok.RequiredArgsConstructor;
 public class AddTagUseCase implements AddTagPort {
 
     private final CommandTagPort commandTagPort;
+    private final QueryTagPort queryTagPort;
 
     @Override
     public void execute(DomainAddTagRequest request) {
         TagType type = request.getIsMajor() ? TagType.MAJOR : TagType.SKILL;
 
-        if (commandTagPort.existsTagByName(request.getName())) {
+        if (queryTagPort.existsTagByName(request.getName())) {
             throw AlreadyExistsTagException.EXCEPTION;
         }
 

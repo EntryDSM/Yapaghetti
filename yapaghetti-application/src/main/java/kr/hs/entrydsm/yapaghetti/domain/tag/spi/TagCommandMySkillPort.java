@@ -1,14 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.tag.spi;
 
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-
 import java.util.List;
 import java.util.UUID;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
 
 public interface TagCommandMySkillPort {
-    void saveAllMySkill(List<MySkill> mySkills);
+	void saveAllMySkill(List<MySkill> mySkills);
 
-    boolean existsMySkillByTagId(UUID tagId);
-
-    void deleteAllMySKillByUserId(UUID userId);
+	void deleteAllMySKillByUserId(UUID userId);
 }
