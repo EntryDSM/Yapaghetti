@@ -4,6 +4,8 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandStudentPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryMySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,9 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class DeleteTagUseCaseTest {
@@ -25,10 +24,10 @@ public class DeleteTagUseCaseTest {
     QueryTagPort queryTagPort;
 
     @Mock
-    TagCommandMySkillPort tagCommandMySkillPort;
+    TagQueryMySkillPort tagQueryMySkillPort;
 
     @Mock
-    TagCommandStudentPort tagCommandStudentPort;
+    TagQueryStudentPort tagQueryStudentPort;
 
     @InjectMocks
     DeleteTagUseCase deleteTagUseCase;
