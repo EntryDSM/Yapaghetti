@@ -12,7 +12,8 @@ public enum GlobalErrorCode implements ErrorProperty {
     INVALID_TOKEN(401, "유효하지 않은 토큰입니다."),
     INVALID_TOKEN_TYPE(401, "유효하지 않은 토큰 타입입니다."),
     USER_CREDENTIALS_NOT_FOUND(401, "유효하지 않은 인증정보입니다."),
-    INTERNAL_SERVER_ERROR(500, "서버 오류");
+    INTERNAL_SERVER_ERROR(500, "서버 오류"),
+    SEND_EMAIL_REJECTED(400, "이메일 발송 실패");
 
     private final int status;
     private final String message;
