@@ -11,4 +11,6 @@ public class FeedbackElement {
 
     private final String comment;
 
+    private final boolean isApply;
+
 }

@@ -197,7 +197,8 @@ public class StudentPersistenceAdapter implements StudentPort {
         );
     }
 
-    public boolean existsByTagId(UUID tagId) {
+    @Override
+    public boolean existsStudentByTagId(UUID tagId) {
         return studentRepository.existsByTagEntityId(tagId);
     }
 

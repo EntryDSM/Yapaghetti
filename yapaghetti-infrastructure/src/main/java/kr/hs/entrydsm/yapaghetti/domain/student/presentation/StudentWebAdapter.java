@@ -1,11 +1,12 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.presentation;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.QueryMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.ReflectFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.UpdateMyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MyInfoResponse;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.UpdateType;
+import kr.hs.entrydsm.yapaghetti.domain.student.presentation.dto.request.WebUpdateMyInfoRequest;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,8 +41,7 @@ public class StudentWebAdapter {
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PatchMapping()
-	public void setPhoneNumber(@RequestBody @NotBlank String value, @RequestParam @NotBlank UpdateType type) {
-		//TODO Check NotBlank able to UpdateType
-		updateMyInfoPort.execute(value, type);
+	public void updateMyInfo(@RequestBody @Valid WebUpdateMyInfoRequest request, @RequestParam @NonNull UpdateType type) {
+		updateMyInfoPort.execute(request.getValue(), type);
 	}
 }

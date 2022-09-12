@@ -4,7 +4,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
-import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +18,6 @@ public class DocumentPersistenceAdapter implements DocumentPort {
 
     private final DocumentRepository documentRepository;
     private final DocumentMapper documentMapper;
-
-    public DocumentEntity queryDocumentById(UUID documentId) {
-        return documentRepository.findById(documentId)
-                .orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
-    }
 
     @Override
     public void saveDocument(Document document) {

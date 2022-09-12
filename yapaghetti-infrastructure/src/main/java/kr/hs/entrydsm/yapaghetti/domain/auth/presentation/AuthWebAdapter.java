@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendEmailAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendPhoneNumberAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.VerifyAuthCodePort;
+import kr.hs.entrydsm.yapaghetti.domain.auth.presentation.dto.request.SendPhoneNumberAuthCodeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +28,8 @@ public class AuthWebAdapter {
 	}
 
 	@PostMapping("/phone-number")
-	public void sendPhoneNumberAuthCode(@RequestBody @NotBlank String phoneNumber) {
-		sendPhoneNumberAuthCodePort.execute(phoneNumber);
+	public void sendPhoneNumberAuthCode(@RequestBody SendPhoneNumberAuthCodeRequest request) {
+		sendPhoneNumberAuthCodePort.execute(request.getPhoneNumber());
 	}
   
 	@RequestMapping(value = "/verify", method = RequestMethod.HEAD)

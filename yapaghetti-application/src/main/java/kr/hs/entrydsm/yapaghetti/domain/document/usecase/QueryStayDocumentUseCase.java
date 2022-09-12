@@ -27,7 +27,7 @@ public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
 
         List<FeedbackElement> feedbackList = queryFeedbackPort.queryFeedbackByDocumentId(documentId)
                 .stream()
-                .map(f -> new FeedbackElement(f.getSequence(), f.getComment()))
+                .map(f -> new FeedbackElement(f.getSequence(), f.getComment(), f.getIsApply()))
                 .collect(Collectors.toList());
 
         return new QueryStayDocumentResponse(
