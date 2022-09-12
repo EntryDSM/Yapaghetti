@@ -1,12 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.thirdparty.ses;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
-import com.amazonaws.services.simpleemail.model.Body;
-import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
-import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.MessageRejectedException;
-import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailRequest;
 import com.amazonaws.services.simpleemail.model.SendTemplatedEmailResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,15 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import kr.hs.entrydsm.yapaghetti.global.exception.SendEmailRejectedException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
+@Adapter
 public class AwsSESAdapter implements SendMailPort{
 
 	private static final String UTF_8_ENCODED_SOURCE_NAME = "=?utf-8?B?7J6F7ZWZ7KCE7ZiV7Iuc7Iqk7YWc?=";
