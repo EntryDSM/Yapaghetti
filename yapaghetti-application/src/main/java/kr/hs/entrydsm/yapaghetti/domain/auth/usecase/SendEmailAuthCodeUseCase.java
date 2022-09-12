@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendEmailAuthCodePort;
+import kr.hs.entrydsm.yapaghetti.domain.auth.api.dto.response.SendEmailAuthCodeResponse;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
@@ -30,7 +31,7 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
     private final GetAuthPropertiesPort getAuthPropertiesPort;
 
     @Override
-    public void execute() {
+    public SendEmailAuthCodeResponse execute() {
         Long authTime = getAuthPropertiesPort.getAuthTime();
         String authCode = generateRandomStringPort.getAuthCode();
         AuthCode emailAuthCode;
@@ -64,5 +65,7 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
         commandAuthCodePort.saveAuthCode(emailAuthCode);
 
         sendMailPort.sendAuthCode(value, authCode);
+
+        return new SendEmailAuthCodeResponse(value);
     }
 }
