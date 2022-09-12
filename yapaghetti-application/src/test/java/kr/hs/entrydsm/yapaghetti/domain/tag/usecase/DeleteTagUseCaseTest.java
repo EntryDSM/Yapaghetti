@@ -2,8 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.tag.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.CommandTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.QueryTagPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandMySkillPort;
-import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagCommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.tag.spi.TagQueryStudentPort;
 import org.junit.jupiter.api.Test;
