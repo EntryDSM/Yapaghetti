@@ -74,6 +74,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                                                 studentEntity.grade.stringValue(),
                                                 studentEntity.classNum.stringValue(),
                                                 studentEntity.number,
+                                                documentEntity.id,
                                                 documentEntity.previewImagePath,
                                                 userEntity.profileImagePath
                                         )
