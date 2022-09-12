@@ -31,7 +31,7 @@ public class SetMajorTagUseCase implements SetMajorTagPort {
 
         Tag tag = queryTagPort.queryTagById(request.getTagId());
 
-        if (tag.getType().equals(TagType.SKILL)) {
+        if (TagType.SKILL.equals(tag.getType())) {
             throw InvalidTagTypeException.EXCEPTION;
         }
 

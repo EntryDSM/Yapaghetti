@@ -54,4 +54,9 @@ public class TagPersistenceAdapter implements TagPort {
         return tagRepository.existsByName(name);
     }
 
+    @Override
+    public boolean existsTagById(UUID tagId) {
+        return tagRepository.findById(tagId).isPresent();
+    }
+
 }
