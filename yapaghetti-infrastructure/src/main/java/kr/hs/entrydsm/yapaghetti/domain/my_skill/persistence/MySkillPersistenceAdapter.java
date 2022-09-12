@@ -26,6 +26,7 @@ public class MySkillPersistenceAdapter implements MySkillPort {
 
     private final MySkillMapper mySkillMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    private final TagRepository tagRepository;
 
     @Override
     public boolean existsMySkillByTagId(UUID tagId) {
@@ -47,7 +48,7 @@ public class MySkillPersistenceAdapter implements MySkillPort {
             .map(mySkillMapper::entityToDomain)
             .collect(Collectors.toList());
     }
-  
+
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }
