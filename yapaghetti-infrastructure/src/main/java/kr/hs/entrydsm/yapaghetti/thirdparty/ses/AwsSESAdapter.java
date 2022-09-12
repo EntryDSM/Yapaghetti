@@ -19,8 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Adapter
-public class AwsSESAdapter implements SendMailPort{
+public class AwsSESAdapter implements SendMailPort {
 
+	//TODO 이메일 템플릿 수정
 	private static final String UTF_8_ENCODED_SOURCE_NAME = "=?utf-8?B?7J6F7ZWZ7KCE7ZiV7Iuc7Iqk7YWc?=";
 	private static final String TEMPLATE_NAME = "RollsRoyceEmailTemplate";
 
