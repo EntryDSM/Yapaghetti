@@ -1,9 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.company.presentation;
 
+import kr.hs.entrydsm.yapaghetti.domain.company.api.QueryCompanyInfoPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.QueryStudentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.UpdateCompanyNamePort;
-import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request.DomainUpdateCompanyNameRequest;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request.DomainQueryStudentListRequest;
+import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.request.DomainUpdateCompanyNameRequest;
+import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.QueryCompanyInfoResponse;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.QueryStudentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.company.presentation.dto.request.WebUpdateCompanyInformationRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class CompanyWebAdapter {
 
     private final UpdateCompanyNamePort updateCompanyNamePort;
     private final QueryStudentListPort queryStudentListPort;
+    private final QueryCompanyInfoPort queryCompanyInfoPort;
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/information")
@@ -43,6 +46,11 @@ public class CompanyWebAdapter {
     @GetMapping("/students")
     public QueryStudentListResponse queryStudentList(@ModelAttribute DomainQueryStudentListRequest request) {
         return queryStudentListPort.execute(request);
+    }
+
+    @GetMapping
+    public QueryCompanyInfoResponse queryCompanyInfo() {
+        return queryCompanyInfoPort.execute();
     }
 
 }

@@ -100,6 +100,8 @@ public class SecurityConfig {
                 // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
                 .antMatchers(HttpMethod.GET, "/companies/students").hasAnyRole(MOU, NON_MOU)
+                .antMatchers(HttpMethod.GET, "/companies").hasAnyRole(MOU, NON_MOU)
+
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 
