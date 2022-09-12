@@ -1,4 +1,4 @@
-package kr.hs.entrydsm.yapaghetti.global.config;
+package kr.hs.entrydsm.yapaghetti.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.hs.entrydsm.yapaghetti.global.error.filter.GlobalErrorFilter;

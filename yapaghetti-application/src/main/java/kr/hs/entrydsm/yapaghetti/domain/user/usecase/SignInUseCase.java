@@ -47,7 +47,7 @@ public class SignInUseCase implements SignInPort {
         );
 
         return SignInResponse.builder()
-                .firstLogin(user.isVisited())
+                .firstLogin(!user.isVisited())
                 .userType(user.getRole())
                 .accessToken(tokenResponse.getAccessToken())
                 .refreshToken(tokenResponse.getRefreshToken())

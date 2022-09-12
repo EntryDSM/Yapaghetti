@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
-import kr.hs.entrydsm.yapaghetti.global.config.FilterConfig;
+import kr.hs.entrydsm.yapaghetti.global.filter.FilterConfig;
 import kr.hs.entrydsm.yapaghetti.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -100,6 +100,8 @@ public class SecurityConfig {
                 // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
                 .antMatchers(HttpMethod.GET, "/companies/students").hasAnyRole(MOU, NON_MOU)
+                .antMatchers(HttpMethod.GET, "/companies").hasAnyRole(MOU, NON_MOU)
+
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
 

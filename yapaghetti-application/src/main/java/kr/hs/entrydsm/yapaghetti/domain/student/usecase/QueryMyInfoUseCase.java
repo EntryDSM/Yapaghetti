@@ -43,6 +43,7 @@ public class QueryMyInfoUseCase implements QueryMyInfoPort {
         String majorTag = studentQueryTagPort.queryTagById(student.getTagId()).getName();
 
         return MyInfoResponse.builder()
+                .studentId(student.getUserId())
                 .grade(student.getGrade())
                 .classNum(student.getClassNum())
                 .number(student.getNumber())

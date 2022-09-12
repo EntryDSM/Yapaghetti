@@ -22,5 +22,5 @@ import static org.springframework.context.annotation.ComponentScan.Filter;
                 )
         }
 )
-public class GlobalComponentScan {
+public class AnnotationConfig {
 }

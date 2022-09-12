@@ -43,10 +43,12 @@ class QueryStayDocumentUseCaseTest {
                         Feedback.builder()
                                 .sequence(1)
                                 .comment("testComment")
+                                .isApply(false)
                                 .build(),
                         Feedback.builder()
                                 .sequence(2)
                                 .comment("testComment2")
+                                .isApply(false)
                                 .build()
                 )
         );

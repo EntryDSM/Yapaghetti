@@ -1,19 +1,26 @@
-package kr.hs.entrydsm.yapaghetti.domain.user.presentation.dto.request;
+package kr.hs.entrydsm.yapaghetti.domain.company.presentation.dto.request;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
-public class WebUpdateUserInformationRequest {
+public class WebUpdateCompanyInformationRequest {
+
+    @NotBlank
+    @Size(max = 40)
+    private String companyName;
 
     @NotBlank
     @Size(max = 255)
     private String location;
+
+    @NotBlank
+    @Size(max = 255)
+    private String profileImagePath;
 
     @NotBlank
     @Size(max = 10)
@@ -22,9 +29,5 @@ public class WebUpdateUserInformationRequest {
     @NotBlank
     @Size(max = 11)
     private String phoneNumber;
-
-    @NotBlank
-    @Size(max = 255)
-    private String profileImagePath;
 
 }

@@ -10,6 +10,7 @@ import lombok.Getter;
 public enum TagErrorCode implements ErrorProperty {
 
     UNABLE_DELETE_TAG(400, "사용하고 있는 태그는 삭제할 수 없습니다."),
+    INVALID_TAG_TYPE(400, "잘못된 태그 타입입니다."),
     TAG_NOT_FOUND(404, "태그를 찾을 수 없습니다."),
     ALREADY_EXISTS_TAG(409, "이미 존재하는 태그입니다.");
 

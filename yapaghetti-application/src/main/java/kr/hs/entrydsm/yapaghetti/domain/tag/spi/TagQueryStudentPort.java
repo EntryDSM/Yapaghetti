@@ -6,4 +6,7 @@ import java.util.UUID;
 
 public interface TagQueryStudentPort {
     Student queryUserById(UUID id);
+
+    boolean existsStudentByTagId(UUID tagId);
+
 }

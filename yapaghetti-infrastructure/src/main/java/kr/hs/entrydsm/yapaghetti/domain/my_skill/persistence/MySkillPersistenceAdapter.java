@@ -24,19 +24,17 @@ public class MySkillPersistenceAdapter implements MySkillPort {
 
     private final MySkillRepository mySkillRepository;
 
-    private final TagRepository tagRepository;
-
     private final MySkillMapper mySkillMapper;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public boolean existsByTagId(UUID tagId) {
+    @Override
+    public boolean existsMySkillByTagId(UUID tagId) {
         return mySkillRepository.existsByTagEntityId(tagId);
     }
 
     @Override
     public void saveAllMySkill(List<MySkill> mySkills) {
         List<MySkillEntity> mySkillEntities = mySkills.stream()
-                .filter(m -> existsTag(m.getTagId()))
                 .map(mySkillMapper::domainToEntity)
                 .collect(Collectors.toList());
 
@@ -53,6 +51,7 @@ public class MySkillPersistenceAdapter implements MySkillPort {
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }
+
 
     private boolean existsTag(UUID tagId) {
         if (!tagRepository.existsById(tagId)) {
@@ -73,4 +72,5 @@ public class MySkillPersistenceAdapter implements MySkillPort {
                 .leftJoin(mySkillEntity.tagEntity, skillTag)
                 .fetch();
     }
+
 }
