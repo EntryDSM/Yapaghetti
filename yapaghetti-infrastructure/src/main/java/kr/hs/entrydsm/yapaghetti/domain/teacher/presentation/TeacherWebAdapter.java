@@ -127,6 +127,8 @@ public class TeacherWebAdapter {
                         .phoneNumber(request.getPhoneNumber())
                         .location(request.getLocation())
                         .companyName(request.getCompanyName())
+                        .profileImagePath(request.getProfileImagePath())
+                        .isMou(request.getIsMou())
                         .startAt(request.getStartAt())
                         .endAt(request.getEndAt())
                         .build()

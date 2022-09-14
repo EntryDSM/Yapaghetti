@@ -32,7 +32,7 @@ public class UpdateCompanyNameUseCase implements UpdateCompanyNamePort {
 
         Company company = companyPersistencePort.queryCompanyById(userId);
 
-        user.setInformation(
+        user = user.setInformation(
                 request.getLocation(),
                 request.getName(),
                 request.getPhoneNumber(),
@@ -40,7 +40,7 @@ public class UpdateCompanyNameUseCase implements UpdateCompanyNamePort {
         );
 
 
-        company.updateCompanyName(request.getCompanyName());
+        company = company.updateCompanyName(request.getCompanyName());
 
         companyCommandUserPort.saveUser(user);
         commandCompanyPort.saveCompany(company);

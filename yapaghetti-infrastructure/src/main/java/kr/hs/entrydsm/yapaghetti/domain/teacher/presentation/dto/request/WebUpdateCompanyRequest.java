@@ -32,6 +32,13 @@ public class WebUpdateCompanyRequest {
     @Size(max = 40)
     private String companyName;
 
+    @NotBlank
+    @Size(max = 255)
+    private String profileImagePath;
+
+    @NotNull
+    private Boolean isMou;
+
     @NotNull
     private LocalDateTime startAt;
 

@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -27,9 +28,11 @@ public class UpdateCompanyUseCase implements UpdateCompanyPort {
 
         User user = teacherQueryUserPort.queryUserById(company.getUserId());
 
+        UserRole role = request.getIsMou() ? UserRole.MOU : UserRole.NON_MOU;
+
         teacherCommandUserPort.saveUser(
-                user.updateIdentifyInformation(
-                        request.getName(), request.getEmail(), request.getPhoneNumber(), request.getLocation()
+                user.updateInformation(
+                        request.getName(), request.getEmail(), request.getPhoneNumber(), request.getLocation(), request.getProfileImagePath(), role
                 )
         );
 
