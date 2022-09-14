@@ -99,17 +99,17 @@ public class User {
                 .build();
     }
 
-    public User updateIdentifyInformation(String name, String email, String phoneNumber, String location) {
+    public User updateInformation(String name, String email, String phoneNumber, String location, String profileImagePath, UserRole role) {
         return User.builder()
                 .id(this.id)
                 .email(email)
                 .password(this.password)
                 .name(name)
-                .profileImagePath(this.profileImagePath)
+                .profileImagePath(profileImagePath)
                 .phoneNumber(phoneNumber)
                 .location(location)
                 .isVisited(this.isVisited)
-                .role(this.role)
+                .role(role)
                 .build();
     }
 
