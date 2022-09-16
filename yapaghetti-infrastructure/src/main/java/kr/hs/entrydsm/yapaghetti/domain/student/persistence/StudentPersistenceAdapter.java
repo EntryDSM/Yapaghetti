@@ -15,7 +15,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeClassNum;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
@@ -152,14 +152,13 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
 
-    public StudentDetailResponse queryStudentDetail(UUID studentId) {
+    public StudentInformation queryPersonalAndMajorById(UUID studentId) {
         QTagEntity majorTag = new QTagEntity("majorTag");
-        QTagEntity skillTag = new QTagEntity("skillTag");
 
         return jpaQueryFactory
                 .select(
                         constructor(
-                                StudentDetailResponse.class,
+                                StudentInformation.class,
                                 userEntity.name,
                                 studentEntity.grade.stringValue(),
                                 studentEntity.classNum.stringValue(),
@@ -167,18 +166,14 @@ public class StudentPersistenceAdapter implements StudentPort {
                                 userEntity.profileImagePath,
                                 userEntity.email,
                                 userEntity.phoneNumber,
-                                majorTag.name,
-                                list(skillTag.name)
+                                majorTag.name
                         )
                 )
                 .from(studentEntity)
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.tagEntity, majorTag)
-                .leftJoin(studentEntity.mySkillList, mySkillEntity)
-                .leftJoin(mySkillEntity.tagEntity, skillTag)
                 .where(
                         studentEntity.userId.eq(studentId)
-                                .and(userEntity.id.eq(studentId))
                 )
                 .fetchOne();
     }
