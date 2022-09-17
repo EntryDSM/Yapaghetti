@@ -30,6 +30,11 @@ public class DocumentPersistenceAdapter implements DocumentPort {
     }
 
     @Override
+    public UUID saveDocumentAndGetId(Document document) {
+        return documentRepository.save(documentMapper.domainToEntity(document)).getId();
+    }
+
+    @Override
     public Document queryDocumentByIdAndType(UUID documentId, DocumentType type) {
         return documentMapper.entityToDomain(
                 documentRepository.findByIdAndType(documentId, type)
