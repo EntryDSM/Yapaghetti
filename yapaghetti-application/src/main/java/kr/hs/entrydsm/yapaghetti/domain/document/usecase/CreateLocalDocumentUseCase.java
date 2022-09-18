@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
@@ -23,13 +22,23 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public CreateLocalDocumentResponse execute(DomainCreateLocalDocumentRequest request) {
+    public CreateLocalDocumentResponse execute() {
         User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         UUID documentId = commandDocumentPort.saveDocumentAndGetId(
                 Document.builder()
-                        .previewImagePath(request.getPreviewImagePath())
-                        .content(request.getContent())
+                        // TODO previewImagePath랑 content값은 더미 값임.
+                        .previewImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/eaa93c77-99b8-45e2-ae09-eec58cecf8fa.png")
+                        .content("{args: {\n" +
+                                "            name: '이름',\n" +
+                                "            email: '이메일',\n" +
+                                "            phone: '전화번호',\n" +
+                                "            github: 'https://github.com',\n" +
+                                "            imageUrl: '',\n" +
+                                "            feedback: { isRead: false, feedInfo: '' },\n" +
+                                "        },\n" +
+                                "id: \"2baa202b-dda7-4ade-b050-08ced8e9e976\"\n" +
+                                "}")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)
