@@ -2,7 +2,6 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
@@ -23,13 +22,13 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public CreateLocalDocumentResponse execute(DomainCreateLocalDocumentRequest request) {
+    public CreateLocalDocumentResponse execute() {
         User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         UUID documentId = commandDocumentPort.saveDocumentAndGetId(
                 Document.builder()
-                        .previewImagePath(request.getPreviewImagePath())
-                        .content(request.getContent())
+                        .previewImagePath("")
+                        .content("")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)
