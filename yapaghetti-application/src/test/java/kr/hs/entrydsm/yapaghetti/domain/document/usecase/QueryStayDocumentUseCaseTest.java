@@ -30,13 +30,14 @@ class QueryStayDocumentUseCaseTest {
 
     @Test
     void queryStayDocument() {
+        UUID studentId = UUID.randomUUID();
         UUID documentId = UUID.randomUUID();
+        Document document = Document.builder()
+            .id(documentId)
+            .content("testContent")
+            .build();
 
-        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
-                Document.builder()
-                        .content("testContent")
-                        .build()
-        );
+        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY)).willReturn(document);
 
         given(queryFeedbackPort.queryFeedbackByDocumentId(documentId)).willReturn(
                 List.of(
@@ -53,6 +54,6 @@ class QueryStayDocumentUseCaseTest {
                 )
         );
 
-        queryStayDocumentUseCase.execute(documentId);
+        queryStayDocumentUseCase.execute(studentId);
     }
 }
