@@ -14,9 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.will;
 
 @ExtendWith(MockitoExtension.class)
 class QueryStayDocumentUseCaseTest {
@@ -39,9 +37,7 @@ class QueryStayDocumentUseCaseTest {
             .content("testContent")
             .build();
 
-        given(queryDocumentPort.queryDocumentAllByUserIdAndType(studentId, DocumentType.STAY)).willReturn(
-                List.of(document)
-        );
+        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY)).willReturn(document);
 
         given(queryFeedbackPort.queryFeedbackByDocumentId(documentId)).willReturn(
                 List.of(

@@ -23,7 +23,7 @@ public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
 
     @Override
     public QueryStayDocumentResponse execute(UUID studentId) {
-        Document stayDocument = queryDocumentPort.queryDocumentAllByUserIdAndType(studentId, DocumentType.STAY).get(0);
+        Document stayDocument = queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY);
 
         List<FeedbackElement> feedbackList = queryFeedbackPort.queryFeedbackByDocumentId(stayDocument.getId())
                 .stream()
