@@ -10,6 +10,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
 import java.util.UUID;
 
@@ -27,8 +28,18 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
 
         UUID documentId = commandDocumentPort.saveDocumentAndGetId(
                 Document.builder()
-                        .previewImagePath("")
-                        .content("")
+                        // TODO previewImagePath랑 content값은 더미 값임.
+                        .previewImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/eaa93c77-99b8-45e2-ae09-eec58cecf8fa.png")
+                        .content("{args: {\n" +
+                                "            name: '이름',\n" +
+                                "            email: '이메일',\n" +
+                                "            phone: '전화번호',\n" +
+                                "            github: 'https://github.com',\n" +
+                                "            imageUrl: '',\n" +
+                                "            feedback: { isRead: false, feedInfo: '' },\n" +
+                                "        },\n" +
+                                "id: \"2baa202b-dda7-4ade-b050-08ced8e9e976\"\n" +
+                                "}")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)
