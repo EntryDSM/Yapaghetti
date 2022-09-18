@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface DocumentQueryUserPort {
     User queryUserById(UUID id);
+    String getTeacherEmail();
 }

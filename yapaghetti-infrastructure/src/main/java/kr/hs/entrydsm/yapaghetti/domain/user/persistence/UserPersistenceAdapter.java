@@ -1,6 +1,7 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence;
 
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.user.mapper.UserMapper;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
@@ -20,6 +21,13 @@ public class UserPersistenceAdapter implements UserPort {
 
     public Optional<UserEntity> findUserById(UUID id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public String getTeacherEmail() {
+        return userRepository.findByRole(UserRole.TEACHER)
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION)
+            .getEmail();
     }
 
     @Override
@@ -43,9 +51,12 @@ public class UserPersistenceAdapter implements UserPort {
         userRepository.save(userMapper.domainToEntity(user));
     }
 
-    public UUID saveUserAndGetUserId(User user) {
-        return userRepository.save(
+    @Override
+    public User saveUserAndGetUser(User user) {
+        return userMapper.entityToDomain(
+            userRepository.save(
                 userMapper.domainToEntity(user)
-        ).getId();
+            )
+        );
     }
 }

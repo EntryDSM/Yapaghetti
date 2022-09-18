@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.user.persistence;
 
+import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.persistence.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,4 +11,6 @@ public interface UserRepository extends CrudRepository<UserEntity, UUID>, UserQu
     Optional<UserEntity> findByEmail(String email);
 
     Optional<UserEntity> findById(UUID userId);
+
+    Optional<UserEntity> findByRole(UserRole role);
 }
