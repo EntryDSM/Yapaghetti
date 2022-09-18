@@ -29,7 +29,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
                 Document.builder()
                         // TODO previewImagePath랑 content값은 더미 값임.
                         .previewImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/eaa93c77-99b8-45e2-ae09-eec58cecf8fa.png")
-                        .content("{args: {\n" +
+                        .content("[{args: {\n" +
                                 "            name: '이름',\n" +
                                 "            email: '이메일',\n" +
                                 "            phone: '전화번호',\n" +
@@ -38,7 +38,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
                                 "            feedback: { isRead: false, feedInfo: '' },\n" +
                                 "        },\n" +
                                 "id: \"2baa202b-dda7-4ade-b050-08ced8e9e976\"\n" +
-                                "}")
+                                "}]")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)
