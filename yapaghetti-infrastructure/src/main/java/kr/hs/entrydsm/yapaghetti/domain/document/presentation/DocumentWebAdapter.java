@@ -16,7 +16,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.RejectStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
-import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
@@ -25,7 +24,6 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocu
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
-import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateStayDocumentRequest;
 import lombok.RequiredArgsConstructor;
@@ -68,10 +66,8 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CreateLocalDocumentResponse createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
-        return createLocalDocumentPort.execute(
-                new DomainCreateLocalDocumentRequest(request.getPreviewImagePath(), request.getContent())
-        );
+    public CreateLocalDocumentResponse createLocalDocument() {
+        return createLocalDocumentPort.execute();
     }
 
     @GetMapping("/public/{document-id}")
@@ -163,7 +159,7 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/stay/approve/{student-id}")
-    public void approveStayDocument(@PathVariable("student-id") @NotNull UUID studentId) {
-        approveStayDocumentPort.execute(studentId);
+    public void approveStayDocument(@PathVariable("student-id") @NotNull UUID documentId) {
+        approveStayDocumentPort.execute(documentId);
     }
 }
