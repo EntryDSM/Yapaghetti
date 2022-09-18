@@ -37,7 +37,7 @@ public class AwsSESAdapter implements SendMailPort {
 			} break;
 			case CREATE_COMPANY: {
 				params.put("account_id", values.get(0));
-				params.put("password", values.get(0));
+				params.put("password", values.get(1));
 			} break;
 			case COMPLETED_DOCUMENT_SUBMISSION: {
 				params.put("student", values.get(0));
