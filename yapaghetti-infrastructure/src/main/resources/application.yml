@@ -61,6 +61,12 @@ sms:
   secret: ${SMS_SECRET}
   phone-number: ${SENDER_PHONE_NUMBER}
 
+cors:
+  main-origin: ${MAIN_ORIGIN}
+  user-origin: ${USER_ORIGIN}
+  teacher-origin: ${TEACHER_ORIGIN}
+  company-origin: ${COMPANY_ORIGIN}
+
 logging:
   level:
     com:
