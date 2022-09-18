@@ -1,9 +1,11 @@
 package kr.hs.entrydsm.yapaghetti.domain.auth.usecase;
 
+import java.util.List;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.SendEmailAuthCodePort;
 import kr.hs.entrydsm.yapaghetti.domain.auth.api.dto.response.SendEmailAuthCodeResponse;
 import kr.hs.entrydsm.yapaghetti.domain.auth.domain.AuthCode;
+import kr.hs.entrydsm.yapaghetti.domain.auth.enums.EmailType;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeAlreadyVerifiedException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.exception.AuthCodeOverLimitException;
 import kr.hs.entrydsm.yapaghetti.domain.auth.spi.AuthQueryUserPort;
@@ -64,7 +66,8 @@ public class SendEmailAuthCodeUseCase implements SendEmailAuthCodePort {
 
         commandAuthCodePort.saveAuthCode(emailAuthCode);
 
-        sendMailPort.sendAuthCode(value, authCode);
+        List<String> values = List.of(authCode);
+        sendMailPort.sendAuthCode(value, values, EmailType.CERTIFICATION_EMAIL);
 
         return new SendEmailAuthCodeResponse(value);
     }
