@@ -19,7 +19,7 @@ public class StudentDetailResponse {
         this.name = studentInformation.getName();
         this.gcn = studentInformation.getGcn();
         this.profileImagePath = studentInformation.getProfileImagePath();
-        this.email = studentInformation.getProfileImagePath();
+        this.email = studentInformation.getEmail();
         this.phoneNumber = studentInformation.getPhoneNumber();
         this.majorTagName = studentInformation.getMajorTagName();
         this.mySkillNameList = mySkillNameList;
