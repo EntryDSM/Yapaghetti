@@ -28,8 +28,8 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
 
         UUID documentId = commandDocumentPort.saveDocumentAndGetId(
                 Document.builder()
-                        .previewImagePath(request.getPreviewImagePath())
-                        .content(request.getContent())
+                        .previewImagePath("")
+                        .content("")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)

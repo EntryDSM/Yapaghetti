@@ -139,9 +139,9 @@ public class DocumentWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/stay/reject/{document-id}")
-    public void rejectStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        rejectStayDocumentPort.execute(documentId);
+    @PatchMapping("/stay/reject/{student-id}")
+    public void rejectStayDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        rejectStayDocumentPort.execute(studentId);
     }
 
     @PatchMapping("/stay")
@@ -162,8 +162,8 @@ public class DocumentWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/stay/approve/{document-id}")
-    public void approveStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        approveStayDocumentPort.execute(documentId);
+    @PatchMapping("/stay/approve/{student-id}")
+    public void approveStayDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        approveStayDocumentPort.execute(studentId);
     }
 }

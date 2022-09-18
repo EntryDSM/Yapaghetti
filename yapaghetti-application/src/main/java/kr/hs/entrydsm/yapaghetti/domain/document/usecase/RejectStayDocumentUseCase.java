@@ -18,8 +18,8 @@ public class RejectStayDocumentUseCase implements RejectStayDocumentPort {
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public void execute(UUID documentId) {
-        Document stayDocument = queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY);
+    public void execute(UUID studentId) {
+        Document stayDocument = queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY);
 
         commandDocumentPort.saveDocument(
                 stayDocument.reject()
