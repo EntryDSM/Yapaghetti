@@ -1,6 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
+import java.util.List;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.domain.auth.enums.EmailType;
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
@@ -21,6 +24,7 @@ public class RequestLocalDocumentToPublicUseCase implements RequestLocalDocument
     private final DocumentSecurityPort documentSecurityPort;
     private final QueryDocumentPort queryDocumentPort;
     private final CommandDocumentPort commandDocumentPort;
+    private final SendMailPort sendMailPort;
 
     @Override
     public void execute(UUID documentId) {
@@ -33,5 +37,9 @@ public class RequestLocalDocumentToPublicUseCase implements RequestLocalDocument
         commandDocumentPort.saveDocument(
                 localDocument.changeDocumentType(DocumentType.STAY)
         );
+
+        String email = documentQueryUserPort.getTeacherEmail();
+        List<String> values = List.of(currentUser.getName());
+        sendMailPort.sendAuthCode(email, values, EmailType.COMPLETED_DOCUMENT_SUBMISSION);
     }
 }
