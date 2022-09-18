@@ -29,6 +29,8 @@ public class RequestLocalDocumentToPublicUseCase implements RequestLocalDocument
     @Override
     public void execute(UUID documentId) {
         User currentUser = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
+        String email = documentQueryUserPort.getTeacherEmail();
+        List<String> values = List.of(currentUser.getName());
 
         Document localDocument = queryDocumentPort.queryDocumentByIdAndUserIdAndType(
                 documentId, currentUser.getId(), DocumentType.LOCAL
@@ -38,8 +40,6 @@ public class RequestLocalDocumentToPublicUseCase implements RequestLocalDocument
                 localDocument.changeDocumentType(DocumentType.STAY)
         );
 
-        String email = documentQueryUserPort.getTeacherEmail();
-        List<String> values = List.of(currentUser.getName());
         sendMailPort.sendAuthCode(email, values, EmailType.COMPLETED_DOCUMENT_SUBMISSION);
     }
 }
