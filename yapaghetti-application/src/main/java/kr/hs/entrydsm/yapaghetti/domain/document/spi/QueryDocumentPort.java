@@ -16,4 +16,6 @@ public interface QueryDocumentPort {
     List<Document> queryDocumentAllByUserIdAndType(UUID userId, DocumentType type);
 
     List<Document> queryDocumentAllByUserIdAndTypeNotIn(UUID userId, List<DocumentType> type);
+
+    Boolean checkDocumentByUserIdAndType(UUID userId, DocumentType type);
 }

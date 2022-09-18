@@ -7,6 +7,7 @@ import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.exception.StayDocumentAlreadyExist;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
@@ -31,6 +32,10 @@ public class RequestLocalDocumentToPublicUseCase implements RequestLocalDocument
         User currentUser = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
         String email = documentQueryUserPort.getTeacherEmail();
         List<String> values = List.of(currentUser.getName());
+
+        if (queryDocumentPort.checkDocumentByUserIdAndType(currentUser.getId(), DocumentType.STAY)) {
+            throw StayDocumentAlreadyExist.EXCEPTION;
+        }
 
         Document localDocument = queryDocumentPort.queryDocumentByIdAndUserIdAndType(
                 documentId, currentUser.getId(), DocumentType.LOCAL

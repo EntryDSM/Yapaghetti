@@ -4,6 +4,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.exception.DocumentNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
+import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,17 @@ public class DocumentPersistenceAdapter implements DocumentPort {
         return documentRepository.findAllByUserEntityIdAndTypeNotIn(userId, type).stream()
                 .map(documentMapper::entityToDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean checkDocumentByUserIdAndType(UUID userId, DocumentType type) {
+
+        // isExist로 나중에 수정하기 TODO
+
+         DocumentEntity documentEntity =  documentRepository.findByUserEntityIdAndType(userId, type)
+                 .orElse(null);
+
+         return documentEntity != null;
     }
 
     @Override
