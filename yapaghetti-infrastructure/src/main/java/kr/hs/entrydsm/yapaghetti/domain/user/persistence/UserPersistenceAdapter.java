@@ -25,7 +25,8 @@ public class UserPersistenceAdapter implements UserPort {
 
     @Override
     public String getTeacherEmail() {
-        return userRepository.findByRole(UserRole.TEACHER).get()
+        return userRepository.findByRole(UserRole.TEACHER)
+            .orElseThrow(() -> UserNotFoundException.EXCEPTION)
             .getEmail();
     }
 
