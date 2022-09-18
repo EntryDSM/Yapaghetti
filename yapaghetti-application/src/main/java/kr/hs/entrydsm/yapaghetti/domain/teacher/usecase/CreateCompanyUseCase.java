@@ -1,6 +1,9 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
+import java.util.List;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
+import kr.hs.entrydsm.yapaghetti.domain.auth.enums.EmailType;
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.company.domain.Company;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainNewCompanyRequest;
@@ -23,15 +26,19 @@ public class CreateCompanyUseCase implements CreateCompanyPort {
     private final TeacherCommandCompanyPort teacherCommandCompanyPort;
     private final TeacherRandomStringPort teacherRandomStringPort;
     private final TeacherSecurityPort teacherSecurityPort;
+    private final SendMailPort sendMailPort;
 
     @Override
     public NewCompanyResponse execute(DomainNewCompanyRequest request) {
         String password = teacherRandomStringPort.getRandomPassword();
 
-        UUID userId = teacherCommandUserPort.saveUserAndGetUserId(createUser(request, password));
+        User user = teacherCommandUserPort.saveUserAndGetUser(createUser(request, password));
 
-        Company company = createCompany(request, userId);
+        Company company = createCompany(request, user.getId());
         teacherCommandCompanyPort.saveCompany(company);
+
+        List<String> values = List.of(user.getEmail(), password);
+        sendMailPort.sendAuthCode(user.getEmail(), values, EmailType.CREATE_COMPANY);
 
         return new NewCompanyResponse(password);
     }
