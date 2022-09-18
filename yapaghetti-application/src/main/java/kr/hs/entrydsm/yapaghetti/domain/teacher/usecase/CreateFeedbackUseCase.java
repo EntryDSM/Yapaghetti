@@ -43,6 +43,6 @@ public class CreateFeedbackUseCase implements CreateFeedbackPort {
 
         User user = teacherQueryUserPort.queryUserById(request.getStudentId());
 
-        sendMailPort.sendAuthCode(user.getEmail(), List.of(), EmailType.ARRIVED_FEEDBACK);
+        sendMailPort.sendAuthCode(user.getEmail(), null, EmailType.ARRIVED_FEEDBACK);
     }
 }
