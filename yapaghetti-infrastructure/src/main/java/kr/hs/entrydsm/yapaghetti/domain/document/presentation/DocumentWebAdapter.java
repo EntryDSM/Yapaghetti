@@ -19,6 +19,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocumentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
@@ -40,7 +41,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -68,8 +68,8 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
-        createLocalDocumentPort.execute(
+    public CreateLocalDocumentResponse createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
+        return createLocalDocumentPort.execute(
                 new DomainCreateLocalDocumentRequest(request.getPreviewImagePath(), request.getContent())
         );
     }
@@ -141,9 +141,9 @@ public class DocumentWebAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/stay/reject/{document-id}")
     public void rejectStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        rejectStayDocumentPort.execute(documentId);    
+        rejectStayDocumentPort.execute(documentId);
     }
-    
+
     @PatchMapping("/stay")
     public void updateStayDocument(@RequestBody @Valid WebUpdateStayDocumentRequest request) {
         updateStayDocumentPort.execute(
