@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.usecase;
 
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherRandomStringPort;
@@ -30,6 +31,9 @@ public class ResetPasswordTest {
     @Mock
     TeacherSecurityPort teacherSecurityPort;
 
+    @Mock
+    SendMailPort sendMailPort;
+
     @InjectMocks
     ChangeCompanyPasswordUseCase resetCompanyPasswordUseCase;
 
@@ -37,13 +41,20 @@ public class ResetPasswordTest {
     public void execute() {
 
         UUID companyId = UUID.randomUUID();
+        String email = "test@dsm.hs.kr";
+        String password = "password";
+
+        given(teacherRandomStringPort.getRandomPassword())
+            .willReturn(password);
 
         given(teacherQueryUserPort.queryUserById(companyId))
                 .willReturn(
                         User.builder()
                                 .id(companyId)
+                                .email(email)
                                 .build()
                 );
+
 
         resetCompanyPasswordUseCase.execute(companyId);
 

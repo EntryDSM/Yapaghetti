@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
+import kr.hs.entrydsm.yapaghetti.domain.auth.spi.SendMailPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
@@ -32,6 +33,9 @@ class RequestLocalDocumentToPublicUseCaseTest {
     @Mock
     CommandDocumentPort commandDocumentPort;
 
+    @Mock
+    SendMailPort sendMailPort;
+
     @InjectMocks
     RequestLocalDocumentToPublicUseCase requestLocalDocumentToPublicUseCase;
 
@@ -39,6 +43,8 @@ class RequestLocalDocumentToPublicUseCaseTest {
     void requestLocalDocumentToPublic() {
         UUID userId = UUID.randomUUID();
         UUID documentId = UUID.randomUUID();
+        String email = "test@dsm.hs.kr";
+        String name = "name";
 
         given(documentSecurityPort.getCurrentUserId())
                 .willReturn(userId);
@@ -46,6 +52,7 @@ class RequestLocalDocumentToPublicUseCaseTest {
                 .willReturn(
                         User.builder()
                                 .id(userId)
+                                .name(name)
                                 .build()
                 );
         given(queryDocumentPort
@@ -55,6 +62,8 @@ class RequestLocalDocumentToPublicUseCaseTest {
                                 .id(documentId)
                                 .build()
                 );
+        given(documentQueryUserPort.getTeacherEmail())
+                .willReturn(email);
 
         requestLocalDocumentToPublicUseCase.execute(documentId);
     }
