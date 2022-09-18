@@ -32,19 +32,19 @@ public class AwsSESAdapter implements SendMailPort {
 		Map<String, String> params = new HashMap<>();
 
 		switch (emailType) {
-			case CERTIFICATION_EMAIL -> {
+			case CERTIFICATION_EMAIL: {
 				params.put("code", values.get(0));
-			}
-			case CREATE_COMPANY -> {
+			} break;
+			case CREATE_COMPANY: {
 				params.put("account_id", values.get(0));
 				params.put("password", values.get(0));
-			}
-			case COMPLETED_DOCUMENT_SUBMISSION -> {
+			} break;
+			case COMPLETED_DOCUMENT_SUBMISSION: {
 				params.put("student", values.get(0));
-			}
-			case RESET_PASSWORD -> {
+			} break;
+			case RESET_PASSWORD: {
 				params.put("new_password", values.get(0));
-			}
+			} break;
 		}
 
 		String templateName = emailType.getTemplateName();
