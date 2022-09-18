@@ -121,9 +121,9 @@ public class DocumentWebAdapter {
         deleteLocalDocumentPort.execute(documentId);
     }
 
-    @GetMapping("/stay/{document-id}")
-    public QueryStayDocumentResponse getStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        return queryStayDocumentPort.execute(documentId);
+    @GetMapping("/stay/{student-id}")
+    public QueryStayDocumentResponse getStayDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        return queryStayDocumentPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

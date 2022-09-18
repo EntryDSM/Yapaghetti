@@ -22,10 +22,10 @@ public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
     private final DocumentQueryFeedbackPort queryFeedbackPort;
 
     @Override
-    public QueryStayDocumentResponse execute(UUID documentId) {
-        Document stayDocument = queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY);
+    public QueryStayDocumentResponse execute(UUID studentId) {
+        Document stayDocument = queryDocumentPort.queryDocumentAllByUserIdAndType(studentId, DocumentType.STAY).get(0);
 
-        List<FeedbackElement> feedbackList = queryFeedbackPort.queryFeedbackByDocumentId(documentId)
+        List<FeedbackElement> feedbackList = queryFeedbackPort.queryFeedbackByDocumentId(stayDocument.getId())
                 .stream()
                 .map(f -> new FeedbackElement(f.getSequence(), f.getComment(), f.getIsApply()))
                 .collect(Collectors.toList());
