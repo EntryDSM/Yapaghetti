@@ -28,13 +28,13 @@ class RejectStayDocumentUseCaseTest {
 
     @Test
     void rejectDocument() {
-        UUID documentId = UUID.randomUUID();
+        UUID studentId = UUID.randomUUID();
 
-        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
+        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.STAY)).willReturn(
                 Document.builder()
                         .build()
         );
 
-        rejectStayDocumentUseCase.execute(documentId);
+        rejectStayDocumentUseCase.execute(studentId);
     }
 }

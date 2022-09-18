@@ -31,7 +31,7 @@ class ApproveStayDocumentUseCaseTest {
         UUID documentId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.STAY)).willReturn(
+        given(queryDocumentPort.queryDocumentByUserIdAndType(userId, DocumentType.STAY)).willReturn(
                 Document.builder()
                         .id(documentId)
                         .previewImagePath("testPreviewImagePath")
@@ -42,6 +42,6 @@ class ApproveStayDocumentUseCaseTest {
                         .build()
         );
 
-        approveStayDocumentUseCase.execute(documentId);
+        approveStayDocumentUseCase.execute(userId);
     }
 }
