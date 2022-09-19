@@ -19,6 +19,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformat
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +44,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
+    @Transactional
     public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum) {
         QTagEntity QMajorTag = new QTagEntity("majorTag");
         QTagEntity QSkillTag = new QTagEntity("skillTag");
@@ -100,6 +102,7 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
+    @Transactional
     public List<StudentElementByGradeClassNum> queryStudentListByGradeAndClassNumAndDocStatus(
             Integer grade, Integer classNum, DocumentType docStatus
     ) {
