@@ -9,6 +9,7 @@ import kr.hs.entrydsm.yapaghetti.domain.student.spi.CommandStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentCommandUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentRandomStringPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserAlreadyExistsException;
@@ -22,7 +23,7 @@ public class BetaCreateUserUseCase implements BetaCreateUserPort {
 	private final StudentQueryUserPort studentQueryUserPort;
 	private final StudentRandomStringPort studentRandomStringPort;
 	private final CommandStudentPort commandStudentPort;
-
+	private final StudentSecurityPort studentSecurityPort;
 
 	@Override
 	public BetaCreateUserResponse execute(String email, int classNum, int number, String name, String phoneNumber) {
@@ -31,10 +32,11 @@ public class BetaCreateUserUseCase implements BetaCreateUserPort {
 		}
 
 		String password = studentRandomStringPort.getRandomPassword();
+		String encodedPassword = studentSecurityPort.encodePassword(password);
 
 		User user = User.builder()
 			.email(email)
-			.password(password)
+			.password(encodedPassword)
 			.name(name)
 			.location("대덕소프트웨어마이스터고")
 			.role(UserRole.STUDENT)
