@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 @Getter
 @NoArgsConstructor
@@ -17,19 +16,19 @@ public class BetaCreateStudentRequest {
 	@NotBlank
 	private String email;
 
-	@Size(max = 4)
+	@Max(4)
 	@NotNull
 	private int classNum;
 
-	@Size(max = 20)
+	@Max(20)
 	@NotNull
 	private int number;
 
-	@Length(max = 10)
+	@Size(max = 10)
 	@NotBlank
 	private String name;
 
-	@Length(max = 11)
+	@Size(max = 11)
 	@NotBlank
 	private String phoneNumber;
 }
