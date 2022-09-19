@@ -7,9 +7,6 @@ spring:
     url: ${JDBC_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    hikari:
-      maximum-pool-size: 20
-      max-lifetime: 180000
 
   jpa:
     database: mysql
