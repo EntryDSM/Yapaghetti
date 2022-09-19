@@ -1,5 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
+import java.util.UUID;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.ApproveStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CancelStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
@@ -38,10 +41,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @RequestMapping("/documents")
 @RestController
@@ -70,9 +69,9 @@ public class DocumentWebAdapter {
         return createLocalDocumentPort.execute();
     }
 
-    @GetMapping("/public/{document-id}")
-    public QueryDocumentResponse getPublicDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        return queryPublicDocumentPort.execute(documentId);
+    @GetMapping("/public/{student-id}")
+    public QueryDocumentResponse getPublicDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        return queryPublicDocumentPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
