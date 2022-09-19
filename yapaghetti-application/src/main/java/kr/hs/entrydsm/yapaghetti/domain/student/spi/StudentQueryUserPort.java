@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface StudentQueryUserPort {
     User queryUserById(UUID id);
+    boolean existsUserByEmail(String email);
+    User queryUserByEmail(String email);
 }
