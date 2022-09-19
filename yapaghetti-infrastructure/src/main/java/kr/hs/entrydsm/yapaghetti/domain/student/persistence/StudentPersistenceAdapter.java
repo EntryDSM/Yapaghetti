@@ -88,8 +88,9 @@ public class StudentPersistenceAdapter implements StudentPort {
         if (!tagRepository.existsById(student.getTagId())) {
             throw TagNotFoundException.EXCEPTION;
         }
-
-        studentRepository.save(studentMapper.domainToEntity(student));
+        StudentEntity studentEntity = studentMapper.domainToEntity(student);
+        studentRepository.save(studentEntity);
+        System.out.println(1);
     }
 
     @Override
