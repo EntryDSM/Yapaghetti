@@ -90,7 +90,6 @@ public class StudentPersistenceAdapter implements StudentPort {
         }
         StudentEntity studentEntity = studentMapper.domainToEntity(student);
         studentRepository.save(studentEntity);
-        System.out.println(1);
     }
 
     @Override
