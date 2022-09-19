@@ -4,4 +4,6 @@ import java.util.UUID;
 
 public interface StudentSecurityPort {
     UUID getCurrentUserId();
+
+    String encodePassword(String password);
 }

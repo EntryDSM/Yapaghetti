@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity;
 
+import javax.persistence.CascadeType;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.TagEntity;
@@ -36,7 +37,7 @@ public class StudentEntity {
     private UUID userId;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", columnDefinition = "BINARY(16)")
     private UserEntity userEntity;
 
