@@ -3,6 +3,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentCommandFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.QueryDocumentPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +23,9 @@ class ApproveStayDocumentUseCaseTest {
 
     @Mock
     CommandDocumentPort commandDocumentPort;
+
+    @Mock
+    DocumentCommandFeedbackPort documentCommandFeedbackPort;
 
     @InjectMocks
     ApproveStayDocumentUseCase approveStayDocumentUseCase;

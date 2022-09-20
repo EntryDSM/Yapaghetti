@@ -1,5 +1,8 @@
 package kr.hs.entrydsm.yapaghetti.domain.feedback.persistence;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
+import kr.hs.entrydsm.yapaghetti.domain.document.mapper.DocumentMapper;
+import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.exception.FeedbackNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.mapper.FeedbackMapper;
@@ -7,6 +10,7 @@ import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.FeedbackPort;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,5 +43,11 @@ public class FeedbackPersistenceAdapter implements FeedbackPort {
                 .stream()
                 .map(feedbackMapper::entityToDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByDocumentId(UUID documentId) {
+        feedbackRepository.deleteAllByIdDocumentId(documentId);
     }
 }
