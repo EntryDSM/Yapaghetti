@@ -29,7 +29,7 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
                 Document.builder()
                         // TODO previewImagePath랑 content값은 더미 값임.
                         .previewImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/eaa93c77-99b8-45e2-ae09-eec58cecf8fa.png")
-                        .content("[{\"id\":\"\",\"args\":{\"tagType\":\"Profile\",\"github\":\"https://github.com/\",\"name\":\"12314124\",\"email\":\"default@gmail.com\",\"phone\":\"010-0000-0000\",\"imageUrl\":\"\",\"feedback\":{\"isRead\":false,\"feedInfo\":\"\"},\"isTeacher\":false}}]")
+                        .content("[{\"id\":\"default_id\",\"args\":{\"tagType\":\"Profile\",\"github\":\"https://github.com/\",\"name\":\"12314124\",\"email\":\"default@gmail.com\",\"phone\":\"010-0000-0000\",\"imageUrl\":\"\",\"feedback\":{\"isRead\":false,\"feedInfo\":\"\"},\"isTeacher\":false}}]")
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)
