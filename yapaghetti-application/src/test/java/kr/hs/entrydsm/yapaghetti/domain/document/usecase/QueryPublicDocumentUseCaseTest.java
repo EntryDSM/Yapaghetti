@@ -24,15 +24,16 @@ class QueryPublicDocumentUseCaseTest {
 
     @Test
     void queryPublicDocument() {
-        UUID documentId = UUID.randomUUID();
+        UUID studentId = UUID.randomUUID();
         String content = "testContent";
 
-        given(queryDocumentPort.queryDocumentByIdAndType(documentId, DocumentType.PUBLIC)).willReturn(
-                Document.builder()
-                        .content(content)
-                        .build()
-        );
+        given(queryDocumentPort.queryDocumentByUserIdAndType(studentId, DocumentType.PUBLIC))
+                .willReturn(
+                        Document.builder()
+                                .content(content)
+                                .build()
+                );
 
-        queryPublicDocumentUseCase.execute(documentId);
+        queryPublicDocumentUseCase.execute(studentId);
     }
 }
