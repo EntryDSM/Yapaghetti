@@ -72,6 +72,8 @@ public class MySkillPersistenceAdapter implements MySkillPort {
                 .fetch();
     }
 
+    @Override
+    @Transactional
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }
