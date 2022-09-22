@@ -2,6 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CreateLocalDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.Document;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
@@ -22,14 +23,13 @@ public class CreateLocalDocumentUseCase implements CreateLocalDocumentPort {
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public CreateLocalDocumentResponse execute() {
+    public CreateLocalDocumentResponse execute(DomainCreateDocumentRequest request) {
         User user = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
 
         UUID documentId = commandDocumentPort.saveDocumentAndGetId(
                 Document.builder()
-                        // TODO previewImagePath랑 content값은 더미 값임.
-                        .previewImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/eaa93c77-99b8-45e2-ae09-eec58cecf8fa.png")
-                        .content("[{\"id\":\"default_id\",\"args\":{\"tagType\":\"Profile\",\"github\":\"https://github.com/\",\"name\":\"12314124\",\"email\":\"default@gmail.com\",\"phone\":\"010-0000-0000\",\"imageUrl\":\"\",\"feedback\":{\"isRead\":false,\"feedInfo\":\"\"},\"isTeacher\":false}}]")
+                        .content(request.getContent())
+                        .previewImagePath(request.getPreviewImagePath())
                         .type(DocumentType.LOCAL)
                         .userId(user.getId())
                         .isRejected(false)

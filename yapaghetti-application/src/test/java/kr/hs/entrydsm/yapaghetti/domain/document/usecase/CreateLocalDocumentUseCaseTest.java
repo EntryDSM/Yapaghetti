@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.usecase;
 
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.CommandDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.spi.DocumentSecurityPort;
@@ -27,16 +28,30 @@ class CreateLocalDocumentUseCaseTest {
     @Mock
     DocumentSecurityPort documentSecurityPort;
 
+    @Mock
+    DomainCreateDocumentRequest domainCreateDocumentRequest;
+
     @InjectMocks
     CreateLocalDocumentUseCase createLocalDocumentUseCase;
 
     @Test
     void createLocalDocument() {
+        UUID userId = UUID.randomUUID();
+        String content = "testContent";
+        String previewImagePath = "testPreviewImagePath";
+
+        given(domainCreateDocumentRequest.getContent())
+                .willReturn(content);
+
+        given(domainCreateDocumentRequest.getPreviewImagePath())
+                .willReturn(previewImagePath);
+
         given(documentSecurityPort.getCurrentUserId())
-                .willReturn(UUID.randomUUID());
+                .willReturn(userId);
+
         given(documentQueryUserPort.queryUserById(any()))
                 .willReturn(User.builder().build());
 
-        createLocalDocumentUseCase.execute();
+        createLocalDocumentUseCase.execute(domainCreateDocumentRequest);
     }
 }
