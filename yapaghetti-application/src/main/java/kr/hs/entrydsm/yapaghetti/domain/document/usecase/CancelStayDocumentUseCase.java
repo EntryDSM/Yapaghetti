@@ -17,18 +17,14 @@ import java.util.UUID;
 @UseCase
 public class CancelStayDocumentUseCase implements CancelStayDocumentPort {
 
-    private final DocumentQueryUserPort documentQueryUserPort;
-    private final DocumentSecurityPort documentSecurityPort;
     private final QueryDocumentPort queryDocumentPort;
     private final CommandDocumentPort commandDocumentPort;
 
     @Override
-    public void execute(UUID documentId) {
-        User currentUser = documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId());
+    public void execute(UUID studentId) {
 
-        Document document = queryDocumentPort.queryDocumentByIdAndUserIdAndType(
-                documentId,
-                currentUser.getId(),
+        Document document = queryDocumentPort.queryDocumentByUserIdAndType(
+                studentId,
                 DocumentType.STAY
         );
 
