@@ -1,8 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.document.presentation;
 
-import java.util.UUID;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.ApproveStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CancelStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.CopyPublicDocumentPort;
@@ -19,6 +16,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.RejectStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainUpdateStayDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.CreateLocalDocumentResponse;
@@ -27,6 +25,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryLocalDocu
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryProtectedDocumentUrlResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayAndPublicDocumentPreviewResponse;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.response.QueryStayDocumentResponse;
+import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebCreateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateLocalDocumentRequest;
 import kr.hs.entrydsm.yapaghetti.domain.document.presentation.dto.request.WebUpdateStayDocumentRequest;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +39,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/documents")
@@ -65,8 +68,13 @@ public class DocumentWebAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public CreateLocalDocumentResponse createLocalDocument() {
-        return createLocalDocumentPort.execute();
+    public CreateLocalDocumentResponse createLocalDocument(@RequestBody @Valid WebCreateLocalDocumentRequest request) {
+        return createLocalDocumentPort.execute(
+                new DomainCreateDocumentRequest(
+                        request.getContent(),
+                        request.getPreviewImagePath()
+                )
+        );
     }
 
     @GetMapping("/public/{student-id}")
