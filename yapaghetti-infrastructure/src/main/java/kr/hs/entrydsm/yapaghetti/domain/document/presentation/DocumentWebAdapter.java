@@ -130,9 +130,9 @@ public class DocumentWebAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/cancel/{document-id}")
-    public void cancelStayDocument(@PathVariable("document-id") @NotNull UUID documentId) {
-        cancelStayDocumentPort.execute(documentId);
+    @PatchMapping("/cancel/{student-id}")
+    public void cancelStayDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        cancelStayDocumentPort.execute(studentId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
