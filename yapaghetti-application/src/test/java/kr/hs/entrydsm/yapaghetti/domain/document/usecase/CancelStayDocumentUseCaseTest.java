@@ -21,16 +21,10 @@ import static org.mockito.BDDMockito.given;
 class CancelStayDocumentUseCaseTest {
 
     @Mock
-    DocumentQueryUserPort documentQueryUserPort;
-
-    @Mock
     CommandDocumentPort commandDocumentPort;
 
     @Mock
     QueryDocumentPort queryDocumentPort;
-
-    @Mock
-    DocumentSecurityPort documentSecurityPort;
 
     @InjectMocks
     CancelStayDocumentUseCase cancelStayDocumentUseCase;
@@ -40,25 +34,18 @@ class CancelStayDocumentUseCaseTest {
         UUID documentId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        given(documentSecurityPort.getCurrentUserId())
-                .willReturn(userId);
-        given(documentQueryUserPort.queryUserById(documentSecurityPort.getCurrentUserId()))
-                .willReturn(
-                        User.builder()
-                                .id(userId)
-                                .build()
-                );
-        given(queryDocumentPort.queryDocumentByIdAndUserIdAndType(
-                documentId,
+        given(queryDocumentPort.queryDocumentByUserIdAndType(
                 userId,
                 DocumentType.STAY)
         ).willReturn(
                 Document.builder()
                         .id(documentId)
+                        .userId(userId)
+                        .type(DocumentType.STAY)
                         .build()
         );
 
-        cancelStayDocumentUseCase.execute(documentId);
+        cancelStayDocumentUseCase.execute(userId);
     }
 
 }
