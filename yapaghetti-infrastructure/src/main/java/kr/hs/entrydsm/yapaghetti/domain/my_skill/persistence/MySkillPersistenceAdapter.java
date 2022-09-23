@@ -7,6 +7,10 @@ import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntit
 import static kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.QMySkillEntity.mySkillEntity;
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.MySkillPort;
 import static kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.QStudentEntity.studentEntity;
+
+import static com.querydsl.core.types.Projections.constructor;
+
+import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MySkillElement;
 import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
 import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
 
@@ -14,6 +18,7 @@ import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -49,6 +54,26 @@ public class MySkillPersistenceAdapter implements MySkillPort {
             .collect(Collectors.toList());
     }
 
+    @Override
+    public List<MySkillElement> queryTagIdAndNameByUserId(UUID userId) {
+        QTagEntity skillTag = new QTagEntity("skillTag");
+
+        return jpaQueryFactory
+                .select(
+                    constructor(
+                            MySkillElement.class,
+                            skillTag.id,
+                            skillTag.name
+                    )
+                )
+                .from(mySkillEntity)
+                .where(mySkillEntity.userEntity.id.eq(userId))
+                .leftJoin(mySkillEntity.tagEntity, skillTag)
+                .fetch();
+    }
+
+    @Override
+    @Transactional
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }

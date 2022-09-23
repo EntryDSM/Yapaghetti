@@ -1,12 +1,14 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.usecase;
 
 import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MySkillElement;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.QueryStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryMySkillPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryTagPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.spi.StudentSecurityPort;
+import kr.hs.entrydsm.yapaghetti.domain.tag.api.dto.response.TagElement;
 import kr.hs.entrydsm.yapaghetti.domain.tag.domain.Tag;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,6 +48,7 @@ public class GetMyInfoUseCaseTest {
 	void execute() {
 		UUID userId = UUID.randomUUID();
 		UUID tagId = UUID.randomUUID();
+		List<MySkillElement> tagElements = new ArrayList<>();
 		String tagName = "tagName";
 
 		given(studentSecurityPort.getCurrentUserId())
@@ -59,12 +63,9 @@ public class GetMyInfoUseCaseTest {
 			.willReturn(
 				User.builder().build()
 			);
-		given(studentQueryMySkillPort.queryMySkillByUserId(userId))
+		given(studentQueryMySkillPort.queryTagIdAndNameByUserId(userId))
 			.willReturn(
-				List.of(MySkill.builder()
-				.userId(userId)
-				.tagId(tagId)
-				.build())
+					tagElements
 			);
 		given(studentQueryTagPort.queryTagById(tagId))
 			.willReturn(
