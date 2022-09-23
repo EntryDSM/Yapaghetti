@@ -1,56 +1,64 @@
 package kr.hs.entrydsm.yapaghetti.global.aop;
 
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource;
+import org.springframework.transaction.interceptor.RollbackRuleAttribute;
+import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 @RequiredArgsConstructor
-@Component
+@Configuration
 @Aspect
 public class TransactionAspect {
 
-    private final PlatformTransactionManager transactionManager;
+    private final TransactionManager transactionManager;
+    private final MatchAlwaysTransactionAttributeSource source;
+    private final RuleBasedTransactionAttribute transactionAttribute;
 
-    @Pointcut("@annotation(kr.hs.entrydsm.yapaghetti.annotation.UseCase)")
-    public void getUseCases() {
+    @Bean
+    public Advisor transactionAdviceAdvisor() {
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression("@within(kr.hs.entrydsm.yapaghetti.annotation.UseCase)");
+
+        return new DefaultPointcutAdvisor(pointcut, transactionAdvice());
     }
 
-    @Pointcut("@annotation(kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase)")
-    public void getReadOnlyUseCases() {
+    @Bean
+    public Advisor readOnlyTransactionAdviceAdvisor() {
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression("@within(kr.hs.entrydsm.yapaghetti.annotation.ReadOnlyUseCase)");
+
+        return new DefaultPointcutAdvisor(pointcut, readOnlyTransactionAdvice());
     }
 
-    @Around("getUseCases()")
-    public Object applyTransaction(ProceedingJoinPoint joinPoint) {
-        TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
-        try {
-            Object object = joinPoint.proceed();
-            transactionManager.commit(transaction);
-            return object;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            transactionManager.rollback(transaction);
-            return null;
-        }
+    @Bean
+    public TransactionInterceptor transactionAdvice() {
+        transactionAttribute.setName("Transaction");
+        transactionAttribute.setRollbackRules(
+                Collections.singletonList(new RollbackRuleAttribute(Exception.class))
+        );
+        source.setTransactionAttribute(transactionAttribute);
+
+        return new TransactionInterceptor(transactionManager, source);
     }
 
-    @Around("getReadOnlyUseCases()")
-    public Object applyReadOnlyTransaction(ProceedingJoinPoint joinPoint) {
-        try {
-            ThreadLocal.withInitial(() -> new AtomicInteger(0)).get().incrementAndGet();
-            return joinPoint.proceed();
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            ThreadLocal.withInitial(() -> new AtomicInteger(0)).get().decrementAndGet();
-        }
+    @Bean
+    public TransactionInterceptor readOnlyTransactionAdvice() {
+        transactionAttribute.setName("Read-Only Transaction");
+        transactionAttribute.setReadOnly(true);
+        transactionAttribute.setRollbackRules(
+                Collections.singletonList(new RollbackRuleAttribute(Exception.class))
+        );
+        source.setTransactionAttribute(transactionAttribute);
+
+        return new TransactionInterceptor(transactionManager, source);
     }
 }

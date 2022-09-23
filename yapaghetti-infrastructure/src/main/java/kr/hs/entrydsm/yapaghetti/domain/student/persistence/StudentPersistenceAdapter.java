@@ -3,6 +3,8 @@ package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
+import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity;
@@ -18,11 +20,6 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementB
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.UUID;
-
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.core.types.Projections.constructor;
@@ -44,7 +41,6 @@ public class StudentPersistenceAdapter implements StudentPort {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    @Transactional
     public List<StudentElement> findStudentByNameAndMajorAndClassNum(String name, String majorTag, String classNum) {
         QTagEntity QMajorTag = new QTagEntity("majorTag");
         QTagEntity QSkillTag = new QTagEntity("skillTag");
@@ -102,7 +98,6 @@ public class StudentPersistenceAdapter implements StudentPort {
     }
 
     @Override
-    @Transactional
     public List<StudentElementByGradeClassNum> queryStudentListByGradeAndClassNumAndDocStatus(
             Integer grade, Integer classNum, DocumentType docStatus
     ) {
