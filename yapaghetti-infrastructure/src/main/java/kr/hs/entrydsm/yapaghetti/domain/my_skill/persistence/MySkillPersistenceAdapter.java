@@ -1,27 +1,22 @@
 package kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.mapper.MySkillMapper;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
-import static kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.QMySkillEntity.mySkillEntity;
-import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.MySkillPort;
-import static kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.QStudentEntity.studentEntity;
-
-import static com.querydsl.core.types.Projections.constructor;
-
-import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MySkillElement;
-import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
-
-import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
-import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
-import lombok.RequiredArgsConstructor;
-
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.domain.MySkill;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.mapper.MySkillMapper;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.MySkillEntity;
+import kr.hs.entrydsm.yapaghetti.domain.my_skill.spi.MySkillPort;
+import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.MySkillElement;
+import kr.hs.entrydsm.yapaghetti.domain.tag.exception.TagNotFoundException;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.TagRepository;
+import kr.hs.entrydsm.yapaghetti.domain.tag.persistence.entity.QTagEntity;
+import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
+import lombok.RequiredArgsConstructor;
+import static com.querydsl.core.types.Projections.constructor;
+import static kr.hs.entrydsm.yapaghetti.domain.my_skill.persistence.entity.QMySkillEntity.mySkillEntity;
+import static kr.hs.entrydsm.yapaghetti.domain.student.persistence.entity.QStudentEntity.studentEntity;
 
 @RequiredArgsConstructor
 @Adapter
@@ -50,8 +45,8 @@ public class MySkillPersistenceAdapter implements MySkillPort {
     @Override
     public List<MySkill> queryMySkillByUserId(UUID userId) {
         return mySkillRepository.findByUserEntityId(userId).stream()
-            .map(mySkillMapper::entityToDomain)
-            .collect(Collectors.toList());
+                .map(mySkillMapper::entityToDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,11 +55,11 @@ public class MySkillPersistenceAdapter implements MySkillPort {
 
         return jpaQueryFactory
                 .select(
-                    constructor(
-                            MySkillElement.class,
-                            skillTag.id,
-                            skillTag.name
-                    )
+                        constructor(
+                                MySkillElement.class,
+                                skillTag.id,
+                                skillTag.name
+                        )
                 )
                 .from(mySkillEntity)
                 .where(mySkillEntity.userEntity.id.eq(userId))
@@ -73,7 +68,6 @@ public class MySkillPersistenceAdapter implements MySkillPort {
     }
 
     @Override
-    @Transactional
     public void deleteAllMySKillByUserId(UUID userId) {
         mySkillRepository.deleteAllByUserEntityId(userId);
     }
