@@ -109,17 +109,17 @@ public class StudentPersistenceAdapter implements StudentPort {
 
         return jpaQueryFactory
                 .from(studentEntity)
-                .leftJoin(studentEntity.userEntity, userEntity)
-                .leftJoin(studentEntity.documentList, documentEntity)
-                .leftJoin(documentEntity.feedbackEntitySet, feedbackEntity)
-                .leftJoin(studentEntity.documentList, localDocumentEntity).on(localDocumentEntity.type.eq(LOCAL))
-                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
-                .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
                 .where(
                         docTypeEq(docStatus),
                         gradeEq(grade),
                         classNumEq(classNum)
                 )
+                .leftJoin(studentEntity.userEntity, userEntity)
+                .leftJoin(studentEntity.documentList, documentEntity)
+                .leftJoin(studentEntity.documentList, localDocumentEntity).on(localDocumentEntity.type.eq(LOCAL))
+                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
+                .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
+                .leftJoin(stayDocumentEntity.feedbackEntitySet, feedbackEntity)
                 .transform(
                         groupBy(studentEntity.userId)
                                 .list(
