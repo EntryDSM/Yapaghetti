@@ -45,9 +45,7 @@ public class BetaCreateUserUseCase implements BetaCreateUserPort {
 				.role(UserRole.STUDENT)
 				.isVisited(false)
                 .build();
-        studentCommandUserPort.saveUser(user);
-
-        UUID id = studentQueryUserPort.queryUserByEmail(email).getId();
+        UUID id = studentCommandUserPort.saveUserAndGetId(user);
 
         Student student = Student.builder()
                 .userId(id)

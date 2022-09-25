@@ -31,8 +31,8 @@ public class UserPersistenceAdapter implements UserPort {
     @Override
     public String getTeacherEmail() {
         return userRepository.findByRole(UserRole.TEACHER)
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION)
-            .getEmail();
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION)
+                .getEmail();
     }
 
     @Override
@@ -57,11 +57,16 @@ public class UserPersistenceAdapter implements UserPort {
     }
 
     @Override
+    public UUID saveUserAndGetId(User user) {
+        return userRepository.save(userMapper.domainToEntity(user)).getId();
+    }
+
+    @Override
     public User saveUserAndGetUser(User user) {
         return userMapper.entityToDomain(
-            userRepository.save(
-                userMapper.domainToEntity(user)
-            )
+                userRepository.save(
+                        userMapper.domainToEntity(user)
+                )
         );
     }
 }
