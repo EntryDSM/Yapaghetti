@@ -30,8 +30,8 @@ public class UserMapper {
                 .profileImagePath(user.getProfileImagePath())
                 .phoneNumber(user.getPhoneNumber())
                 .location(user.getLocation())
-                .isVisited(user.isVisited())
                 .role(user.getRole())
+                .isVisited(user.isVisited())
                 .build();
 
     }
