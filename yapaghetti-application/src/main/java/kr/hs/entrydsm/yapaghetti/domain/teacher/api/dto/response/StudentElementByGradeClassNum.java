@@ -11,21 +11,20 @@ public class StudentElementByGradeClassNum {
     private final String gcn;
     private final String profileImagePath;
     private final boolean feedbackStatus;
-    private final boolean isRejected;
+    private final boolean isSubmitted;
     private final boolean publicStatus;
 
 
     public StudentElementByGradeClassNum(UUID studentId, String name, String profileImagePath,
                                          String grade, String classNum, Integer number,
-                                         Boolean feedbackStatus,Boolean stayExist, Boolean isRejected,
-                                         Boolean publicExist
+                                         Boolean feedbackStatus,Boolean stayExist, Boolean publicExist
     ) {
         this.studentId = studentId;
         this.name = name;
         this.gcn = grade + classNum + String.format("%02d", number);
         this.profileImagePath = profileImagePath;
         this.feedbackStatus = feedbackStatus;
-        this.isRejected = stayExist && isRejected;
+        this.isSubmitted = stayExist;
         this.publicStatus = publicExist;
     }
 }

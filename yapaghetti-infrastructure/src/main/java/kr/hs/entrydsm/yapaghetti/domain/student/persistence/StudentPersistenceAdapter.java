@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.core.types.Projections.constructor;
+import static kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType.LOCAL;
 import static kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType.PUBLIC;
 import static kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType.STAY;
 import static kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity.documentEntity;
@@ -104,19 +105,21 @@ public class StudentPersistenceAdapter implements StudentPort {
         QDocumentEntity documentEntity = new QDocumentEntity("documentEntity");
         QDocumentEntity publicDocumentEntity = new QDocumentEntity("publicDocumentEntity");
         QDocumentEntity stayDocumentEntity = new QDocumentEntity("stayDocumentEntity");
+        QDocumentEntity localDocumentEntity = new QDocumentEntity("localDocumentEntity");
 
         return jpaQueryFactory
                 .from(studentEntity)
-                .leftJoin(studentEntity.userEntity, userEntity)
-                .leftJoin(studentEntity.documentList, documentEntity)
-                .leftJoin(documentEntity.feedbackEntitySet, feedbackEntity)
-                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
-                .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
                 .where(
                         docTypeEq(docStatus),
                         gradeEq(grade),
                         classNumEq(classNum)
                 )
+                .leftJoin(studentEntity.userEntity, userEntity)
+                .leftJoin(studentEntity.documentList, documentEntity)
+                .leftJoin(studentEntity.documentList, localDocumentEntity).on(localDocumentEntity.type.eq(LOCAL))
+                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
+                .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
+                .leftJoin(stayDocumentEntity.feedbackEntitySet, feedbackEntity)
                 .transform(
                         groupBy(studentEntity.userId)
                                 .list(
@@ -130,7 +133,6 @@ public class StudentPersistenceAdapter implements StudentPort {
                                                 studentEntity.number,
                                                 feedbackEntity.isNotNull(),
                                                 stayDocumentEntity.isNotNull(),
-                                                stayDocumentEntity.isRejected,
                                                 publicDocumentEntity.isNotNull()
                                         )
                                 )
