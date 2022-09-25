@@ -20,8 +20,6 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 public class TransactionAspect {
 
     private final TransactionManager transactionManager;
-    private final MatchAlwaysTransactionAttributeSource source;
-    private final RuleBasedTransactionAttribute transactionAttribute;
 
     @Bean
     public Advisor transactionAdviceAdvisor() {
@@ -41,6 +39,9 @@ public class TransactionAspect {
 
     @Bean
     public TransactionInterceptor transactionAdvice() {
+        MatchAlwaysTransactionAttributeSource source = new MatchAlwaysTransactionAttributeSource();
+        RuleBasedTransactionAttribute transactionAttribute = new RuleBasedTransactionAttribute();
+
         transactionAttribute.setName("Transaction");
         transactionAttribute.setRollbackRules(
                 Collections.singletonList(new RollbackRuleAttribute(Exception.class))
@@ -52,6 +53,9 @@ public class TransactionAspect {
 
     @Bean
     public TransactionInterceptor readOnlyTransactionAdvice() {
+        MatchAlwaysTransactionAttributeSource source = new MatchAlwaysTransactionAttributeSource();
+        RuleBasedTransactionAttribute transactionAttribute = new RuleBasedTransactionAttribute();
+
         transactionAttribute.setName("Read-Only Transaction");
         transactionAttribute.setReadOnly(true);
         transactionAttribute.setRollbackRules(
