@@ -28,32 +28,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentWebAdapter {
 
-	private final QueryMyInfoPort queryMyInfoPort;
-	private final ReflectFeedbackPort reflectFeedbackPort;
-	private final UpdateMyInfoPort updateMyInfoPort;
-	private final BetaCreateUserPort betaCreateUserPort;
+    private final QueryMyInfoPort queryMyInfoPort;
+    private final ReflectFeedbackPort reflectFeedbackPort;
+    private final UpdateMyInfoPort updateMyInfoPort;
+    private final BetaCreateUserPort betaCreateUserPort;
 
-	@GetMapping
-	public MyInfoResponse queryMyInfo() {
-		return queryMyInfoPort.execute();
-	}
+    @GetMapping
+    public MyInfoResponse queryMyInfo() {
+        return queryMyInfoPort.execute();
+    }
 
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PatchMapping("/feedback/{sequence}")
-	public void reflectFeedback(@PathVariable("sequence") @NonNull Integer sequence) {
-		reflectFeedbackPort.execute(sequence);
-	}
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/feedback/{sequence}")
+    public void reflectFeedback(@PathVariable("sequence") @NonNull Integer sequence) {
+        reflectFeedbackPort.execute(sequence);
+    }
 
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PatchMapping()
-	public void updateMyInfo(@RequestBody @Valid WebUpdateMyInfoRequest request, @RequestParam @NonNull UpdateType type) {
-		updateMyInfoPort.execute(request.getValue(), type);
-	}
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping()
+    public void updateMyInfo(@RequestBody @Valid WebUpdateMyInfoRequest request, @RequestParam @NonNull UpdateType type) {
+        updateMyInfoPort.execute(request.getValue(), type);
+    }
 
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/beta")
-	public BetaCreateUserResponse betaCreateStudent(@RequestBody @Valid BetaCreateStudentRequest request) {
-		return betaCreateUserPort.execute(request.getEmail(), request.getClassNum(), request.getNumber(),
-			request.getName(), request.getPhoneNumber());
-	}
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/account")
+    public BetaCreateUserResponse betaCreateStudent(@RequestBody @Valid BetaCreateStudentRequest request) {
+        return betaCreateUserPort.execute(
+                request.getEmail(), request.getGrade(), request.getClassNum(), request.getNumber(),
+                request.getName(), request.getPhoneNumber(), request.getLocation(), request.getTagId()
+        );
+    }
 }

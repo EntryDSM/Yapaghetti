@@ -96,7 +96,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/students").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/students/feedback/{sequence}").hasRole(STUDENT)
                 .antMatchers(HttpMethod.PATCH, "/students").hasRole(STUDENT)
-                .antMatchers(HttpMethod.POST, "/students/beta").permitAll()
+                .antMatchers(HttpMethod.POST, "/students/account").permitAll()
 
                 // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
