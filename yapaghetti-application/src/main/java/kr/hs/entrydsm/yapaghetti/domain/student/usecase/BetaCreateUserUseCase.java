@@ -1,5 +1,6 @@
 package kr.hs.entrydsm.yapaghetti.domain.student.usecase;
 
+import java.util.UUID;
 import kr.hs.entrydsm.yapaghetti.annotation.UseCase;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.BetaCreateUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.student.api.dto.response.BetaCreateUserResponse;
@@ -14,8 +15,6 @@ import kr.hs.entrydsm.yapaghetti.domain.user.domain.UserRole;
 import kr.hs.entrydsm.yapaghetti.domain.user.exception.UserAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @UseCase
 public class BetaCreateUserUseCase implements BetaCreateUserPort {
@@ -27,7 +26,10 @@ public class BetaCreateUserUseCase implements BetaCreateUserPort {
     private final StudentSecurityPort studentSecurityPort;
 
     @Override
-    public BetaCreateUserResponse execute(String email, int classNum, int number, String name, String phoneNumber) {
+    public BetaCreateUserResponse execute(
+            String email, int grade, int classNum, int number,
+            String name, String phoneNumber, String location, UUID tagId
+    ) {
         if (studentQueryUserPort.existsUserByEmail(email)) {
             throw UserAlreadyExistsException.EXCEPTION;
         }
@@ -39,20 +41,20 @@ public class BetaCreateUserUseCase implements BetaCreateUserPort {
                 .email(email)
                 .password(encodedPassword)
                 .name(name)
-                .profileImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/69274ca6-55ee-4d3e-898a-107225c3fb05.jpeg")
-				.phoneNumber(phoneNumber)
-				.location("대덕소프트웨어마이스터고")
-				.role(UserRole.STUDENT)
-				.isVisited(false)
+                .profileImagePath("https://s3.ap-northeast-2.amazonaws.com/image.entrydsm.hs.kr/repo/profile/a1010c27-8ba1-413d-bee8-c1b0d0e4af71.png")
+                .phoneNumber(phoneNumber)
+                .location(location)
+                .role(UserRole.STUDENT)
+                .isVisited(false)
                 .build();
-        UUID id = studentCommandUserPort.saveUserAndGetId(user);
+        UUID userId = studentCommandUserPort.saveUserAndGetId(user);
 
         Student student = Student.builder()
-                .userId(id)
-                .grade(2)
+                .userId(userId)
+                .grade(grade)
                 .classNum(classNum)
                 .number(number)
-                .tagId(UUID.fromString("71c60818-be4a-4a2f-9329-92cd1d2aec0e"))
+                .tagId(tagId)
                 .build();
         commandStudentPort.saveStudent(student);
 
