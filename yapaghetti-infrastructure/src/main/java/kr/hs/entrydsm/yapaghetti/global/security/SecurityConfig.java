@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/teachers/student/{student-id}").hasRole(TEACHER)
 
                 // tags
-                .antMatchers(HttpMethod.POST, "/tags").hasRole(TEACHER)
+                .antMatchers(HttpMethod.POST, "/tags").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/tags/{tag-id}").hasRole(TEACHER)
                 .antMatchers(HttpMethod.POST, "/tags/my-skill").hasRole(STUDENT)
                 .antMatchers(HttpMethod.POST, "/tags/major").hasRole(STUDENT)
