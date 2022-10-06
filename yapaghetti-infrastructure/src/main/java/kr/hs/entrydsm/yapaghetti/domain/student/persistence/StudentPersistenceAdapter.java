@@ -114,7 +114,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                         gradeEq(grade),
                         classNumEq(classNum)
                 )
-                .orderBy(studentEntity.grade.desc(), studentEntity.classNum.desc(), studentEntity.number.desc())
+                .orderBy(studentEntity.grade.desc(), studentEntity.classNum.asc(), studentEntity.number.asc())
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.documentList, localDocumentEntity).on(localDocumentEntity.type.eq(LOCAL))
