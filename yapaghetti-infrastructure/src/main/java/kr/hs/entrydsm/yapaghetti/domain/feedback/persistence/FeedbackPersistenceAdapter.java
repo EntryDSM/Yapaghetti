@@ -33,6 +33,13 @@ public class FeedbackPersistenceAdapter implements FeedbackPort {
     }
 
     @Override
+    public void deleteFeedbackByDocumentIdAndSequence(UUID documentId, Integer sequence) {
+        feedbackRepository.deleteByIdDocumentIdAndIdSequence(
+                documentId, sequence
+        );
+    }
+
+    @Override
     public List<Feedback> queryFeedbackByDocumentId(UUID documentId) {
         return feedbackRepository.findByIdDocumentId(documentId)
                 .stream()

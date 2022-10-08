@@ -15,4 +15,6 @@ public interface FeedbackRepository extends CrudRepository<FeedbackEntity, Feedb
     List<FeedbackEntity> findByIdDocumentId(UUID id_documentId);
 
     void deleteAllByIdDocumentId(UUID documentId);
+
+    void deleteByIdDocumentIdAndIdSequence(UUID documentId, Integer sequence);
 }
