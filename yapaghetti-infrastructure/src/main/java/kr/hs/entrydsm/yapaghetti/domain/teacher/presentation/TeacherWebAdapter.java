@@ -1,16 +1,19 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
+import com.amazonaws.services.ec2.model.BundleTaskError;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ChangeCompanyPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteCompanyPort;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.DeleteStudentPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.GetCompanyDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryCompanyListPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.QueryStudentDetailPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.UpdateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainDeleteFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainNewCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.TeacherQueryStudentListPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainUpdateCompanyRequest;
@@ -22,6 +25,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailRe
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebDeleteFeedbackRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebUpdateCompanyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,6 +58,7 @@ public class TeacherWebAdapter {
     private final ChangeCompanyPasswordPort changeCompanyPasswordPort;
     private final QueryStudentDetailPort queryStudentDetailPort;
     private final QueryCompanyListPort queryCompanyListPort;
+    private final DeleteFeedbackPort deleteFeedbackPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -146,4 +151,17 @@ public class TeacherWebAdapter {
     public void deleteCompany(@PathVariable("company-id") @NotNull UUID companyId) {
         deleteCompanyPort.execute(companyId);
     }
+
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/feedback/")
+    public void deleteFeedback(@RequestBody @Valid WebDeleteFeedbackRequest request) {
+        deleteFeedbackPort.execute(
+                new DomainDeleteFeedbackRequest(
+                        request.getDocumentId(),
+                        request.getSequence()
+                )
+        );
+    }
+
 }
