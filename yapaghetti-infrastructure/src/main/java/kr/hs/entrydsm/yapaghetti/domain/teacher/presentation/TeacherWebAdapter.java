@@ -154,7 +154,7 @@ public class TeacherWebAdapter {
 
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/feedback/")
+    @DeleteMapping("/feedback")
     public void deleteFeedback(@RequestBody @Valid WebDeleteFeedbackRequest request) {
         deleteFeedbackPort.execute(
                 new DomainDeleteFeedbackRequest(
