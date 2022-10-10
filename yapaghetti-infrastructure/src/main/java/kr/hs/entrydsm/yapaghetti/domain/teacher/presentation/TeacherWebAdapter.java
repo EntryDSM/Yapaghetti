@@ -151,7 +151,6 @@ public class TeacherWebAdapter {
         deleteCompanyPort.execute(companyId);
     }
 
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/feedback")
     public void deleteFeedback(@RequestBody @Valid WebDeleteFeedbackRequest request) {
