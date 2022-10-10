@@ -1,6 +1,5 @@
 package kr.hs.entrydsm.yapaghetti.domain.teacher.presentation;
 
-import com.amazonaws.services.ec2.model.BundleTaskError;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.ChangeCompanyPasswordPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateCompanyPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
