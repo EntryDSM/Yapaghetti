@@ -32,7 +32,8 @@ public class QueryStayDocumentUseCase implements QueryStayDocumentPort {
 
         return new QueryStayDocumentResponse(
                 feedbackList,
-                stayDocument.getContent()
+                stayDocument.getContent(),
+                stayDocument.getId()
         );
     }
 }
