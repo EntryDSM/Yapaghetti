@@ -10,6 +10,7 @@ import kr.hs.entrydsm.yapaghetti.domain.feedback.domain.Feedback;
 import kr.hs.entrydsm.yapaghetti.domain.feedback.spi.CommandFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.CreateFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.request.DomainCreateFeedbackRequest;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherCommandFeedbackPort;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.spi.TeacherQueryUserPort;
 import kr.hs.entrydsm.yapaghetti.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @UseCase
 public class CreateFeedbackUseCase implements CreateFeedbackPort {
 
-    private final CommandFeedbackPort commandFeedbackPort;
+    private final TeacherCommandFeedbackPort teacherCommandFeedbackPort;
     private final QueryDocumentPort queryDocumentPort;
     private final TeacherQueryUserPort teacherQueryUserPort;
     private final SendMailPort sendMailPort;
@@ -32,7 +33,7 @@ public class CreateFeedbackUseCase implements CreateFeedbackPort {
                 request.getStudentId(), DocumentType.STAY
         ).getId();
 
-        commandFeedbackPort.saveFeedback(
+        teacherCommandFeedbackPort.saveFeedback(
                 Feedback.builder()
                         .documentId(documentId)
                         .sequence(request.getSequence())

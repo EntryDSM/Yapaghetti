@@ -10,9 +10,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FeedbackRepository extends CrudRepository<FeedbackEntity, FeedbackEntityId> {
-    Optional<FeedbackEntity> findByIdDocumentIdAndIdSequence(UUID id_documentId, Integer id_sequence);
+    Optional<FeedbackEntity> findByIdDocumentIdAndIdSequence(UUID documentId, Integer sequence);
 
-    List<FeedbackEntity> findByIdDocumentId(UUID id_documentId);
+    List<FeedbackEntity> findByIdDocumentId(UUID documentId);
 
     void deleteAllByIdDocumentId(UUID documentId);
+
+    void deleteByIdDocumentIdAndIdSequence(UUID documentId, Integer sequence);
 }
