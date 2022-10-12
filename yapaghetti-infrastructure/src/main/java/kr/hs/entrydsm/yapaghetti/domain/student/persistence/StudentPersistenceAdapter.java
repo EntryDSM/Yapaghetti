@@ -122,7 +122,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                 .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
                 .leftJoin(stayDocumentEntity.feedbackEntitySet, feedbackEntity)
                 .where(
-                        docTypeEq(docStatus, stayDocumentEntity),
+                        docTypeEq(docStatus, stayDocumentEntity, publicDocumentEntity),
                         gradeEq(grade),
                         classNumEq(classNum)
                 )
@@ -145,9 +145,9 @@ public class StudentPersistenceAdapter implements StudentPort {
                 );
     }
 
-    private BooleanExpression docTypeEq(DocumentType docStatus, QDocumentEntity stayDocument) {
+    private BooleanExpression docTypeEq(DocumentType docStatus, QDocumentEntity stayDocument, QDocumentEntity publicDocument) {
         if (LOCAL.equals(docStatus)) {
-            return documentEntity.type.eq(docStatus).and(stayDocument.isNull());
+            return documentEntity.type.eq(docStatus).and(stayDocument.isNull()).and(publicDocument.isNull());
         }
 
         return docStatus != null ? documentEntity.type.eq(docStatus) : null;
