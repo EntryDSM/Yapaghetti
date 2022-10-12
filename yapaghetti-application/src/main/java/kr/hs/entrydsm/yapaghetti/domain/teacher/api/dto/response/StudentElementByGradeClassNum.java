@@ -17,7 +17,7 @@ public class StudentElementByGradeClassNum {
 
     public StudentElementByGradeClassNum(UUID studentId, String name, String profileImagePath,
                                          String grade, String classNum, Integer number,
-                                         Boolean feedbackStatus,Boolean stayExist, Boolean publicExist
+                                         Boolean feedbackStatus, Boolean stayExist, Boolean publicExist
     ) {
         this.studentId = studentId;
         this.name = name;
