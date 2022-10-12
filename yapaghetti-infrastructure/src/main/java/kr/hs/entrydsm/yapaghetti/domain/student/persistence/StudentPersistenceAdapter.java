@@ -147,7 +147,7 @@ public class StudentPersistenceAdapter implements StudentPort {
 
     private BooleanExpression docTypeEq(DocumentType docStatus, QDocumentEntity stayDocument, QDocumentEntity publicDocument) {
         if (LOCAL.equals(docStatus)) {
-            return documentEntity.type.eq(docStatus).and(stayDocument.isNull()).and(publicDocument.isNull());
+            return stayDocument.isNull().and(publicDocument.isNull());
         }
 
         return docStatus != null ? documentEntity.type.eq(docStatus) : null;
