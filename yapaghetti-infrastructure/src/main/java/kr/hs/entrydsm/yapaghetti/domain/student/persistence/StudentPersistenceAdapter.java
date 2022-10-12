@@ -2,11 +2,15 @@ package kr.hs.entrydsm.yapaghetti.domain.student.persistence;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import java.util.List;
 import java.util.UUID;
+
 import kr.hs.entrydsm.yapaghetti.domain.company.api.dto.response.StudentElement;
 import kr.hs.entrydsm.yapaghetti.domain.document.domain.DocumentType;
+import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.DocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.document.persistence.entity.QDocumentEntity;
 import kr.hs.entrydsm.yapaghetti.domain.student.domain.Student;
 import kr.hs.entrydsm.yapaghetti.domain.student.exception.StudentNotFoundException;
@@ -20,6 +24,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementB
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentInformation;
 import kr.hs.entrydsm.yapaghetti.global.annotation.Adapter;
 import lombok.RequiredArgsConstructor;
+
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 import static com.querydsl.core.types.Projections.constructor;
@@ -109,18 +114,18 @@ public class StudentPersistenceAdapter implements StudentPort {
 
         return jpaQueryFactory
                 .from(studentEntity)
-                .where(
-                        docTypeEq(docStatus),
-                        gradeEq(grade),
-                        classNumEq(classNum)
-                )
                 .orderBy(studentEntity.grade.desc(), studentEntity.classNum.asc(), studentEntity.number.asc())
                 .leftJoin(studentEntity.userEntity, userEntity)
                 .leftJoin(studentEntity.documentList, documentEntity)
                 .leftJoin(studentEntity.documentList, localDocumentEntity).on(localDocumentEntity.type.eq(LOCAL))
-                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
                 .leftJoin(studentEntity.documentList, stayDocumentEntity).on(stayDocumentEntity.type.eq(STAY))
+                .leftJoin(studentEntity.documentList, publicDocumentEntity).on(publicDocumentEntity.type.eq(PUBLIC))
                 .leftJoin(stayDocumentEntity.feedbackEntitySet, feedbackEntity)
+                .where(
+                        docTypeEq(docStatus, stayDocumentEntity),
+                        gradeEq(grade),
+                        classNumEq(classNum)
+                )
                 .transform(
                         groupBy(studentEntity.userId)
                                 .list(
@@ -140,7 +145,11 @@ public class StudentPersistenceAdapter implements StudentPort {
                 );
     }
 
-    private BooleanExpression docTypeEq(DocumentType docStatus) {
+    private BooleanExpression docTypeEq(DocumentType docStatus, QDocumentEntity stayDocument) {
+        if (LOCAL.equals(docStatus)) {
+            return documentEntity.type.eq(docStatus).and(stayDocument.isNull());
+        }
+
         return docStatus != null ? documentEntity.type.eq(docStatus) : null;
     }
 
