@@ -61,7 +61,7 @@ public class TeacherWebAdapter {
     private final QueryStudentDetailPort queryStudentDetailPort;
     private final QueryCompanyListPort queryCompanyListPort;
     private final DeleteFeedbackPort deleteFeedbackPort;
-    private final CreateExcelInterface createExcelUseCase;
+    private final CreateExcelInterface createExcelInterface;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -168,6 +168,6 @@ public class TeacherWebAdapter {
 
     @GetMapping("/excel")
     public void getExcel(HttpServletResponse response) {
-        createExcelUseCase.execute(response);
+        createExcelInterface.execute(response);
     }
 }
