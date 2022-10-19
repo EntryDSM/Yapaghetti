@@ -21,6 +21,7 @@ import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyDetailRe
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.CompanyListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.NewCompanyResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentDetailResponse;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.excel.CreateExcelInterface;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateCompanyRequest;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentListResponse;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.presentation.dto.request.WebCreateFeedbackRequest;
@@ -38,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -58,6 +61,7 @@ public class TeacherWebAdapter {
     private final QueryStudentDetailPort queryStudentDetailPort;
     private final QueryCompanyListPort queryCompanyListPort;
     private final DeleteFeedbackPort deleteFeedbackPort;
+    private final CreateExcelInterface createExcelUseCase;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/feedback/{student-id}")
@@ -162,4 +166,8 @@ public class TeacherWebAdapter {
         );
     }
 
+    @GetMapping("/excel")
+    public void getExcel(HttpServletResponse response) {
+        createExcelUseCase.execute(response);
+    }
 }
