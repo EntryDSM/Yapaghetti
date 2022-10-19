@@ -53,7 +53,7 @@ public class CreateExcelImpl implements CreateExcelInterface {
         try {
             String time = LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분_"));
-            String formatFileName = new String((time + fileName + ".xlsx")
+            String formatFileName = new String((time + fileName + ".xls")
                         .getBytes("KSC5601"), "8859_1");
 
             response.setContentType("application/vnd.ms-excel");
