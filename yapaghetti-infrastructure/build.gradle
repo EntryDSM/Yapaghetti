@@ -69,6 +69,11 @@ dependencies {
 
     //cool sms
     implementation 'net.nurigo:javaSDK:2.2'
+
+    // excel poi
+    implementation 'org.apache.poi:poi:3.16'
+    implementation 'org.apache.poi:poi-ooxml:3.16'
+
 }
 
 test {
