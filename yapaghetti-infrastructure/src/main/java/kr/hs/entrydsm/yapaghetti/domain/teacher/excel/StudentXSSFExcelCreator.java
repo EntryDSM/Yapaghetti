@@ -20,7 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Component
-public class CreateExcelImpl implements CreateExcelInterface {
+public class StudentXSSFExcelCreator implements CreateExcelInterface {
 
     private final StudentPersistenceAdapter studentPersistenceAdapter;
     
