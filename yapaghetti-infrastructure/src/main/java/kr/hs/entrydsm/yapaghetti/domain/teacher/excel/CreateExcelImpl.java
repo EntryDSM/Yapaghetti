@@ -2,7 +2,7 @@ package kr.hs.entrydsm.yapaghetti.domain.teacher.excel;
 
 import kr.hs.entrydsm.yapaghetti.domain.student.persistence.StudentPersistenceAdapter;
 import kr.hs.entrydsm.yapaghetti.domain.teacher.api.dto.response.StudentElementByGradeClassNum;
-import kr.hs.entrydsm.yapaghetti.domain.teacher.excel.exception.ExcelOException;
+import kr.hs.entrydsm.yapaghetti.domain.teacher.excel.exception.ExcelOutPutException;
 import lombok.AccessLevel;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -62,7 +62,7 @@ public class CreateExcelImpl implements CreateExcelInterface {
             workbook.write(response.getOutputStream());
             workbook.close();
         } catch (IOException e) {
-            throw ExcelOException.EXCEPTION;
+            throw ExcelOutPutException.EXCEPTION;
         }
     }
 
