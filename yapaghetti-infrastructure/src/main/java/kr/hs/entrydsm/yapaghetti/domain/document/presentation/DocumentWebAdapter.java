@@ -14,6 +14,7 @@ import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayAndPublicDocumentP
 import kr.hs.entrydsm.yapaghetti.domain.document.api.QueryStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RejectStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.RequestLocalDocumentToPublicPort;
+import kr.hs.entrydsm.yapaghetti.domain.document.api.ReturnPublicDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateLocalDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.UpdateStayDocumentPort;
 import kr.hs.entrydsm.yapaghetti.domain.document.api.dto.request.DomainCreateDocumentRequest;
@@ -65,6 +66,7 @@ public class DocumentWebAdapter {
     private final QueryLocalDocumentListPort queryLocalDocumentListPort;
     private final QueryStayAndPublicDocumentPreviewPort queryStayAndPublicDocumentPreviewPort;
     private final ApproveStayDocumentPort approveStayDocumentPort;
+    private final ReturnPublicDocumentPort returnPublicDocumentPort;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -168,5 +170,11 @@ public class DocumentWebAdapter {
     @PatchMapping("/stay/approve/{student-id}")
     public void approveStayDocument(@PathVariable("student-id") @NotNull UUID documentId) {
         approveStayDocumentPort.execute(documentId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/return/{student-id}")
+    public void returnDocument(@PathVariable("student-id") @NotNull UUID studentId) {
+        returnPublicDocumentPort.execute(studentId);
     }
 }
