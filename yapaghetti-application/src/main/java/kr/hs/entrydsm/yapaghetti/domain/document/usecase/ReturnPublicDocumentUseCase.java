@@ -19,6 +19,7 @@ public class ReturnPublicDocumentUseCase implements ReturnPublicDocumentPort {
 	private final QueryDocumentPort queryDocumentPort;
 	private final CommandDocumentPort commandDocumentPort;
 
+	@Override
 	public void execute(UUID studentId) {
 
 		User user = documentQueryUserPort.queryUserById(studentId);
