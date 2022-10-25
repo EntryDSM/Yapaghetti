@@ -18,12 +18,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Component
 public class StudentXSSFExcelCreator implements CreateExcelInterface {
 
     private final StudentPersistenceAdapter studentPersistenceAdapter;
-    
+
+    public static final String DATE_TIME_FORMAT_PATTERN = "yyyy년MM월dd일_HH시mm분_";
+    public static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    public static final String HEADER_NAME = "\"Content-Disposition\"";
+    public static final String FILE_EXTENSION = ".xlsx";
+    public static final String CHARSET_NAME = "8859_1";
+    public static final String BITE_CHARSET_NAME = "KSC5601";
+    public static final String HEADER_VALUE_BEFORE_NAME = "attachment; fileName=\"";
+    public static final String HEADER_VALUE_AFTER_NAME = "\"";
+
     @Override
     public void execute(HttpServletResponse response) {
         Workbook workbook = new XSSFWorkbook();
@@ -53,12 +62,12 @@ public class StudentXSSFExcelCreator implements CreateExcelInterface {
 
         try {
             String time = LocalDateTime.now()
-                    .format(DateTimeFormatter.ofPattern("yyyy년MM월dd일_HH시mm분_"));
-            String formatFileName = new String((time + fileName + ".xlsx")
-                        .getBytes("KSC5601"), "8859_1");
+                    .format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_PATTERN));
+            String formatFileName = new String((time + fileName + FILE_EXTENSION)
+                        .getBytes(BITE_CHARSET_NAME), CHARSET_NAME);
 
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setHeader("Content-Disposition", "attachment; fileName=\"" + formatFileName + "\"");
+            response.setContentType(CONTENT_TYPE);
+            response.setHeader(HEADER_NAME, HEADER_VALUE_BEFORE_NAME + formatFileName + HEADER_VALUE_AFTER_NAME);
 
             workbook.write(response.getOutputStream());
             workbook.close();
