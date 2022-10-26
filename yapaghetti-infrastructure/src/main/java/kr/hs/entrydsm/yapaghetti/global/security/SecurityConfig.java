@@ -102,8 +102,9 @@ public class SecurityConfig {
 
                 // companies
                 .antMatchers(HttpMethod.PATCH, "/companies/name").hasAnyRole(MOU)
-                .antMatchers(HttpMethod.GET, "/companies/students").hasAnyRole(MOU, NON_MOU)
+                .antMatchers(HttpMethod.GET, "/companies/students").permitAll()
                 .antMatchers(HttpMethod.GET, "/companies").hasAnyRole(MOU, NON_MOU)
+                .antMatchers(HttpMethod.GET, "/companies/{student-id}").permitAll()
 
                 .anyRequest().authenticated()
                 .and().apply(new FilterConfig(objectMapper, jwtTokenProvider));
