@@ -65,8 +65,7 @@ public class StudentPersistenceAdapter implements StudentPort {
                         studentEntity.classNum.like(likePreProcessing(classNum))
                                 .and(userEntity.name.like(likePreProcessing(name)))
                                 .and(QMajorTag.name.like(likePreProcessing(majorTag)))
-                ).where(studentEntity.grade.eq(2))
-                .transform(
+                ).transform(
                         groupBy(studentEntity.userId)
                                 .list(
                                         Projections.constructor(
